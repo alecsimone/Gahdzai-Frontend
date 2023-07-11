@@ -1,4 +1,6 @@
 import React from "react";
+import StyledComponentsRegistry from "@/components/Foundation/Home/StyledComponentsRegistry/registry";
+import GlobalStyle from "@/styles/globalStyle";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
@@ -7,7 +9,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
     <head />
-    <body>{children}</body>
+    <body>
+      <StyledComponentsRegistry>
+        <GlobalStyle />
+        {children}
+      </StyledComponentsRegistry>
+    </body>
   </html>
 );
 
