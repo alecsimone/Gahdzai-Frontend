@@ -1,6 +1,7 @@
 import React from "react";
-import StyledComponentsRegistry from "@/components/Foundation/Home/StyledComponentsRegistry/registry";
+import StyledComponentsRegistry from "@/components/Foundation/StyledComponentsRegistry/registry";
 import GlobalStyle from "@/styles/globalStyle";
+import Header from "@/components/Foundation/Header/Header";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en">
@@ -12,6 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <body>
       <StyledComponentsRegistry>
         <GlobalStyle />
+        <Header />
         {children}
       </StyledComponentsRegistry>
     </body>
