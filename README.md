@@ -1,3 +1,3 @@
 # Welcome
 
-Welcome to Gahdzai! It's a new app with no features yet, so it doesn't need a readme. But soon it will!
+Welcome to Gahdzai! I'm building this app to help me with my own trading, but I'm hoping it will be useful for other people's as well.
