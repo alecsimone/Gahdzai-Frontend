@@ -5,12 +5,12 @@ import LogoIcon from "@/components/icons/Logo";
 interface LogoBoxProps {}
 
 const LogoBox = ({}: LogoBoxProps): JSX.Element => {
-  console.log("LogoBox");
   return (
     <StyledLogoBox>
       <FunctionalIcon iconName="logo" titleTextReplacement="Gahdzai">
         <LogoIcon />
       </FunctionalIcon>
+      <h1>Gahdzai</h1>
     </StyledLogoBox>
   );
 };

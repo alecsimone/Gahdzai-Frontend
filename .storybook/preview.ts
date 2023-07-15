@@ -1,7 +1,10 @@
 import type { Preview } from "@storybook/react";
 
+import { MockedProvider } from "@apollo/client/testing";
+import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../styles/globalStyle";
 import { withThemeFromJSXProvider } from "@storybook/addon-styling";
+import viewports from "./viewports";
 
 /* TODO: update import for your custom theme configurations */
 // import { lightTheme, darkTheme } from '../path/to/themes';
@@ -14,6 +17,16 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    viewport: {
+      viewports: viewports,
+      defaultViewport: "mobile",
+    },
+    apolloClient: {
+      MockedProvider,
+    },
+    nextRouter: {
+      Provider: RouterContext.Provider,
     },
   },
 

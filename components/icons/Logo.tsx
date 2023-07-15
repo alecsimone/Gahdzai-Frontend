@@ -1,15 +1,12 @@
 import { ColorNames } from "@/styles/styled.d";
-import { colorLibrary } from "@/styles/constants/colors";
+import getComputedColor from "@/styles/functions/getComputedColor";
 
 interface LogoIconProps {
   color?: ColorNames; // color of the icon, defaults to blue
 }
 
 const LogoIcon = ({ color = "blue" }: LogoIconProps): JSX.Element => {
-  let computedColor: string = color;
-  if (colorLibrary.hasOwnProperty(color)) {
-    computedColor = colorLibrary[color];
-  }
+  const computedColor = getComputedColor(color);
 
   return (
     <path

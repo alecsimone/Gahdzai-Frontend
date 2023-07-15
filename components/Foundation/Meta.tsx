@@ -43,7 +43,7 @@ const Meta = (): JSX.Element => (
     <meta name="theme-color" content="#0066cc" key="themeColor" />
 
     {/* og data */}
-    <title key="title">Gahdzai</title>
+    <title key="title">Gahdzai - Keep an eye out</title>
     <meta property="og:type" content="website" key="ogType" />
     <meta property="og:site_name" content="Gahdzai" key="ogName" />
     <meta

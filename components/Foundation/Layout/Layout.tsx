@@ -7,7 +7,6 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
-  console.log("Layout");
   return (
     <StyledLayout>
       <Header />
