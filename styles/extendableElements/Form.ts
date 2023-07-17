@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import { blue, coolGrey, green, red } from "../constants/colors";
+import { blue, coolGrey, green, red, white } from "../constants/colors";
+import { miniText } from "../constants/fontSizes";
 
 const StyledForm = styled.form`
   fieldset {
@@ -13,6 +14,7 @@ const StyledForm = styled.form`
     max-width: 100%;
     color: ${setAlpha(red, 0.75)};
     font-weight: bold;
+    font-size: ${miniText};
   }
   .inputWrapper {
     position: relative;
@@ -30,6 +32,9 @@ const StyledForm = styled.form`
     &:valid:not(:placeholder-shown) {
       border: 1px solid ${setAlpha(green, 0.5)};
     }
+    &:focus {
+      padding: calc(1.5rem + 1px);
+    }
   }
   .buttons {
     display: flex;
@@ -40,8 +45,9 @@ const StyledForm = styled.form`
       transition: opacity 0.2s;
       background: ${setAlpha(blue, 0.8)};
       &[aria-disabled="true"] {
-        opacity: 0.5;
-        color: ${coolGrey};
+        opacity: 0.25;
+        color: ${setAlpha(white, 0.5)};
+        cursor: not-allowed;
       }
     }
     button.cancel {

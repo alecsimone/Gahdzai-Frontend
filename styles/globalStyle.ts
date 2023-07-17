@@ -32,6 +32,10 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
   }
 
+  * {
+    box-sizing: border-box;
+  }
+
   button {
     background: none;
     border: 1px solid ${white};

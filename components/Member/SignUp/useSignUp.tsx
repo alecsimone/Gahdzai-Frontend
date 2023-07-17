@@ -43,6 +43,7 @@ const useSignUp: useSignUpInterface = (closeModal) => {
         if (closeModal) {
           closeModal();
         }
+        console.log("completed!");
         router.push({ pathname: "/verification" });
         logIn({
           variables: {

@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
-import { SetStateAction } from 'react';
-import INITIAL_MEMBER_QUERY from 'utils/member/initialMemberQuery';
-import LOG_IN_MUTATION from '../LogIn/logInMutation';
-import { logInFormStateInterface, logInResult } from '../LogIn/types';
-import { didLoginWork } from './constants';
+import { useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
+import { SetStateAction } from "react";
+import INITIAL_MEMBER_QUERY from "@/utils/member/initialMemberQuery";
+import LOG_IN_MUTATION from "../LogIn/logInMutation";
+import { logInFormStateInterface, logInResult } from "../LogIn/types";
+import { didLoginWork } from "./constants";
 
 const useLogInForCallback = (
   setError: (
@@ -22,11 +22,11 @@ const useLogInForCallback = (
       onCompleted: (logInData) => {
         if (didLoginWork(logInData)) {
           if (redirect) {
-            router.push({ pathname: '/' });
+            router.push({ pathname: "/" });
           }
         } else {
           setError({
-            message: 'Log In failed',
+            message: "Log In failed",
           });
         }
       },
