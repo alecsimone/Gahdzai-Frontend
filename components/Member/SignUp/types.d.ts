@@ -3,7 +3,7 @@ import {
   FetchResult,
   MutationFunctionOptions,
   DefaultContext,
-} from '@apollo/client';
+} from "@apollo/client";
 
 interface signUpFormInterface {
   displayName: string;
@@ -13,20 +13,20 @@ interface signUpFormInterface {
 }
 export type { signUpFormInterface };
 
-interface createMemberResult {
-  __typename: 'Member';
+interface createUserResult {
+  __typename: "Member";
   id: string;
   email: string;
   displayName: string;
 }
-export type { createMemberResult };
+export type { createUserResult };
 
-interface createMemberVariables {
+interface createUserVariables {
   displayName: string;
   email: string;
   password: string;
 }
-export type { createMemberVariables };
+export type { createUserVariables };
 
 interface useSignUpInterface {
   (closeModal: (() => void) | undefined): [
@@ -36,14 +36,14 @@ interface useSignUpInterface {
 }
 export type { useSignUpInterface };
 
-type createMemberMutateType = (
+type createUserMutateType = (
   options?:
     | MutationFunctionOptions<
-        createMemberVariables,
-        createMemberVariables,
+        createUserVariables,
+        createUserVariables,
         DefaultContext,
         ApolloCache<any>
       >
     | undefined
 ) => Promise<FetchResult>;
-export type { createMemberMutateType };
+export type { createUserMutateType };

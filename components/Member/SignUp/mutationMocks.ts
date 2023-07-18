@@ -15,8 +15,8 @@ const validSignUpMock = [
     },
     result: {
       data: {
-        createMember: {
-          __typename: "Member",
+        createUser: {
+          __typename: "User",
           id: "123",
           displayName: "Alec",
           email: "test@example.com",

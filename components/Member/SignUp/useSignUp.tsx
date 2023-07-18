@@ -9,8 +9,8 @@ import ConfirmPasswordField from "@/components/Foundation/Form/FormFields/Confir
 import useLogInForCallback from "../FinishReset/useLogInForCallback";
 import SIGN_UP_MUTATION from "./signUpMutation";
 import {
-  createMemberResult,
-  createMemberVariables,
+  createUserResult,
+  createUserVariables,
   signUpFormInterface,
   useSignUpInterface,
 } from "./types";
@@ -35,8 +35,8 @@ const useSignUp: useSignUpInterface = (closeModal) => {
   // Once the user signs up, we want to log them in. We'll use this mutation to do so.
   const logIn = useLogInForCallback(setSignUpError, false);
 
-  // The createMember mutation, which routes to the verification page and logs the user in on completion. Errors will be handled by the form created by the useForm hook.
-  const [createMember] = useMutation<createMemberResult, createMemberVariables>(
+  // The createUser mutation, which routes to the verification page and logs the user in on completion. Errors will be handled by the form created by the useForm hook.
+  const [createUser] = useMutation<createUserResult, createUserVariables>(
     SIGN_UP_MUTATION,
     {
       onCompleted: () => {
@@ -45,14 +45,14 @@ const useSignUp: useSignUpInterface = (closeModal) => {
         }
         console.log("completed!");
         router.push({ pathname: "/verification" });
-        logIn({
-          variables: {
-            // eslint-disable-next-line no-use-before-define
-            email: formState.email,
-            // eslint-disable-next-line no-use-before-define
-            password: formState.password,
-          },
-        });
+        // logIn({
+        //   variables: {
+        //     // eslint-disable-next-line no-use-before-define
+        //     email: formState.email,
+        //     // eslint-disable-next-line no-use-before-define
+        //     password: formState.password,
+        //   },
+        // });
       },
     }
   );
@@ -61,7 +61,7 @@ const useSignUp: useSignUpInterface = (closeModal) => {
   const [formState, handleFormUpdate, formCreator] =
     useForm<signUpFormInterface>(
       initialState,
-      createMember,
+      createUser,
       signUpErrorTranslator,
       "Sign Up"
     );

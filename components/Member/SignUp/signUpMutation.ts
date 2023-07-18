@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const SIGN_UP_MUTATION = gql`
   mutation SIGN_UP_MUTATION(
@@ -6,9 +6,7 @@ const SIGN_UP_MUTATION = gql`
     $email: String!
     $password: String!
   ) {
-    createMember(
-      data: { displayName: $displayName, email: $email, password: $password }
-    ) {
+    createUser(displayName: $displayName, email: $email, password: $password) {
       id
       email
       displayName

@@ -1,9 +1,8 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const memberBoxFields = gql`
-  fragment MemberBoxFields on Member {
+  fragment MemberBoxFields on User {
     displayName
-    rep
     avatar
   }
 `;
@@ -12,8 +11,8 @@ export { memberBoxFields };
 const MEMBER_BOX_QUERY = gql`
   ${memberBoxFields}
   query MEMBER_BOX_QUERY {
-    authenticatedItem {
-      ... on Member {
+    currentUser {
+      ... on User {
         ...MemberBoxFields
       }
     }
