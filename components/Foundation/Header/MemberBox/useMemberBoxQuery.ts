@@ -17,6 +17,7 @@ export type { memberBoxMemberData };
 const useMemberBoxQuery = (): QueryResult<memberBoxMemberData> => {
   const result = useQuery<memberBoxMemberData>(MEMBER_BOX_QUERY, {
     // eslint-disable-next-line no-console
+    onCompleted: (data) => console.log(data),
     onError: (e) => console.log(e),
   });
   return result;
