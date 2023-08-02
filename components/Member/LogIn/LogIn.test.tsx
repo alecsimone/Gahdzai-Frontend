@@ -2,7 +2,9 @@ import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { composeStory } from '@storybook/react';
 import userEvent from '@testing-library/user-event';
-import storybook, { Basic } from './LogIn.stories';
+import waitForQuery from '@/utils/testing/waitForQuery';
+import storybook, { Basic, InValidLogIn, ValidLogIn } from './LogIn.stories';
+import { logInErrorMessage } from './useLogIn';
 
 const necessaryFormFields = ['Email', 'Password'];
 
@@ -66,5 +68,57 @@ describe('LogIn', () => {
     expect(badPasswordWarning).not.toBeInTheDocument();
 
     expect(submitButton).toHaveAttribute('aria-disabled', 'false');
+  });
+
+  it('logs the user in with valid inputs', async () => {
+    const ComposedLogIn = composeStory(ValidLogIn, storybook);
+    const { getByText, getByPlaceholderText } = render(<ComposedLogIn />);
+
+    const logInButton = getByText('Log In', { selector: 'button ' });
+
+    const [emailInput, passwordInput] = necessaryFormFields.map((field) =>
+      getByPlaceholderText(field)
+    );
+
+    await user.type(emailInput, 'test@example.com');
+
+    await user.type(passwordInput, '123456789');
+
+    await user.click(logInButton);
+
+    await waitForQuery();
+
+    const successMessage = getByText('Success!');
+    expect(successMessage).toBeInTheDocument();
+  });
+
+  it('shows an error message when log in fails', async () => {
+    const ComposedLogIn = composeStory(InValidLogIn, storybook);
+    const { getByText, queryByText, getByPlaceholderText } = render(
+      <ComposedLogIn />
+    );
+
+    const logInButton = getByText('Log In', { selector: 'button ' });
+
+    const [emailInput, passwordInput] = necessaryFormFields.map((field) =>
+      getByPlaceholderText(field)
+    );
+
+    await user.type(emailInput, 'test@example.com');
+
+    await user.type(passwordInput, '123456789');
+
+    await user.click(logInButton);
+
+    await waitForQuery();
+
+    const successMessage = queryByText('Success!');
+    expect(successMessage).not.toBeInTheDocument();
+
+    const errorHeader = getByText('Error:');
+    expect(errorHeader).toBeInTheDocument();
+
+    const errorMessage = getByText(logInErrorMessage);
+    expect(errorMessage).toBeInTheDocument();
   });
 });

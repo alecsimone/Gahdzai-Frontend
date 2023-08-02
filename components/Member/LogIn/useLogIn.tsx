@@ -12,6 +12,9 @@ const initialState: LogInFormStateInterface = {
   password: '',
 };
 
+export const logInErrorMessage =
+  'No member found for that email and password combination';
+
 const useLogIn = (): [JSX.Element, boolean, { message: string } | null] => {
   // We need an error state that can hold any errors in the log in mutation
   const [logInError, setLogInError] = useState<{ message: string } | null>(
@@ -33,7 +36,7 @@ const useLogIn = (): [JSX.Element, boolean, { message: string } | null] => {
         setLogInSuccess(true);
       } else {
         setLogInError({
-          message: 'No member found for that email and password combination',
+          message: logInErrorMessage,
         });
       }
     },
