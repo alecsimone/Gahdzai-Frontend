@@ -1,7 +1,7 @@
-import Error from "@/components/Foundation/Error";
-import cookieWarning from "../cookieWarning";
-import StyledSignUp from "./StyledSignUp";
-import useSignUp from "./useSignUp";
+import Error from '@/components/Foundation/Error';
+import cookieWarning from '../cookieWarning';
+import StyledSignUp from './StyledSignUp';
+import useSignUp from './useSignUp';
 
 interface SignUpProps {
   closeModal?: () => void;

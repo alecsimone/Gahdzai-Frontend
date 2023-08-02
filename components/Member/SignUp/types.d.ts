@@ -3,47 +3,47 @@ import {
   FetchResult,
   MutationFunctionOptions,
   DefaultContext,
-} from "@apollo/client";
+} from '@apollo/client';
 
-interface signUpFormInterface {
+interface SignUpFormInterface {
   displayName: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
-export type { signUpFormInterface };
+export type { SignUpFormInterface };
 
-interface createUserResult {
-  __typename: "Member";
+interface CreateUserResult {
+  __typename: 'Member';
   id: string;
   email: string;
   displayName: string;
 }
-export type { createUserResult };
+export type { CreateUserResult };
 
-interface createUserVariables {
+interface CreateUserVariables {
   displayName: string;
   email: string;
   password: string;
 }
-export type { createUserVariables };
+export type { CreateUserVariables };
 
-interface useSignUpInterface {
+interface UseSignUpInterface {
   (closeModal: (() => void) | undefined): [
     JSX.Element,
     { message: string } | null
   ];
 }
-export type { useSignUpInterface };
+export type { UseSignUpInterface };
 
-type createUserMutateType = (
+type CreateUserMutateType = (
   options?:
     | MutationFunctionOptions<
-        createUserVariables,
-        createUserVariables,
+        CreateUserVariables,
+        CreateUserVariables,
         DefaultContext,
         ApolloCache<any>
       >
     | undefined
 ) => Promise<FetchResult>;
-export type { createUserMutateType };
+export type { CreateUserMutateType };

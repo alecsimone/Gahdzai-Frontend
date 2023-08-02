@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import { lightBlack, red } from "@/styles/constants/colors";
-import { smallHead, smallText } from "@/styles/constants/fontSizes";
+import styled from 'styled-components';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { lightBlack, red } from '@/styles/constants/colors';
+import { smallHead, smallText } from '@/styles/constants/fontSizes';
 
 const StyledError = styled.div`
   border: 2px solid ${setAlpha(red, 0.5)};

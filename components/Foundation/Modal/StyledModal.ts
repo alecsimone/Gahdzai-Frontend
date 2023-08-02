@@ -1,8 +1,8 @@
-import { coolGrey, deepBlack } from "@/styles/constants/colors";
-import { bigText } from "@/styles/constants/fontSizes";
-import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import { scroll } from "@/styles/theme";
-import styled from "styled-components";
+import styled from 'styled-components';
+import { coolGrey, deepBlack } from '@/styles/constants/colors';
+import { bigText } from '@/styles/constants/fontSizes';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { scroll } from '@/styles/theme';
 
 const StyledModal = styled.div`
   display: flex;

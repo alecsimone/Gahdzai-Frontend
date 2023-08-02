@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import GlobalStyle from "@/styles/globalStyle";
+import { ReactNode } from 'react';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import GlobalStyle from '@/styles/globalStyle';
 
 interface MockProvidersProps {
   children: ReactNode;

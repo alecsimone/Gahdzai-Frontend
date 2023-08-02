@@ -1,25 +1,21 @@
-import { QueryResult, useQuery } from "@apollo/client";
-import MEMBER_BOX_QUERY from "./memberBoxQuery";
+import { QueryResult, useQuery } from '@apollo/client';
+import MEMBER_BOX_QUERY from './memberBoxQuery.gql';
 
-interface memberDataInterface {
+interface MemberDataInterface {
   displayName: string;
   avatar: string | null;
 }
 
-export type { memberDataInterface };
+export type { MemberDataInterface };
 
-interface memberBoxMemberData {
-  currentUser: memberDataInterface | null;
+interface MemberBoxMemberData {
+  currentUser: MemberDataInterface | null;
 }
 
-export type { memberBoxMemberData };
+export type { MemberBoxMemberData };
 
-const useMemberBoxQuery = (): QueryResult<memberBoxMemberData> => {
-  const result = useQuery<memberBoxMemberData>(MEMBER_BOX_QUERY, {
-    // eslint-disable-next-line no-console
-    onCompleted: (data) => console.log(data),
-    onError: (e) => console.log(e),
-  });
+const useMemberBoxQuery = (): QueryResult<MemberBoxMemberData> => {
+  const result = useQuery<MemberBoxMemberData>(MEMBER_BOX_QUERY);
   return result;
 };
 

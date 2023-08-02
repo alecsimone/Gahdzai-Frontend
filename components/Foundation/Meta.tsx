@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { home } from "globalConstants";
+import Head from 'next/head';
+import { home } from 'globalConstants';
 
 const Meta = (): JSX.Element => (
   <Head key="Meta">

@@ -1,3 +1,3 @@
-export * from "./LogoBox";
+// export * from "./LogoBox";
 // eslint-disable-next-line no-restricted-exports
-export { default } from "./LogoBox";
+export { default } from './LogoBox';

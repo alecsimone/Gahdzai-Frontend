@@ -1,11 +1,11 @@
-import { ColorNames } from "@/styles/styled.d";
-import getComputedColor from "@/styles/functions/getComputedColor";
+import { ColorNames } from '@/styles/styled.d';
+import getComputedColor from '@/styles/functions/getComputedColor';
 
 interface LogoIconProps {
   color?: ColorNames; // color of the icon, defaults to blue
 }
 
-const LogoIcon = ({ color = "blue" }: LogoIconProps): JSX.Element => {
+const LogoIcon = ({ color = 'blue' }: LogoIconProps): JSX.Element => {
   const computedColor = getComputedColor(color);
   return (
     <path

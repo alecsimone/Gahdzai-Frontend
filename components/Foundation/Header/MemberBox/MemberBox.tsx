@@ -1,11 +1,11 @@
-import ErrorAlert from "../../Error/ErrorAlert";
-import MemberBoxWithData from "./MemberBoxWithData";
-import StyledMemberBox from "./StyledMemberBox";
-import useMemberBoxQuery from "./useMemberBoxQuery";
+import ErrorAlert from '../../Error/ErrorAlert';
+import MemberBoxWithData from './MemberBoxWithData';
+import StyledMemberBox from './StyledMemberBox';
+import useMemberBoxQuery from './useMemberBoxQuery';
 
-interface MemberBoxProps {}
+// interface MemberBoxProps {}
 
-const MemberBox = ({}: MemberBoxProps): JSX.Element => {
+const MemberBox = (): JSX.Element => {
   const { data, loading, error } = useMemberBoxQuery();
 
   if (data) {

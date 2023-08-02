@@ -1,9 +1,9 @@
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
-import Input from "@/styles/extendableElements/Input";
-import Error from "@/components/Foundation/Error";
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
+import Input from '@/styles/extendableElements/Input';
+import Error from '@/components/Foundation/Error';
 
 interface FormFieldInterface {
-  type: "text" | "email" | "password" | "url";
+  type: 'text' | 'email' | 'password' | 'url';
   id?: string;
   name: string;
   placeholder: string;
@@ -16,7 +16,7 @@ interface FormFieldInterface {
 }
 
 interface FormFieldProps {
-  fieldType: "input";
+  fieldType: 'input';
   requirements?: string;
   fieldProps: FormFieldInterface;
 }
@@ -40,7 +40,7 @@ const FormField = ({
     }
   }, [fieldProps.value]);
 
-  if (fieldType === "input") {
+  if (fieldType === 'input') {
     formElement = (
       <Input
         ref={fieldRef}
@@ -62,5 +62,9 @@ const FormField = ({
     </div>
   );
 };
+
+// FormField.defaultProps = {
+//   requirements: ''
+// };
 
 export default FormField;

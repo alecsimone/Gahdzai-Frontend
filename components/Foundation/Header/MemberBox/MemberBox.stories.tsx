@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import MemberBox from "./MemberBox";
-import { MockedProvider } from "@apollo/client/testing";
-import { loggedInMock, loggedOutMock } from "./queryMocks";
+import { MockedProvider } from '@apollo/client/testing';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
+import mockRouter from 'next-router-mock';
+import { loggedInMock, loggedOutMock } from './queryMocks';
+import MemberBox from './MemberBox';
 
 const storybook: Meta<typeof MemberBox> = {
   component: MemberBox,
@@ -17,7 +19,9 @@ export const LoggedOut: Story = {
   decorators: [
     (Story) => (
       <MockedProvider mocks={loggedOutMock}>
-        <Story />
+        <RouterContext.Provider value={mockRouter}>
+          <Story />
+        </RouterContext.Provider>
       </MockedProvider>
     ),
   ],
@@ -28,7 +32,9 @@ export const LoggedIn: Story = {
   decorators: [
     (Story) => (
       <MockedProvider mocks={loggedInMock}>
-        <Story />
+        <RouterContext.Provider value={mockRouter}>
+          <Story />
+        </RouterContext.Provider>
       </MockedProvider>
     ),
   ],

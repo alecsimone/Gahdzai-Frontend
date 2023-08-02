@@ -1,25 +1,16 @@
-import { memberBoxMemberData } from "./useMemberBoxQuery";
-import LoggedOutMemberBox from "./LoggedOutMemberBox";
-import Link from "next/link";
-import StyledMemberBox from "./StyledMemberBox";
+import { MemberBoxMemberData } from './useMemberBoxQuery';
+import LoggedOutMemberBox from './LoggedOutMemberBox';
+import LoggedInMemberBox from './LoggedInMemberBox';
 
 interface MemberBoxWithDataProps {
-  data: memberBoxMemberData;
+  data: MemberBoxMemberData;
 }
 
 const MemberBoxWithData = ({
   data,
 }: MemberBoxWithDataProps): JSX.Element | null => {
-  console.log(data);
-
   if (data.currentUser) {
-    return (
-      <StyledMemberBox>
-        <Link href="/" className="profileLink">
-          {data.currentUser.displayName}
-        </Link>
-      </StyledMemberBox>
-    );
+    return <LoggedInMemberBox displayName={data.currentUser.displayName} />;
   }
 
   return <LoggedOutMemberBox />;

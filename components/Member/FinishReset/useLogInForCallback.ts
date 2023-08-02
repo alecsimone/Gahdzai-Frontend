@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
-import { SetStateAction } from "react";
-import INITIAL_MEMBER_QUERY from "@/utils/member/initialMemberQuery";
-import LOG_IN_MUTATION from "../LogIn/logInMutation";
-import { logInFormStateInterface, logInResult } from "../LogIn/types";
-import { didLoginWork } from "./constants";
+import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { SetStateAction } from 'react';
+import INITIAL_MEMBER_QUERY from '@/utils/member/initialMemberQuery.gql';
+import LOG_IN_MUTATION from '../LogIn/logInMutation.gql';
+import { LogInFormStateInterface, LogInResult } from '../LogIn/types';
+import { didLoginWork } from './constants';
 
 const useLogInForCallback = (
   setError: (
@@ -16,17 +16,21 @@ const useLogInForCallback = (
 ) => {
   const router = useRouter();
 
-  const [logIn] = useMutation<logInResult, logInFormStateInterface>(
+  const [logIn] = useMutation<LogInResult, LogInFormStateInterface>(
     LOG_IN_MUTATION,
     {
+      variables: {
+        email: 'test@example.com',
+        password: 'password',
+      },
       onCompleted: (logInData) => {
         if (didLoginWork(logInData)) {
           if (redirect) {
-            router.push({ pathname: "/" });
+            router.push({ pathname: '/' });
           }
         } else {
           setError({
-            message: "Log In failed",
+            message: 'Log In failed',
           });
         }
       },

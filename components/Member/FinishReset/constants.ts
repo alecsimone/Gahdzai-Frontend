@@ -1,4 +1,4 @@
-import { logInResult } from '../LogIn/types';
+import { LogInResult } from '../LogIn/types';
 
 const resetFailed =
   'Reset failed. Please check that you entered the correct email address, and make sure you came here through the link in your password reset email.';
@@ -12,7 +12,7 @@ const redeemedToken =
   'That token has already been redeemed. Did you reset your password already?';
 export { redeemedToken };
 
-const didLoginWork = (logInData: logInResult) =>
+const didLoginWork = (logInData: LogInResult) =>
   logInData?.authenticateMemberWithPassword?.__typename ===
   'MemberAuthenticationWithPasswordSuccess';
 export { didLoginWork };

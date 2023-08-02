@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import { deepBlack, gold } from "@/styles/constants/colors";
-import { miniText } from "@/styles/constants/fontSizes";
+import styled from 'styled-components';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { deepBlack, gold } from '@/styles/constants/colors';
+import { miniText, smallHead } from '@/styles/constants/fontSizes';
 
 const StyledSignUp = styled.div`
   background: ${deepBlack};
@@ -20,6 +20,12 @@ const StyledSignUp = styled.div`
   }
   .cookieWarning {
     font-size: ${miniText};
+  }
+  .success {
+    text-align: center;
+    font-size: ${smallHead};
+    color: ${gold};
+    font-weight: bold;
   }
 `;
 

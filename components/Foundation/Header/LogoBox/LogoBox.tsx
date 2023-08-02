@@ -1,18 +1,16 @@
-import FunctionalIcon from "@/components/icons/FunctionalIcon/FunctionalIcon";
-import StyledLogoBox from "./StyledLogoBox";
-import LogoIcon from "@/components/icons/Logo";
+import FunctionalIcon from '@/components/icons/FunctionalIcon/FunctionalIcon';
+import LogoIcon from '@/components/icons/Logo';
+import StyledLogoBox from './StyledLogoBox';
 
-interface LogoBoxProps {}
+// interface LogoBoxProps {}
 
-const LogoBox = ({}: LogoBoxProps): JSX.Element => {
-  return (
-    <StyledLogoBox>
-      <FunctionalIcon iconName="logo" titleTextReplacement="Gahdzai">
-        <LogoIcon />
-      </FunctionalIcon>
-      <h1>Gahdzai</h1>
-    </StyledLogoBox>
-  );
-};
+const LogoBox = (): JSX.Element => (
+  <StyledLogoBox>
+    <FunctionalIcon iconName="logo" titleTextReplacement="Gahdzai">
+      <LogoIcon />
+    </FunctionalIcon>
+    <h1>Gahdzai</h1>
+  </StyledLogoBox>
+);
 
 export default LogoBox;

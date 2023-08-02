@@ -1,9 +1,7 @@
-"use client";
-
-import { gold } from "@/styles/constants/colors";
-import { bigText, smallText } from "@/styles/constants/fontSizes";
-import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import styled from "styled-components";
+import styled from 'styled-components';
+import { gold } from '@/styles/constants/colors';
+import { bigText, smallText } from '@/styles/constants/fontSizes';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 
 const StyledLogoBox = styled.div`
   display: flex;

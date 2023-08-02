@@ -1,13 +1,13 @@
-import { useState } from "react";
-import StyledMemberBox from "./StyledMemberBox";
-import Button from "@/styles/extendableElements/Button";
-import Modal from "../../Modal/Modal";
-import SignUp from "@/components/Member/SignUp/SignUp";
-import LogIn from "@/components/Member/LogIn/LogIn";
+import { useState } from 'react';
+import LogIn from '@/components/Member/LogIn';
+import Button from '@/styles/extendableElements/Button';
+import SignUp from '@/components/Member/SignUp/SignUp';
+import StyledMemberBox from './StyledMemberBox';
+import Modal from '../../Modal/Modal';
 
-interface LoggedOutMemberBoxProps {}
+// interface LoggedOutMemberBoxProps {}
 
-const LoggedOutMemberBox = ({}: LoggedOutMemberBoxProps): JSX.Element => {
+const LoggedOutMemberBox = (): JSX.Element => {
   const [showingSignUp, setShowingSignUp] = useState(false);
   const [showingLogIn, setShowingLogIn] = useState(false);
 

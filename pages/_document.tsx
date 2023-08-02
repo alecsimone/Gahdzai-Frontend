@@ -6,8 +6,8 @@ import Document, {
   Html,
   Main,
   NextScript,
-} from "next/document";
-import { ServerStyleSheet } from "styled-components";
+} from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 // Boilerplate copied from https://github.com/vercel/next.js/blob/canary/examples/with-styled-components-babel/pages/_document.tsx
 export default class MyDocument extends Document {

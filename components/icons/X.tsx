@@ -1,11 +1,11 @@
-import getComputedColor from "@/styles/functions/getComputedColor";
-import { ColorNames } from "@/styles/styled";
+import getComputedColor from '@/styles/functions/getComputedColor';
+import { ColorNames } from '@/styles/styled';
 
 interface XProps {
   color?: ColorNames; // color of the icon, defaults to red
 }
 
-const X = ({ color = "red" }: XProps): JSX.Element => {
+const X = ({ color = 'red' }: XProps): JSX.Element => {
   const computedColor = getComputedColor(color);
 
   return (

@@ -1,7 +1,38 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:storybook/recommended"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "prettier",
+    "airbnb",
+    "airbnb-typescript"
+  ],
   "plugins": ["unused-imports"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
-    "unused-imports/no-unused-imports": "error"
+    "unused-imports/no-unused-imports": "error",
+    "import/extensions": [
+      "warn",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "implicit-arrow-linebreak": "off",
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "operator-linebreak": ["error", "after"],
+    "react/require-default-props": "off",
+    "object-curly-newline": "off",
+    "@typescript-eslint/indent": "off",
+    "max-len": "off",
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "function-paren-newline": "off"
   }
 }

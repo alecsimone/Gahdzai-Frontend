@@ -1,47 +1,47 @@
-import { ApolloError } from "@apollo/client";
-import { ChangeEventHandler, ReactNode } from "react";
+import { ApolloError } from '@apollo/client';
+import { ChangeEventHandler, ReactNode } from 'react';
 
-interface logInResponse {
+interface LogInResponse {
   authenticateMemberWithPassword: {
     __typename:
-      | "MemberAuthenticationWithPasswordSuccess"
-      | "MemberAuthenticationWithPasswordFailure";
+      | 'MemberAuthenticationWithPasswordSuccess'
+      | 'MemberAuthenticationWithPasswordFailure';
   };
 }
 
-interface submitMutationInterface<formInterface> {
+interface SubmitMutationInterface<FormInterface> {
   (options: {
-    variables: formInterface;
+    variables: FormInterface;
     onCompleted?: (d: any) => void; // This is just for the edge case of the log in mutation, which has a weird response and needs to be handled specially
     // onError: (err: ApolloError) => void;
     onError: (err: any) => void;
   }): Promise;
 }
 
-interface errorTranslatorInterface {
+interface ErrorTranslatorInterface {
   (e: ApolloError): ApolloError | { message: string };
 }
 
-interface manualUpdateObj {
+interface ManualUpdateObj {
   name: string;
   newValue: any;
 }
-export type { manualUpdateObj };
+export type { ManualUpdateObj };
 
-interface useFormInterface {
-  <formInterface>(
-    initialState: formInterface,
-    callbackMutation: submitMutationInterface<formInterface>,
-    errorTranslator?: errorTranslatorInterface,
+interface UseFormInterface {
+  <FormInterface>(
+    initialState: FormInterface,
+    callbackMutation: SubmitMutationInterface<FormInterface>,
+    errorTranslator?: ErrorTranslatorInterface,
     submitButtonText?: string,
     cancelFunction?: () => void,
-    customValidityCheck?: (state: formInterface) => boolean
+    customValidityCheck?: (state: FormInterface) => boolean
   ): [
-    formInterface,
+    FormInterface,
     ChangeEventHandler<HTMLInputElement>,
     (children: ReactNode) => JSX.Element,
-    (manualUpdateObj: manualUpdateObj) => void
+    (manualUpdateObj: ManualUpdateObj) => void
   ];
 }
 
-export default useFormInterface;
+export default UseFormInterface;

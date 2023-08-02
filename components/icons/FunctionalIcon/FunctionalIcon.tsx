@@ -1,9 +1,7 @@
-"use client";
+import { MouseEvent, KeyboardEvent, ReactNode } from 'react';
 
-import { MouseEvent, KeyboardEvent, ReactNode } from "react";
-
-import buttonLikeTrigger from "../../../utils/buttonLikeTrigger";
-import SVG from "@/styles/extendableElements/SVG";
+import SVG from '@/styles/extendableElements/SVG';
+import buttonLikeTrigger from '../../../utils/buttonLikeTrigger';
 
 interface FunctionalIconProps {
   iconName: string; // Will be used for className and title text (unless titleTextReplacement provided)
@@ -30,12 +28,12 @@ const FunctionalIcon = ({
     <SVG
       className={extraClass == null ? iconName : `${iconName} ${extraClass}`}
       viewBox="0 0 200 200"
-      onClick={(e) => {
+      onClick={(e: MouseEvent<SVGSVGElement>) => {
         if (onTrigger != null) {
           onTrigger(e);
         }
       }}
-      onKeyDown={(e) => {
+      onKeyDown={(e: KeyboardEvent<SVGSVGElement>) => {
         if (onTrigger != null) {
           buttonLikeTrigger(e, onTrigger);
         }

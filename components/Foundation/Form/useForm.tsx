@@ -5,12 +5,12 @@ import {
   useRef,
   useState,
   ReactNode,
-} from "react";
-import { ApolloError } from "@apollo/client";
-import StyledForm from "@/styles/extendableElements/Form";
-import Button from "@/styles/extendableElements/Button";
-import Error from "../Error";
-import useFormInterface, { manualUpdateObj } from "./types";
+} from 'react';
+import { ApolloError } from '@apollo/client';
+import StyledForm from '@/styles/extendableElements/Form';
+import Button from '@/styles/extendableElements/Button';
+import Error from '../Error';
+import useFormInterface, { ManualUpdateObj } from './types';
 
 const useForm: useFormInterface = (
   initialState,
@@ -36,7 +36,7 @@ const useForm: useFormInterface = (
     }
   };
 
-  const manualFormUpdate = (updateObj: manualUpdateObj) => {
+  const manualFormUpdate = (updateObj: ManualUpdateObj) => {
     setFormState((prev) => ({
       ...prev,
       [updateObj.name]: updateObj.newValue,
@@ -50,15 +50,15 @@ const useForm: useFormInterface = (
     if (formRef.current == null) return;
 
     // We start by getting all the inputs in the form
-    const inputs = formRef.current.querySelectorAll("input");
+    const inputs = formRef.current.querySelectorAll('input');
 
     // Then we check each to make sure it's valid
     let inputValidityCheck = true;
-    for (const input of inputs) {
+    inputs.forEach((input) => {
       if (!input.checkValidity()) {
         inputValidityCheck = false;
       }
-    }
+    });
 
     if (inputValidityCheck && customValidityCheck) {
       inputValidityCheck = customValidityCheck(formState);
@@ -108,7 +108,7 @@ const useForm: useFormInterface = (
             </Button>
           )}
           <Button type="submit" aria-disabled={!allInputsValid}>
-            {submitButtonText == null ? "Submit" : submitButtonText}
+            {submitButtonText == null ? 'Submit' : submitButtonText}
           </Button>
         </div>
       </fieldset>

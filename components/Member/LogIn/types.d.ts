@@ -1,14 +1,14 @@
-interface logInFormStateInterface {
+interface LogInFormStateInterface {
   email: string;
   password: string;
 }
-export type { logInFormStateInterface };
+export type { LogInFormStateInterface };
 
-interface logInResult {
+interface LogInResult {
   authenticateMemberWithPassword: {
     __typename:
       | 'MemberAuthenticationWithPasswordFailure'
       | 'MemberAuthenticationWithPasswordSuccess';
   };
 }
-export type { logInResult };
+export type { LogInResult };

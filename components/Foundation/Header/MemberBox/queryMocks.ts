@@ -1,4 +1,4 @@
-import MEMBER_BOX_QUERY from "./memberBoxQuery";
+import MEMBER_BOX_QUERY from './memberBoxQuery.gql';
 
 export const loggedOutMock = [
   {
@@ -21,9 +21,9 @@ export const loggedInMock = [
     result: {
       data: {
         currentUser: {
-          __typename: "User",
+          __typename: 'User',
           avatar: null,
-          displayName: "Test",
+          displayName: 'Test',
         },
       },
     },
