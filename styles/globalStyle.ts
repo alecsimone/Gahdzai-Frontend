@@ -1,19 +1,17 @@
-"use client";
-
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 import {
   massiveScreenBreakpoint,
   midScreenBreakpoint,
-} from "./constants/breakpoints";
-import { coolGrey, deepBlack, white } from "./constants/colors";
-import { smallText } from "./constants/fontSizes";
-import { setAlpha } from "./functions/modifyColorFunctions";
+} from './constants/breakpoints';
+import { coolGrey, deepBlack, white } from './constants/colors';
+import { smallText } from './constants/fontSizes';
+import { setAlpha } from './functions/modifyColorFunctions';
 
 const GlobalStyle = createGlobalStyle`
   html {
     background: ${deepBlack};
     color: ${white};
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
     font-size: 8px;
     ${midScreenBreakpoint} {
@@ -30,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     display: flex;
     flex-direction: column;
+  }
+  #__next {
+    height: 100%;
+    min-height: 100%;
   }
 
   * {

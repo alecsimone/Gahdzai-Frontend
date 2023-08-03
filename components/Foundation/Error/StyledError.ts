@@ -9,12 +9,14 @@ const StyledError = styled.div`
   background: ${setAlpha(lightBlack, 0.75)};
   padding: 3rem 5rem;
   text-align: center;
+
   h4 {
     display: block;
-    margin: 0 0 2rem 0;
+    margin: 0 0 2rem;
     color: ${setAlpha(red, 0.75)};
     font-size: ${smallHead};
   }
+
   .message {
     font-size: ${smallText};
   }

@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps): JSX.Element => (
   <StyledLayout>
     <Header />
-    <div className="pageComponent">{children}</div>
+    <main className="pageComponent">{children}</main>
   </StyledLayout>
 );
 
