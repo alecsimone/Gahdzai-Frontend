@@ -1,11 +1,11 @@
-import Chart from '@/components/Charts/Chart/Chart';
+import ChartHolder from '@/components/Charts/ChartHolder/ChartHolder';
 import StyledHome from './StyledHome';
 
 // interface HomeProps {}
 
 const Home = (): JSX.Element => (
   <StyledHome>
-    <Chart />
+    <ChartHolder />
   </StyledHome>
 );
 

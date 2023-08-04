@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { Get_Candles_QueryQuery, Candle } from '@/__generated__/graphql';
 import getOneRem from '@/styles/functions/getOneRem';
-import { coolGrey } from '@/styles/constants/colors';
-import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import getChartShape from './chartShapers/getChartShape';
+import makeVerticalLines from './gridMakers/makeVerticalLines';
+import makeHorizontalLines from './gridMakers/makeHorizontalLines';
 
-const useChart = () => {
+const useChart = (data: Get_Candles_QueryQuery) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,23 +23,17 @@ const useChart = () => {
 
     const { width, height } = chartRef.current;
 
-    ctx.strokeStyle = setAlpha(coolGrey, 0.8);
-    for (let i = 1; i < 10; i += 1) {
-      ctx.beginPath();
-      const thisLineY = (height * i) / 10;
-      ctx.moveTo(0, thisLineY);
-      ctx.lineTo(width, thisLineY);
-      ctx.stroke();
-    }
+    const candleData = data.getCandles as Candle[];
+    const { top, bottom, start, end } = getChartShape(candleData);
 
-    ctx.strokeStyle = setAlpha(coolGrey, 0.4);
-    for (let i = 1; i < 10; i += 1) {
-      ctx.beginPath();
-      const thisLineX = (width * i) / 10;
-      ctx.moveTo(thisLineX, 0);
-      ctx.lineTo(thisLineX, height);
-      ctx.stroke();
-    }
+    makeHorizontalLines(ctx, width, height, top, bottom);
+    makeVerticalLines(
+      ctx,
+      width,
+      height,
+      parseInt(start, 10),
+      parseInt(end, 10)
+    );
   }, []);
 
   return chartRef;
