@@ -27,7 +27,7 @@
     "implicit-arrow-linebreak": "off",
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": "off",
-    "operator-linebreak": ["error", "after"],
+    "operator-linebreak": "off",
     "react/require-default-props": "off",
     "object-curly-newline": "off",
     "@typescript-eslint/indent": "off",

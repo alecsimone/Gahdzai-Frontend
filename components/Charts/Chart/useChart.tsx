@@ -1,40 +1,38 @@
 import { useEffect, useRef } from 'react';
-import { Get_Candles_QueryQuery, Candle } from '@/__generated__/graphql';
-import getOneRem from '@/styles/functions/getOneRem';
-import getChartShape from './chartShapers/getChartShape';
-import makeVerticalLines from './gridMakers/makeVerticalLines';
-import makeHorizontalLines from './gridMakers/makeHorizontalLines';
+import { Candle } from '@/__generated__/graphql';
+import getChartBoundaries from './chartShapers/getChartBoundaries';
+import makeGrid from './gridMakers/makeGrid';
+import makeCandles from './candlestickMakers/makeCandles';
+import { horizontalGutter, verticalGutter } from './gridMakers/constants';
+import getUsableHeight from './utils/getUsableHeight';
+import getUsableWidth from './utils/getusableWidth';
+import setChartSize from './utils/setChartSize';
 
-const useChart = (data: Get_Candles_QueryQuery) => {
+const useChart = (candleData: Candle[]) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (chartRef.current == null) return;
+    setChartSize(chartRef.current);
+  }, []);
 
-    const parent = chartRef.current.parentElement;
-    if (parent != null) {
-      const oneRem = getOneRem();
-      chartRef.current.width = parent.clientWidth - 4 * oneRem;
-      chartRef.current.height = parent.clientHeight - 4 * oneRem;
-    }
-
+  // Then we'll have an effect that shapes the chart and makes the candles that depends on candleData
+  useEffect(() => {
+    // First we'll just make sure our chart exists
+    if (chartRef.current == null) return;
     const ctx = chartRef.current.getContext('2d');
     if (ctx == null) return;
 
+    // Next we set up the shape of the chart. We start by getting its width and height so we can calculate how big things within it need to be
     const { width, height } = chartRef.current;
+    const usableHeight = getUsableHeight(height, horizontalGutter);
+    const usableWidth = getUsableWidth(width, verticalGutter);
 
-    const candleData = data.getCandles as Candle[];
-    const { top, bottom, start, end } = getChartShape(candleData);
+    const chartBoundaries = getChartBoundaries(candleData);
+    makeGrid(ctx, usableWidth, usableHeight, chartBoundaries);
 
-    makeHorizontalLines(ctx, width, height, top, bottom);
-    makeVerticalLines(
-      ctx,
-      width,
-      height,
-      parseInt(start, 10),
-      parseInt(end, 10)
-    );
-  }, []);
+    makeCandles(candleData, ctx, usableHeight, usableWidth, chartBoundaries);
+  }, [candleData]);
 
   return chartRef;
 };

@@ -1,73 +1,75 @@
 import { coolGrey, white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import getStepCount from './getStepCount';
+import getStepSize from './getStepSize';
+import { gutterPadding } from './constants';
+import getCoordForValue from '../utils/getCoordForValue';
 
-const minute = 60;
-const hour = minute * 60;
-const day = hour * 24;
+const getTimeString = (time: number) => {
+  const thisDate = new Date(time * 1000);
+  const thisHour = thisDate.getHours();
+  const thisMinute = `${
+    thisDate.getMinutes() < 10 ? '0' : ''
+  }${thisDate.getMinutes()}`;
+  return `${thisHour}:${thisMinute}`;
+};
 
 const makeVerticalLines = (
   ctx: CanvasRenderingContext2D,
-  width: number,
-  height: number,
+  usableWidth: number,
+  usableHeight: number,
   start: number,
   end: number
 ) => {
-  const chartSize = end - start;
-  let chartStep: number;
-  if (chartSize < minute * 8) {
-    chartStep = minute;
-  } else if (chartSize < minute * 8 * 2) {
-    chartStep = minute * 2;
-  } else if (chartSize < minute * 8 * 3) {
-    chartStep = minute * 3;
-  } else if (chartSize < minute * 8 * 5) {
-    chartStep = minute * 5;
-  } else if (chartSize < minute * 8 * 10) {
-    chartStep = minute * 10;
-  } else if (chartSize < minute * 8 * 30) {
-    chartStep = minute * 30;
-  } else if (chartSize < hour * 8) {
-    chartStep = hour;
-  } else if (chartSize < hour * 8 * 2) {
-    chartStep = hour * 2;
-  } else if (chartSize < hour * 8 * 3) {
-    chartStep = hour * 3;
-  } else if (chartSize < hour * 8 * 4) {
-    chartStep = hour * 4;
-  } else {
-    chartStep = day;
+  // First we figure out the total data range the chart needs to cover
+  const chartRange = end - start;
+
+  // We then figure out how much space we need between each line. The stepCount is based on creating a minimum screen distance between lines, and then based on the range of the chart we map that onto a step size
+  const maxSteps = getStepCount(usableWidth);
+  const chartStep = getStepSize(chartRange, maxSteps, 'horizontal');
+
+  // Now we can figure out how many steps will actually fit in our chart by figuring out how many steps it takes to cover our range
+  const steps = Math.ceil(chartRange / chartStep);
+
+  // Then we can figure out the first step by rounding down to get the step below our starting point and then going up one step from there.
+  const firstStep = Math.floor(start / chartStep) * chartStep + chartStep;
+
+  // Now we can generate an array of the steps. We start our array with the starting time of our data
+  const stepList = [start];
+  for (let i = 0; i < steps - 1; i += 1) {
+    // For each step, we want to get the value i steps away from the first step. We add that value to our stepList array.
+    stepList.push(firstStep + chartStep * i);
   }
+  stepList.push(end);
 
-  const steps = Math.ceil(chartSize / chartStep) + 1;
-  const floor = Math.floor(start / chartStep) * chartStep;
-
-  console.log({ chartSize, chartStep, steps });
-
-  const stepList = [];
-  for (let i = 0; i < steps; i += 1) {
-    stepList.push(floor + chartStep * i);
-  }
-  console.log(stepList);
-
-  ctx.strokeStyle = setAlpha(coolGrey, 0.4);
+  // Now we can begin drawing our lines.
+  ctx.strokeStyle = setAlpha(coolGrey, 0.2);
   for (let i = 0; i <= steps; i += 1) {
-    const thisLineX = ((width - 100) * i) / steps;
-    if (i > 0) {
-      ctx.beginPath();
-      ctx.moveTo(thisLineX, 0);
-      ctx.lineTo(thisLineX, height - 100);
-      ctx.stroke();
-    }
+    ctx.beginPath();
 
-    if (i < steps) {
-      const thisDate = new Date(stepList[i] * 1000);
-      const thisHour = thisDate.getHours();
-      ctx.font = `${smallText} sans-serif`;
-      ctx.fillStyle = white;
-      ctx.textAlign = i === 0 ? 'start' : 'center';
-      ctx.fillText(`${thisHour}:00`, thisLineX, height - 80);
+    // First we have to figure out the X coordinate this line will run across. It will go from 0 to the horizontal gutter on the Y axis while its X coordinate stays the same.
+    const thisLineX = getCoordForValue(stepList[i], usableWidth, start, end);
+    ctx.moveTo(thisLineX, 0);
+
+    // Then we can draw our line across the chart at that X coordinate
+    ctx.lineTo(thisLineX, usableHeight);
+    if (i === steps) {
+      // For our last line, we want a sharper border, so we change the stroke style to remove the transparency.
+      ctx.strokeStyle = coolGrey;
     }
+    ctx.stroke();
+
+    // Finally, we need to label this line on the grid
+    const timeString = getTimeString(stepList[i]);
+    ctx.font = `${smallText} sans-serif`;
+    ctx.fillStyle = white;
+    ctx.textAlign = i === 0 ? 'start' : 'center';
+    ctx.fillText(
+      `${timeString}`,
+      i === 0 ? gutterPadding : thisLineX,
+      usableHeight + gutterPadding
+    );
   }
 };
 export default makeVerticalLines;

@@ -1,4 +1,4 @@
-import { Get_Candles_QueryQuery } from '@/__generated__/graphql';
+import { Get_Candles_QueryQuery, Candle } from '@/__generated__/graphql';
 import StyledChart from './StyledChart';
 import useChart from './useChart';
 
@@ -7,7 +7,7 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps): JSX.Element => {
-  const chartRef = useChart(data);
+  const chartRef = useChart(data.getCandles as Candle[]);
   return <StyledChart ref={chartRef}>A chart</StyledChart>;
 };
 
