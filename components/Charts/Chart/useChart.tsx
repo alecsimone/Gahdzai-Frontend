@@ -5,7 +5,7 @@ import makeGrid from './gridMakers/makeGrid';
 import makeCandles from './candlestickMakers/makeCandles';
 import { horizontalGutter, verticalGutter } from './gridMakers/constants';
 import getUsableHeight from './utils/getUsableHeight';
-import getUsableWidth from './utils/getusableWidth';
+import getUsableWidth from './utils/getUsableWidth';
 import setChartSize from './utils/setChartSize';
 
 const useChart = (candleData: Candle[]) => {

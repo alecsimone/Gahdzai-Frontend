@@ -1,3 +1,5 @@
+import getMaxSteps from './getMaxSteps';
+
 const minute = 60;
 const hour = minute * 60;
 const day = hour * 24;
@@ -29,9 +31,10 @@ const sizesArray = {
 
 const getStepSize = (
   chartRange: number,
-  maxSteps: number,
+  usableSize: number,
   direction: 'vertical' | 'horizontal'
 ) => {
+  const maxSteps = getMaxSteps(usableSize);
   // First we figure out the exact value that one step should represent based on the range of the chart's data and the number of steps it's allowed to have
   const exactStepSize = chartRange / maxSteps;
 
