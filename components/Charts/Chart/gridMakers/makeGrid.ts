@@ -1,6 +1,5 @@
 import { ChartBoundaries } from '../candlestickMakers/types';
-import makeHorizontalLines from './makeHorizontalLines';
-import makeVerticalLines from './makeVerticalLines';
+import makeGridLines from './makeGridLines';
 
 const makeGrid = (
   ctx: CanvasRenderingContext2D,
@@ -9,8 +8,20 @@ const makeGrid = (
   chartBoundaries: ChartBoundaries
 ) => {
   const { chartTop, chartBottom, chartStart, chartEnd } = chartBoundaries;
-  makeHorizontalLines(ctx, usableWidth, usableHeight, chartTop, chartBottom);
-  makeVerticalLines(ctx, usableWidth, usableHeight, chartStart, chartEnd);
+  makeGridLines('horizontal', {
+    ctx,
+    usablePixelSize: usableHeight,
+    lineTerminus: usableWidth,
+    originValue: chartTop,
+    terminusValue: chartBottom,
+  });
+  makeGridLines('vertical', {
+    ctx,
+    usablePixelSize: usableWidth,
+    lineTerminus: usableHeight,
+    originValue: chartStart,
+    terminusValue: chartEnd,
+  });
 };
 
 export default makeGrid;

@@ -5,11 +5,11 @@ const hour = minute * 60;
 const day = hour * 24;
 
 const sizesArray = {
-  vertical: [
+  horizontal: [
     0.1, 0.25, 0.5, 1, 2.5, 5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000,
     10000,
   ],
-  horizontal: [
+  vertical: [
     minute,
     minute * 2,
     minute * 3,
@@ -32,14 +32,14 @@ const sizesArray = {
 const getStepSize = (
   chartRange: number,
   usableSize: number,
-  direction: 'vertical' | 'horizontal'
+  lineDirection: 'vertical' | 'horizontal'
 ) => {
   const maxSteps = getMaxSteps(usableSize);
   // First we figure out the exact value that one step should represent based on the range of the chart's data and the number of steps it's allowed to have
   const exactStepSize = chartRange / maxSteps;
 
   // Then we figure out which step sizes array we're working with, either for the vertical or horizontal axis
-  const relevantSizesArray = sizesArray[direction];
+  const relevantSizesArray = sizesArray[lineDirection];
 
   // Then we need to figure out which step size from that array is right for our chart. We'll start with the lowest step as our base case
   let stepSize = relevantSizesArray[0];

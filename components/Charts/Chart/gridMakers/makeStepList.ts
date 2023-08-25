@@ -1,26 +1,34 @@
 import getStepSize from './getStepSize';
 
-const makeStepList = (
-  max: number,
-  min: number,
-  usableSize: number,
-  direction: 'horizontal' | 'vertical'
-) => {
-  const chartRange = max - min;
-  const stepSize = getStepSize(chartRange, usableSize, direction);
-  const stepCount = Math.ceil(chartRange / stepSize);
+interface StepListDataObj {
+  max: number;
+  min: number;
+  usablePixelSize: number;
+  lineDirection: 'horizontal' | 'vertical';
+}
 
-  // We can figure out the first step by rounding down to get the step below our starting point and then going up one step from there.
-  const firstStep = Math.floor(min / stepSize) * stepSize + stepSize;
+const makeStepList = (dataObj: StepListDataObj) => {
+  const { max, min, usablePixelSize, lineDirection } = dataObj;
 
-  const stepList = [Math.floor(min * 100) / 100]; // We have to round our starting value when we put it in as well
-  for (let i = 0; i < stepCount - 1; i += 1) {
-    stepList.push(firstStep + stepSize * i);
+  const chartDataRange = max - min;
+  const stepSize = getStepSize(chartDataRange, usablePixelSize, lineDirection);
+  const stepCount = Math.ceil(chartDataRange / stepSize);
+
+  const stepBeforeMin = Math.floor(min / stepSize) * stepSize;
+  const firstStepAfterMin = stepBeforeMin + stepSize;
+
+  const roundedMin = Math.floor(min * 100) / 100;
+  const stepList = [roundedMin];
+  for (let i = 0; i < stepCount; i += 1) {
+    const nextStepValue = firstStepAfterMin + stepSize * i;
+    if (nextStepValue < max) {
+      stepList.push(nextStepValue);
+    }
   }
   stepList.push(max); // We want the exact maximum value to be the final step, not just the last step we'd reach by stepping
 
-  if (direction === 'vertical') {
-    // Because want start at the top of the chart, which is the highest value, we reverse our array so it starts with the highest value.
+  if (lineDirection === 'horizontal') {
+    // Because we start at the top of the chart, which is the highest value, we reverse our array so it starts with the highest value.
     stepList.reverse();
   }
 
