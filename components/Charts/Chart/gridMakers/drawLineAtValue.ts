@@ -1,28 +1,22 @@
 import { coolGrey } from '@/styles/constants/colors';
 import getCoordForValue from '../utils/getCoordForValue';
+import { DirectionalChartData } from '../types';
+import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
 interface DrawLineAtValueInterface {
-  ctx: CanvasRenderingContext2D;
   value: number;
   isStrongLine: boolean;
-  usablePixelSize: number;
-  chartOrigin: number;
-  chartTerminus: number;
-  lineTerminus: number;
-  lineDirection: 'horizontal' | 'vertical';
+  directionalChartData: DirectionalChartData;
 }
 
 const drawLineAtValue = (dataObj: DrawLineAtValueInterface) => {
-  const {
-    ctx,
-    value,
-    isStrongLine,
-    usablePixelSize,
-    chartOrigin,
-    chartTerminus,
-    lineTerminus,
-    lineDirection,
-  } = dataObj;
+  const { value, isStrongLine, directionalChartData } = dataObj;
+
+  const { chartData, lineDirection } = directionalChartData;
+  const { ctx } = chartData;
+
+  const { usablePixelSize, lineTerminus, chartOrigin, chartTerminus } =
+    getChartShapeFromChartData(directionalChartData);
 
   ctx.beginPath();
 

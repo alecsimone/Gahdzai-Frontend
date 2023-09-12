@@ -3,7 +3,7 @@ import getDataBottom from './getDataBottom';
 import getDataEnd from './getDataEnd';
 import getDataStart from './getDataStart';
 import getDataTop from './getDataTop';
-import { ChartBoundaries } from '../candlestickMakers/types';
+import { ChartBoundaries } from '../types';
 
 const getChartBoundaries = (candleData: Candle[]) => {
   const chartTop = getDataTop(candleData);

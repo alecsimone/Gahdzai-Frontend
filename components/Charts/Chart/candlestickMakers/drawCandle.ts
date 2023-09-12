@@ -1,29 +1,56 @@
 import { white } from '@/styles/constants/colors';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { CandleShape } from './types';
+import { CandleShape } from '../types';
+
+interface DrawWickInterface {
+  ctx: CanvasRenderingContext2D;
+  wickX: number;
+  wickStart: number;
+  wickEnd: number;
+}
+
+const drawWick = (drawWickInterface: DrawWickInterface) => {
+  const { ctx, wickX, wickStart, wickEnd } = drawWickInterface;
+
+  ctx.beginPath();
+  ctx.moveTo(wickX, wickStart);
+  ctx.lineTo(wickX, wickEnd);
+  ctx.stroke();
+};
 
 const drawCandle = (
   ctx: CanvasRenderingContext2D,
   candleShape: CandleShape
 ) => {
-  const { color, width, candleTop, candleBottom, wickTop, wickBottom, x } =
-    candleShape;
-
-  const rectHeight = candleBottom - candleTop;
+  const {
+    color,
+    candleStartX,
+    width,
+    candleTop,
+    candleBottom,
+    wickTop,
+    wickBottom,
+  } = candleShape;
 
   ctx.fillStyle = color;
-  ctx.fillRect(x, candleTop, width, rectHeight);
+
+  const rectHeight = candleBottom - candleTop;
+  ctx.fillRect(candleStartX, candleTop, width, rectHeight);
 
   ctx.strokeStyle = setAlpha(white, 0.5);
-  ctx.beginPath();
-  ctx.moveTo(x + width / 2, candleTop);
-  ctx.lineTo(x + width / 2, wickTop);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(x + width / 2, candleBottom);
-  ctx.lineTo(x + width / 2, wickBottom);
-  ctx.stroke();
+  const wickX = candleStartX + width / 2;
+  drawWick({
+    ctx,
+    wickX,
+    wickStart: candleTop,
+    wickEnd: wickTop,
+  });
+  drawWick({
+    ctx,
+    wickX,
+    wickStart: candleBottom,
+    wickEnd: wickBottom,
+  });
 };
 
 export default drawCandle;

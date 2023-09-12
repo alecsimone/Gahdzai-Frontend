@@ -1,42 +1,25 @@
 import { white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
-import getCoordForValue from '../utils/getCoordForValue';
-import { gutterPadding } from './constants';
+import { gutterPadding } from '../constants';
 import checkForLabelSkip from './checkForLabelSkip';
+import { DirectionalChartData } from '../types';
+import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
+import getTimeString from '../utils/getTimeString';
 
 interface LabelAxisInterface {
-  ctx: CanvasRenderingContext2D;
   stepList: number[];
   i: number;
-  usablePixelSize: number;
   thisLineCoord: number;
-  lineTerminus: number;
-  chartOrigin: number;
-  chartTerminus: number;
-  lineDirection: 'horizontal' | 'vertical';
+  directionalChartData: DirectionalChartData;
 }
 
-export const getTimeString = (time: number) => {
-  const thisDate = new Date(time * 1000);
-  const thisHour = thisDate.getHours();
-  const thisMinute = `${
-    thisDate.getMinutes() < 10 ? '0' : ''
-  }${thisDate.getMinutes()}`;
-  return `${thisHour}:${thisMinute}`;
-};
-
 const labelAxis = (dataObj: LabelAxisInterface) => {
-  const {
-    ctx,
-    stepList,
-    i,
-    usablePixelSize,
-    thisLineCoord,
-    lineTerminus,
-    chartOrigin,
-    chartTerminus,
-    lineDirection,
-  } = dataObj;
+  const { stepList, i, thisLineCoord, directionalChartData } = dataObj;
+
+  const { lineDirection, chartData } = directionalChartData;
+  const { ctx } = chartData;
+
+  const { lineTerminus } = getChartShapeFromChartData(directionalChartData);
 
   ctx.font = `${smallText} sans-serif`;
   ctx.fillStyle = white;
@@ -70,15 +53,11 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
   }
 
   const shouldSkipLabel = checkForLabelSkip({
-    ctx,
-    i,
-    labelText,
-    lineDirection,
-    thisLineCoord,
     stepList,
-    usablePixelSize,
-    chartOrigin,
-    chartTerminus,
+    i,
+    thisLineCoord,
+    labelText,
+    directionalChartData,
   });
 
   if (!shouldSkipLabel) {

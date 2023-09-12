@@ -1,20 +1,21 @@
 import { Candle } from '@/__generated__/graphql';
-import { downColor, upColor } from '../gridMakers/constants';
+import { downColor, upColor } from '../constants';
 import getCoordForValue from '../utils/getCoordForValue';
-import { CandleShape } from './types';
+import { CandleShape, ChartData } from '../types';
 
 const getCandleShape = (
   candleData: Candle,
   candleWidth: number,
-  top: number,
-  bottom: number,
-  start: number,
-  end: number,
-  chartUsableHeight: number,
-  chartUsableWidth: number
+  chartData: ChartData
 ) => {
   const candleIsBullish = candleData.open < candleData.close;
   const candleColor = candleIsBullish ? upColor : downColor;
+
+  const {
+    usableHeight,
+    usableWidth,
+    chartBoundaries: { chartTop, chartBottom, chartStart, chartEnd },
+  } = chartData;
 
   // If the candle is bullish, its top will be the closing price. If it's bearish, its top will be the opening price.
   const candleTopValue = candleIsBullish
@@ -22,40 +23,40 @@ const getCandleShape = (
     : parseFloat(candleData.open);
   const candleTop = getCoordForValue(
     candleTopValue,
-    chartUsableHeight,
-    top,
-    bottom
+    usableHeight,
+    chartTop,
+    chartBottom
   );
 
-  // If the candle is bullish, its bottom will be the opening price. If it's bearish, its top will be the closing price.
+  // If the candle is bullish, its bottom will be the opening price. If it's bearish, its bottom will be the closing price.
   const candleBottomValue = candleIsBullish
     ? parseFloat(candleData.open)
     : parseFloat(candleData.close);
   const candleBottom = getCoordForValue(
     candleBottomValue,
-    chartUsableHeight,
-    top,
-    bottom
+    usableHeight,
+    chartTop,
+    chartBottom
   );
 
   const wickTop = getCoordForValue(
     parseFloat(candleData.high),
-    chartUsableHeight,
-    top,
-    bottom
+    usableHeight,
+    chartTop,
+    chartBottom
   );
   const wickBottom = getCoordForValue(
     parseFloat(candleData.low),
-    chartUsableHeight,
-    top,
-    bottom
+    usableHeight,
+    chartTop,
+    chartBottom
   );
 
   const candleStartX = getCoordForValue(
     parseInt(candleData.time, 10),
-    chartUsableWidth,
-    start,
-    end
+    usableWidth,
+    chartStart,
+    chartEnd
   );
 
   const candleShape: CandleShape = {
@@ -65,7 +66,7 @@ const getCandleShape = (
     candleBottom,
     wickTop,
     wickBottom,
-    x: candleStartX,
+    candleStartX,
   };
 
   return candleShape;

@@ -1,14 +1,14 @@
 import getStepSize from './getStepSize';
+import { DirectionalChartData } from '../types';
+import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
-interface StepListDataObj {
-  max: number;
-  min: number;
-  usablePixelSize: number;
-  lineDirection: 'horizontal' | 'vertical';
-}
+const makeStepList = (directionalChartData: DirectionalChartData) => {
+  const { usablePixelSize, chartOrigin, chartTerminus } =
+    getChartShapeFromChartData(directionalChartData);
 
-const makeStepList = (dataObj: StepListDataObj) => {
-  const { max, min, usablePixelSize, lineDirection } = dataObj;
+  const { lineDirection } = directionalChartData;
+  const max = lineDirection === 'horizontal' ? chartOrigin : chartTerminus;
+  const min = lineDirection === 'horizontal' ? chartTerminus : chartOrigin;
 
   const chartDataRange = max - min;
   const stepSize = getStepSize(chartDataRange, usablePixelSize, lineDirection);

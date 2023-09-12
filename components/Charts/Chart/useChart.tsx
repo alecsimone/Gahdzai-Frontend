@@ -3,10 +3,11 @@ import { Candle } from '@/__generated__/graphql';
 import getChartBoundaries from './chartShapers/getChartBoundaries';
 import makeGrid from './gridMakers/makeGrid';
 import makeCandles from './candlestickMakers/makeCandles';
-import { horizontalGutter, verticalGutter } from './gridMakers/constants';
+import { horizontalGutter, verticalGutter } from './constants';
 import getUsableHeight from './utils/getUsableHeight';
 import getUsableWidth from './utils/getUsableWidth';
-import setChartSize from './utils/setChartSize';
+import setChartSize from './chartShapers/setChartSize';
+import { ChartData } from './types';
 
 const useChart = (candleData: Candle[]) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
@@ -26,9 +27,15 @@ const useChart = (candleData: Candle[]) => {
     const usableWidth = getUsableWidth(width, verticalGutter);
 
     const chartBoundaries = getChartBoundaries(candleData);
-    makeGrid(ctx, usableWidth, usableHeight, chartBoundaries);
+    const chartData: ChartData = {
+      ctx,
+      usableWidth,
+      usableHeight,
+      chartBoundaries,
+    };
 
-    makeCandles(candleData, ctx, usableHeight, usableWidth, chartBoundaries);
+    makeGrid(chartData);
+    makeCandles(candleData, chartData);
   }, [candleData]);
 
   return chartRef;
