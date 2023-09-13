@@ -8,6 +8,8 @@ import getUsableHeight from './utils/getUsableHeight';
 import getUsableWidth from './utils/getUsableWidth';
 import setChartSize from './chartShapers/setChartSize';
 import { ChartData } from './types';
+import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoints';
+import drawMovingAverageLine from './drawMovingAverageLine/drawMovingAverageLine';
 
 const useChart = (candleData: Candle[]) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
@@ -36,6 +38,10 @@ const useChart = (candleData: Candle[]) => {
 
     makeGrid(chartData);
     makeCandles(candleData, chartData);
+
+    const dataPoints = convertCandlesToPoints(candleData);
+
+    drawMovingAverageLine(dataPoints, chartData, ctx);
   }, [candleData]);
 
   return chartRef;

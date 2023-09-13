@@ -36,3 +36,13 @@ export interface LabelSkipCheckInterface {
   labelText: string;
   directionalChartData: DirectionalChartData;
 }
+
+export type DataPoint = {
+  time: string;
+  value: number;
+};
+
+export type Coordinate = {
+  x: number;
+  y: number;
+};
