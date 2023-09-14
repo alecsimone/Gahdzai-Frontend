@@ -4,6 +4,7 @@ import getTimeString from '../utils/getTimeString';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
 const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
+  console.log(dataObj);
   const { stepList, i, thisLineCoord, labelText, directionalChartData } =
     dataObj;
 
