@@ -1,7 +1,9 @@
 import { Candle } from '@/__generated__/graphql';
 import { minimumCandleWidth } from '../constants';
 import getCandleWidth from './getCandleWidth';
-import combineCandles from './combineCandles';
+import calculateExcessCandlesAndNewWidth from './calculateExcessCandlesAndNewWidth';
+import getResizeFactor from './getResizeFactor';
+import resizeCandlesForSafety from './resizeCandlesForSafety';
 
 interface CandleResizer {
   candleData: Candle[];
@@ -11,34 +13,26 @@ interface CandleResizer {
 const getSafelySizedCandles = (candleResizerObject: CandleResizer) => {
   const { candleData, chartUsableWidth } = candleResizerObject;
 
-  let newCandleWidth;
-  let excessCandles = 0;
-  for (let i = candleData.length; i > 0; i -= 1) {
-    if (newCandleWidth == null || newCandleWidth < minimumCandleWidth) {
-      newCandleWidth = getCandleWidth(chartUsableWidth, i);
-      if (newCandleWidth >= minimumCandleWidth) {
-        excessCandles = candleData.length - i;
-      }
-    }
+  const baseCandleWidth = getCandleWidth(chartUsableWidth, candleData.length);
+
+  if (baseCandleWidth >= minimumCandleWidth) {
+    return { safelySizedCandleData: candleData, candleWidth: baseCandleWidth };
   }
 
-  const maxCandlesAllowed = candleData.length - excessCandles;
-  const candlesLeftRatio = maxCandlesAllowed / candleData.length;
-  const resizeFactor = Math.ceil(1 / candlesLeftRatio);
+  const { excessCandles, newCandleWidth } = calculateExcessCandlesAndNewWidth({
+    startingCandleCount: candleData.length,
+    chartUsableWidth,
+    baseCandleWidth,
+  });
 
-  const safelySizedCandles: Candle[] = [];
-  for (let i = 0; i < candleData.length; i += resizeFactor) {
-    const candlesToCombine: Candle[] = [];
-    for (let n = 0; n < resizeFactor; n += 1) {
-      if (candleData[n + i] != null) {
-        candlesToCombine.push(candleData[n + i]);
-      }
-    }
-    const newCandle = combineCandles(candlesToCombine);
-    safelySizedCandles.push(newCandle);
-  }
+  const resizeFactor = getResizeFactor(candleData.length, excessCandles);
 
-  return safelySizedCandles;
+  const safelySizedCandleData = resizeCandlesForSafety(
+    candleData,
+    resizeFactor
+  );
+
+  return { safelySizedCandleData, candleWidth: newCandleWidth };
 };
 
 export default getSafelySizedCandles;

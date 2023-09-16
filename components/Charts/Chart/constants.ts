@@ -12,4 +12,4 @@ export const gutterPadding = 10;
 export const downColor = setAlpha(setSaturation(red, 65), 1);
 export const upColor = setAlpha(green, 0.9);
 
-export const minimumCandleWidth = 2;
+export const minimumCandleWidth = 3;

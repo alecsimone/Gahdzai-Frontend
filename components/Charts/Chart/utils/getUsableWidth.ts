@@ -1,4 +1,5 @@
-const getUsableWidth = (width: number, verticalGutter: number) =>
-  width - verticalGutter;
+import { verticalGutter } from '../constants';
+
+const getUsableWidth = (width: number) => width - verticalGutter;
 
 export default getUsableWidth;
