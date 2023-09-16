@@ -4,7 +4,7 @@ import {
   setSaturation,
 } from '@/styles/functions/modifyColorFunctions';
 
-export const horizontalGutter = 40;
+// export const horizontalGutter = 40;
 export const verticalGutter = 90;
 
 export const gutterPadding = 10;

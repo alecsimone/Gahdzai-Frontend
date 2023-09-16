@@ -9,6 +9,7 @@ import setChartSize from './chartShapers/setChartSize';
 import { ChartData } from './types';
 import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoints';
 import drawMovingAverageLine from './drawMovingAverageLine/drawMovingAverageLine';
+import setUpFont from './gridMakers/setUpFont';
 
 const chartMaker = (
   chartRef: RefObject<HTMLCanvasElement>,
@@ -21,11 +22,14 @@ const chartMaker = (
   const ctx = chartRef.current.getContext('2d');
   if (ctx == null) return;
 
-  const { width, height } = chartRef.current;
-  const usableHeight = getUsableHeight(height);
-  const usableWidth = getUsableWidth(width);
-
   const chartBoundaries = getChartBoundaries(candleData);
+
+  const { width, height } = chartRef.current;
+  setUpFont(ctx);
+
+  const usableHeight = getUsableHeight(height, ctx);
+  const usableWidth = getUsableWidth({ width, ctx, chartBoundaries });
+
   const chartData: ChartData = {
     ctx,
     usableWidth,

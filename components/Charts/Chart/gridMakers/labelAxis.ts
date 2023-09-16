@@ -21,6 +21,7 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
 
   const { lineTerminus } = getChartShapeFromChartData(directionalChartData);
 
+  // Technically we've done this already, but let's just make sure nothing changed it between here and there
   ctx.font = `${smallText} sans-serif`;
   ctx.fillStyle = white;
 
