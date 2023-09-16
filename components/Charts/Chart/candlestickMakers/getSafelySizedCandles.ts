@@ -1,7 +1,7 @@
 import { Candle } from '@/__generated__/graphql';
 import { minimumCandleWidth } from '../constants';
 import getCandleWidth from './getCandleWidth';
-import calculateExcessCandlesAndNewWidth from './calculateExcessCandlesAndNewWidth';
+import countExcessCandles from './countExcessCandles';
 import getResizeFactor from './getResizeFactor';
 import resizeCandlesForSafety from './resizeCandlesForSafety';
 
@@ -19,7 +19,7 @@ const getSafelySizedCandles = (candleResizerObject: CandleResizer) => {
     return { safelySizedCandleData: candleData, candleWidth: baseCandleWidth };
   }
 
-  const { excessCandles, newCandleWidth } = calculateExcessCandlesAndNewWidth({
+  const excessCandles = countExcessCandles({
     startingCandleCount: candleData.length,
     chartUsableWidth,
     baseCandleWidth,
@@ -30,6 +30,11 @@ const getSafelySizedCandles = (candleResizerObject: CandleResizer) => {
   const safelySizedCandleData = resizeCandlesForSafety(
     candleData,
     resizeFactor
+  );
+
+  const newCandleWidth = getCandleWidth(
+    chartUsableWidth,
+    safelySizedCandleData.length
   );
 
   return { safelySizedCandleData, candleWidth: newCandleWidth };

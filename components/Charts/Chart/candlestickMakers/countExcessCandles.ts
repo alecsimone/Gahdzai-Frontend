@@ -7,9 +7,7 @@ interface CandleTrimmerInterface {
   baseCandleWidth: number;
 }
 
-const calculateExcessCandlesAndNewWidth = (
-  candleTrimmerInterface: CandleTrimmerInterface
-) => {
+const countExcessCandles = (candleTrimmerInterface: CandleTrimmerInterface) => {
   const { startingCandleCount, chartUsableWidth, baseCandleWidth } =
     candleTrimmerInterface;
 
@@ -24,7 +22,7 @@ const calculateExcessCandlesAndNewWidth = (
     }
   }
 
-  return { excessCandles, newCandleWidth };
+  return excessCandles;
 };
 
-export default calculateExcessCandlesAndNewWidth;
+export default countExcessCandles;

@@ -41,7 +41,6 @@ const chartMaker = (
   makeCandles(candleData, chartData);
 
   const dataPoints = convertCandlesToPoints(candleData);
-
   drawMovingAverageLine(dataPoints, chartData, ctx);
 };
 
