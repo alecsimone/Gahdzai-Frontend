@@ -18,7 +18,7 @@ const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
 
   let thisTextOverhang: number;
   if (lineDirection === 'horizontal') {
-    thisTextOverhang = thisTextMeasurement.fontBoundingBoxAscent; // For height, fontBoundingBox seems to be more accurate
+    thisTextOverhang = thisTextMeasurement.actualBoundingBoxAscent; // For height, fontBoundingBox seems to be more accurate
   } else {
     thisTextOverhang = thisTextMeasurement.actualBoundingBoxLeft; // For width, actualBoundingBox seems to be more accurate
   }
