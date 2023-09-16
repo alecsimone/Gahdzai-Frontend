@@ -4,7 +4,6 @@ import getTimeString from '../utils/getTimeString';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
 const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
-  console.log(dataObj);
   const { stepList, i, thisLineCoord, labelText, directionalChartData } =
     dataObj;
 
@@ -19,9 +18,9 @@ const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
 
   let thisTextOverhang: number;
   if (lineDirection === 'horizontal') {
-    thisTextOverhang = thisTextMeasurement.actualBoundingBoxAscent;
+    thisTextOverhang = thisTextMeasurement.fontBoundingBoxAscent; // For height, fontBoundingBox seems to be more accurate
   } else {
-    thisTextOverhang = thisTextMeasurement.actualBoundingBoxLeft;
+    thisTextOverhang = thisTextMeasurement.actualBoundingBoxLeft; // For width, actualBoundingBox seems to be more accurate
   }
   const thisTextBoundary = thisLineCoord - thisTextOverhang;
 
@@ -42,13 +41,14 @@ const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
 
   let previousTextOverhang: number;
   if (lineDirection === 'horizontal') {
-    previousTextOverhang = previousTextMeasurement.actualBoundingBoxDescent;
+    previousTextOverhang = previousTextMeasurement.fontBoundingBoxDescent; // For height, fontBoundingBox seems to be more accurate
   } else {
-    previousTextOverhang = previousTextMeasurement.actualBoundingBoxRight;
+    previousTextOverhang = previousTextMeasurement.width; // I believe we need to use width because the text is aligned to the left, so the actualBoundingBoxRight seems to only get half of its true width
   }
+
   const previousTextBoundary = previousLineCoord + previousTextOverhang;
 
-  if (previousTextBoundary > thisTextBoundary + 10) {
+  if (previousTextBoundary + 6 > thisTextBoundary) {
     shouldSkipLabel = true;
   }
   return shouldSkipLabel;

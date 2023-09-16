@@ -18,7 +18,7 @@ const checkForEndingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
 
   let thisTextOverhang: number;
   if (lineDirection === 'horizontal') {
-    thisTextOverhang = thisTextMeasurement.actualBoundingBoxDescent;
+    thisTextOverhang = thisTextMeasurement.fontBoundingBoxDescent;
   } else {
     thisTextOverhang = thisTextMeasurement.actualBoundingBoxRight;
   }
@@ -42,7 +42,7 @@ const checkForEndingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
 
   let nextTextOverhang: number;
   if (lineDirection === 'horizontal') {
-    nextTextOverhang = nextTextMeasurement.actualBoundingBoxAscent;
+    nextTextOverhang = nextTextMeasurement.fontBoundingBoxAscent;
   } else {
     nextTextOverhang = nextTextMeasurement.actualBoundingBoxLeft;
   }
