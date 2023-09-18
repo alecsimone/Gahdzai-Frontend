@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import { Candle } from '@/__generated__/graphql';
+import { Candle, CandleCollection } from '@/__generated__/graphql';
 import getChartBoundaries from './chartShapers/getChartBoundaries';
 import makeGrid from './gridMakers/makeGrid';
 import makeCandles from './candlestickMakers/makeCandles';
@@ -11,10 +11,18 @@ import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoin
 import drawMovingAverageLine from './drawMovingAverageLine/drawMovingAverageLine';
 import setUpFont from './gridMakers/setUpFont';
 
-const chartMaker = (
-  chartRef: RefObject<HTMLCanvasElement>,
-  candleData: Candle[]
-) => {
+type ChartTypes = 'Candlestick' | 'PercentChange';
+
+interface ChartMakerInterface {
+  chartRef: RefObject<HTMLCanvasElement>;
+  candleData?: Candle[];
+  candleCollection?: CandleCollection[];
+  chartType: ChartTypes;
+}
+
+const chartMaker = (dataObj: ChartMakerInterface) => {
+  const { chartRef, candleData, candleCollection, chartType } = dataObj;
+
   if (chartRef.current == null) return;
   setChartSize(chartRef.current);
 
@@ -22,7 +30,20 @@ const chartMaker = (
   const ctx = chartRef.current.getContext('2d');
   if (ctx == null) return;
 
-  const chartBoundaries = getChartBoundaries(candleData);
+  let fullCandleData: Candle[];
+  if (chartType === 'Candlestick' && candleData != null) {
+    fullCandleData = candleData;
+  } else if (chartType === 'PercentChange' && candleCollection != null) {
+    const collectedCandles: Candle[] = [];
+    candleCollection.forEach((collection) => {
+      collectedCandles.concat(collection.candles);
+    });
+
+    fullCandleData = collectedCandles;
+  } else {
+    return;
+  }
+  const chartBoundaries = getChartBoundaries(fullCandleData);
 
   const { width, height } = chartRef.current;
   setUpFont(ctx);
@@ -38,10 +59,15 @@ const chartMaker = (
   };
 
   makeGrid(chartData);
-  makeCandles(candleData, chartData);
 
-  const dataPoints = convertCandlesToPoints(candleData);
-  drawMovingAverageLine(dataPoints, chartData, ctx);
+  if (chartType === 'Candlestick' && candleData != null) {
+    makeCandles(candleData, chartData);
+
+    const dataPoints = convertCandlesToPoints(candleData);
+    drawMovingAverageLine(dataPoints, chartData, ctx);
+  } else if (chartType === 'PercentChange') {
+    console.log(candleData);
+  }
 };
 
 export default chartMaker;
