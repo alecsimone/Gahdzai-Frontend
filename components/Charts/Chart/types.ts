@@ -1,3 +1,36 @@
+import {
+  Get_Candles_QueryQuery,
+  Get_Index_Data_QueryQuery,
+  Candle,
+  PercentageChanges,
+} from '@/__generated__/graphql';
+
+export type ChartTypes = 'Candlestick' | 'PercentChange';
+
+interface CandlestickQueryProps {
+  data: Get_Candles_QueryQuery;
+  chartType: 'Candlestick';
+}
+
+interface PercentageQueryProps {
+  data: Get_Index_Data_QueryQuery;
+  chartType: 'PercentChange';
+}
+
+export type ChartQueryProps = CandlestickQueryProps | PercentageQueryProps;
+
+interface CandlestickProps {
+  data: Candle[];
+  chartType: 'Candlestick';
+}
+
+interface PercentageChangeProps {
+  data: PercentageChanges[];
+  chartType: 'PercentChange';
+}
+
+export type ChartProps = CandlestickProps | PercentageChangeProps;
+
 export interface CandleShape {
   color: string;
   candleStartX: number;
@@ -20,6 +53,7 @@ export interface ChartData {
   usableWidth: number;
   usableHeight: number;
   chartBoundaries: ChartBoundaries;
+  chartType: ChartTypes;
 }
 
 export type LineDirection = 'horizontal' | 'vertical';

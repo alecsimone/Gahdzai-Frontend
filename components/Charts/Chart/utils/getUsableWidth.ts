@@ -1,11 +1,12 @@
 import makeSafeDecimals from '@/utils/makeSafeDecimals';
-import { ChartBoundaries } from '../types';
+import { ChartBoundaries, ChartTypes } from '../types';
 import { gutterPadding } from '../constants';
 
 interface UsableWidthCalculator {
   width: number;
   ctx: CanvasRenderingContext2D;
   chartBoundaries: ChartBoundaries;
+  chartType: ChartTypes;
 }
 
 const getUsableWidth = (dataObj: UsableWidthCalculator) => {
@@ -13,6 +14,7 @@ const getUsableWidth = (dataObj: UsableWidthCalculator) => {
     width,
     ctx,
     chartBoundaries: { chartTop, chartBottom },
+    chartType,
   } = dataObj;
 
   const top = makeSafeDecimals(chartTop);
@@ -20,11 +22,17 @@ const getUsableWidth = (dataObj: UsableWidthCalculator) => {
   if (!topString.includes('.')) {
     topString = `${topString}.00`;
   }
+  if (chartType === 'PercentChange') {
+    topString += '%';
+  }
 
   const bottom = makeSafeDecimals(chartBottom);
   let bottomString = `${bottom}`;
   if (!bottomString.includes('.')) {
     bottomString = `${bottomString}.00`;
+  }
+  if (chartType === 'PercentChange') {
+    bottomString += '%';
   }
 
   const topStringWidth = ctx.measureText(topString).width;

@@ -26,12 +26,6 @@ export type Candle = {
   volume?: Maybe<Scalars['String']['output']>;
 };
 
-export type CandleCollection = {
-  __typename?: 'CandleCollection';
-  candles: Array<Candle>;
-  symbol: Scalars['String']['output'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
@@ -52,11 +46,23 @@ export type MutationLogInArgs = {
   password: Scalars['String']['input'];
 };
 
+export type PercentageChangeValue = {
+  __typename?: 'PercentageChangeValue';
+  percentageChange: Scalars['Float']['output'];
+  time: Scalars['String']['output'];
+};
+
+export type PercentageChanges = {
+  __typename?: 'PercentageChanges';
+  symbol: Scalars['String']['output'];
+  values: Array<PercentageChangeValue>;
+};
+
 export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<User>;
-  getAllIndexCandles?: Maybe<Array<Maybe<CandleCollection>>>;
-  getCandles?: Maybe<Array<Maybe<Candle>>>;
+  getAllIndexData: Array<PercentageChanges>;
+  getCandles: Array<Candle>;
 };
 
 
@@ -65,7 +71,7 @@ export type QueryCurrentUserArgs = {
 };
 
 
-export type QueryGetAllIndexCandlesArgs = {
+export type QueryGetAllIndexDataArgs = {
   from: Scalars['String']['input'];
   resolution: Scalars['String']['input'];
   to: Scalars['String']['input'];
@@ -110,16 +116,16 @@ export type Get_Candles_QueryQueryVariables = Exact<{
 }>;
 
 
-export type Get_Candles_QueryQuery = { __typename?: 'Query', getCandles?: Array<{ __typename?: 'Candle', open: string, close: string, high: string, low: string, volume?: string | null, time: string } | null> | null };
+export type Get_Candles_QueryQuery = { __typename?: 'Query', getCandles: Array<{ __typename?: 'Candle', open: string, close: string, high: string, low: string, volume?: string | null, time: string }> };
 
-export type Get_Index_Candles_QueryQueryVariables = Exact<{
+export type Get_Index_Data_QueryQueryVariables = Exact<{
   from: Scalars['String']['input'];
   to: Scalars['String']['input'];
   resolution: Scalars['String']['input'];
 }>;
 
 
-export type Get_Index_Candles_QueryQuery = { __typename?: 'Query', getAllIndexCandles?: Array<{ __typename?: 'CandleCollection', symbol: string, candles: Array<{ __typename?: 'Candle', open: string, close: string, high: string, low: string, volume?: string | null, time: string }> } | null> | null };
+export type Get_Index_Data_QueryQuery = { __typename?: 'Query', getAllIndexData: Array<{ __typename?: 'PercentageChanges', symbol: string, values: Array<{ __typename?: 'PercentageChangeValue', percentageChange: number, time: string }> }> };
 
 export type Log_Out_MutationMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -163,7 +169,7 @@ export type Initial_Member_QueryQuery = { __typename?: 'Query', currentUser?: (
 
 export const MemberBoxFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberBoxFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}}]} as unknown as DocumentNode<MemberBoxFieldsFragment, unknown>;
 export const Get_Candles_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_CANDLES_QUERY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"symbol"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"to"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getCandles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"symbol"},"value":{"kind":"Variable","name":{"kind":"Name","value":"symbol"}}},{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}},{"kind":"Argument","name":{"kind":"Name","value":"to"},"value":{"kind":"Variable","name":{"kind":"Name","value":"to"}}},{"kind":"Argument","name":{"kind":"Name","value":"resolution"},"value":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"open"}},{"kind":"Field","name":{"kind":"Name","value":"close"}},{"kind":"Field","name":{"kind":"Name","value":"high"}},{"kind":"Field","name":{"kind":"Name","value":"low"}},{"kind":"Field","name":{"kind":"Name","value":"volume"}},{"kind":"Field","name":{"kind":"Name","value":"time"}}]}}]}}]} as unknown as DocumentNode<Get_Candles_QueryQuery, Get_Candles_QueryQueryVariables>;
-export const Get_Index_Candles_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_INDEX_CANDLES_QUERY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"to"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllIndexCandles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}},{"kind":"Argument","name":{"kind":"Name","value":"to"},"value":{"kind":"Variable","name":{"kind":"Name","value":"to"}}},{"kind":"Argument","name":{"kind":"Name","value":"resolution"},"value":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"candles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"open"}},{"kind":"Field","name":{"kind":"Name","value":"close"}},{"kind":"Field","name":{"kind":"Name","value":"high"}},{"kind":"Field","name":{"kind":"Name","value":"low"}},{"kind":"Field","name":{"kind":"Name","value":"volume"}},{"kind":"Field","name":{"kind":"Name","value":"time"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Index_Candles_QueryQuery, Get_Index_Candles_QueryQueryVariables>;
+export const Get_Index_Data_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GET_INDEX_DATA_QUERY"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"from"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"to"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllIndexData"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"from"},"value":{"kind":"Variable","name":{"kind":"Name","value":"from"}}},{"kind":"Argument","name":{"kind":"Name","value":"to"},"value":{"kind":"Variable","name":{"kind":"Name","value":"to"}}},{"kind":"Argument","name":{"kind":"Name","value":"resolution"},"value":{"kind":"Variable","name":{"kind":"Name","value":"resolution"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"percentageChange"}},{"kind":"Field","name":{"kind":"Name","value":"time"}}]}}]}}]}}]} as unknown as DocumentNode<Get_Index_Data_QueryQuery, Get_Index_Data_QueryQueryVariables>;
 export const Log_Out_MutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LOG_OUT_MUTATION"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logOut"}}]}}]} as unknown as DocumentNode<Log_Out_MutationMutation, Log_Out_MutationMutationVariables>;
 export const Member_Box_QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"MEMBER_BOX_QUERY"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentUser"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MemberBoxFields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MemberBoxFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"avatar"}}]}}]} as unknown as DocumentNode<Member_Box_QueryQuery, Member_Box_QueryQueryVariables>;
 export const Log_In_MutationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LOG_IN_MUTATION"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"logIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<Log_In_MutationMutation, Log_In_MutationMutationVariables>;

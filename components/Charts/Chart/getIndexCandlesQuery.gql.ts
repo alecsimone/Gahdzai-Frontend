@@ -1,23 +1,19 @@
 import { gql } from '@/__generated__';
 
-const GET_INDEX_CANDLES_QUERY = gql(/* GraphQL */ `
-  query GET_INDEX_CANDLES_QUERY(
+const GET_INDEX_DATA_QUERY = gql(/* GraphQL */ `
+  query GET_INDEX_DATA_QUERY(
     $from: String!
     $to: String!
     $resolution: String!
   ) {
-    getAllIndexCandles(from: $from, to: $to, resolution: $resolution) {
+    getAllIndexData(from: $from, to: $to, resolution: $resolution) {
       symbol
-      candles {
-        open
-        close
-        high
-        low
-        volume
+      values {
+        percentageChange
         time
       }
     }
   }
 `);
 
-export default GET_INDEX_CANDLES_QUERY;
+export default GET_INDEX_DATA_QUERY;

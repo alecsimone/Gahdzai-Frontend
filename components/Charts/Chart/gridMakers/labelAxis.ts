@@ -1,8 +1,9 @@
 import { white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
+import makeSafeDecimals from '@/utils/makeSafeDecimals';
 import { gutterPadding } from '../constants';
 import checkForLabelSkip from './checkForLabelSkip';
-import { DirectionalChartData } from '../types';
+import { DirectionalChartData, ChartTypes } from '../types';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 import getTimeString from '../utils/getTimeString';
 
@@ -11,10 +12,12 @@ interface LabelAxisInterface {
   i: number;
   thisLineCoord: number;
   directionalChartData: DirectionalChartData;
+  chartType: ChartTypes;
 }
 
 const labelAxis = (dataObj: LabelAxisInterface) => {
-  const { stepList, i, thisLineCoord, directionalChartData } = dataObj;
+  const { stepList, i, thisLineCoord, directionalChartData, chartType } =
+    dataObj;
 
   const { lineDirection, chartData } = directionalChartData;
   const { ctx } = chartData;
@@ -50,7 +53,10 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
   if (lineDirection === 'vertical') {
     labelText = getTimeString(stepList[i]);
   } else {
-    labelText = `${stepList[i]}`;
+    labelText = `${makeSafeDecimals(stepList[i])}`;
+    if (chartType === 'PercentChange') {
+      labelText += '%';
+    }
   }
 
   const shouldSkipLabel = checkForLabelSkip({

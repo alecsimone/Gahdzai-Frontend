@@ -1,17 +1,29 @@
 import { useEffect, useRef } from 'react';
-import { Candle } from '@/__generated__/graphql';
-import chartMaker from './chartMaker';
+import chartMaker, { ChartMakerInterface } from './chartMaker';
+import { ChartProps } from './types';
 
-export type ChartTypes = 'Candlestick' | 'PercentChange';
-
-const useChart = (candleData: Candle[], chartType: ChartTypes) => {
+const useChart = ({ data, chartType }: ChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    chartMaker({ chartRef, candleData, chartType });
+    let chartMakerDataObj: ChartMakerInterface;
+    if (chartType === 'Candlestick') {
+      chartMakerDataObj = {
+        chartRef,
+        data,
+        chartType,
+      };
+    } else {
+      chartMakerDataObj = {
+        chartRef,
+        data,
+        chartType,
+      };
+    }
+    chartMaker(chartMakerDataObj);
 
     const chartMakerHandler = () => {
-      chartMaker({ chartRef, candleData, chartType });
+      chartMaker(chartMakerDataObj);
     };
 
     window.addEventListener('resize', chartMakerHandler);
@@ -19,7 +31,7 @@ const useChart = (candleData: Candle[], chartType: ChartTypes) => {
     return () => {
       window.removeEventListener('resize', chartMakerHandler);
     };
-  }, [candleData]);
+  }, [data, chartType]);
 
   return chartRef;
 };

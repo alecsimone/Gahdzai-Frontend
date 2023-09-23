@@ -1,16 +1,14 @@
 import { blue } from '@/styles/constants/colors';
-import {
-  setAlpha,
-  setLightness,
-} from '@/styles/functions/modifyColorFunctions';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { Coordinate } from '../types';
 
 const drawLineFromCoords = (
   coords: Coordinate[],
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D,
+  color: string = blue
 ) => {
   ctx.lineWidth = 4;
-  ctx.strokeStyle = setAlpha(setLightness(blue, 60), 0.8);
+  ctx.strokeStyle = setAlpha(color, 0.8);
 
   // Begin path
   ctx.moveTo(coords[0].x, coords[0].y);

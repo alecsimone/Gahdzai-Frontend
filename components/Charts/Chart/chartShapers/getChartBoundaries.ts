@@ -1,24 +1,16 @@
-import { Candle } from '@/__generated__/graphql';
-import getDataBottom from './getDataBottom';
-import getDataEnd from './getDataEnd';
-import getDataStart from './getDataStart';
-import getDataTop from './getDataTop';
-import { ChartBoundaries } from '../types';
+import getCandleChartBoundaries from './getCandleChartBoundaries';
+import getPercentageChartBoundaries from './getPercentageChartBoundaries';
+import { ChartBoundaries, ChartProps } from '../types';
 
-const getChartBoundaries = (candleData: Candle[]) => {
-  const chartTop = getDataTop(candleData);
-  const chartBottom = getDataBottom(candleData);
-  const chartStart = getDataStart(candleData);
-  const chartEnd = getDataEnd(candleData);
+const getChartBoundaries = ({ data, chartType }: ChartProps) => {
+  if (chartType === 'Candlestick') {
+    return getCandleChartBoundaries(data);
+  }
+  if (chartType === 'PercentChange') {
+    return getPercentageChartBoundaries(data);
+  }
 
-  const chartBoundaries: ChartBoundaries = {
-    chartTop,
-    chartBottom,
-    chartStart: parseInt(chartStart, 10),
-    chartEnd: parseInt(chartEnd, 10),
-  };
-
-  return chartBoundaries;
+  return null as unknown as ChartBoundaries;
 };
 
 export default getChartBoundaries;

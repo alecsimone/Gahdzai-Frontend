@@ -1,27 +1,35 @@
 import { RefObject } from 'react';
-import { Candle, CandleCollection } from '@/__generated__/graphql';
-import getChartBoundaries from './chartShapers/getChartBoundaries';
+import { Candle, PercentageChanges } from '@/__generated__/graphql';
 import makeGrid from './gridMakers/makeGrid';
-import makeCandles from './candlestickMakers/makeCandles';
 import getUsableHeight from './utils/getUsableHeight';
 import getUsableWidth from './utils/getUsableWidth';
 import setChartSize from './chartShapers/setChartSize';
-import { ChartData } from './types';
-import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoints';
-import drawMovingAverageLine from './drawMovingAverageLine/drawMovingAverageLine';
+import { ChartData, ChartProps } from './types';
 import setUpFont from './gridMakers/setUpFont';
+import makeCandlestickChart from './makeCandlestickChart';
+import makePercentageChart from './makePercentageChart';
+import getChartBoundaries from './chartShapers/getChartBoundaries';
 
-type ChartTypes = 'Candlestick' | 'PercentChange';
-
-interface ChartMakerInterface {
+export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
-  candleData?: Candle[];
-  candleCollection?: CandleCollection[];
-  chartType: ChartTypes;
 }
 
+interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
+  chartType: 'Candlestick';
+  data: Candle[];
+}
+
+interface PercentageChartMakerInterface extends ChartMakerInterfaceBase {
+  chartType: 'PercentChange';
+  data: PercentageChanges[];
+}
+
+export type ChartMakerInterface =
+  | CandleChartMakerInterface
+  | PercentageChartMakerInterface;
+
 const chartMaker = (dataObj: ChartMakerInterface) => {
-  const { chartRef, candleData, candleCollection, chartType } = dataObj;
+  const { chartRef, chartType, data } = dataObj;
 
   if (chartRef.current == null) return;
   setChartSize(chartRef.current);
@@ -30,43 +38,46 @@ const chartMaker = (dataObj: ChartMakerInterface) => {
   const ctx = chartRef.current.getContext('2d');
   if (ctx == null) return;
 
-  let fullCandleData: Candle[];
-  if (chartType === 'Candlestick' && candleData != null) {
-    fullCandleData = candleData;
-  } else if (chartType === 'PercentChange' && candleCollection != null) {
-    const collectedCandles: Candle[] = [];
-    candleCollection.forEach((collection) => {
-      collectedCandles.concat(collection.candles);
-    });
-
-    fullCandleData = collectedCandles;
-  } else {
-    return;
-  }
-  const chartBoundaries = getChartBoundaries(fullCandleData);
-
   const { width, height } = chartRef.current;
   setUpFont(ctx);
 
+  let chartProps: ChartProps;
+  if (chartType === 'Candlestick') {
+    chartProps = {
+      data,
+      chartType,
+    };
+  } else {
+    chartProps = {
+      data,
+      chartType,
+    };
+  }
+
+  const chartBoundaries = getChartBoundaries(chartProps);
+
   const usableHeight = getUsableHeight(height, ctx);
-  const usableWidth = getUsableWidth({ width, ctx, chartBoundaries });
+  const usableWidth = getUsableWidth({
+    width,
+    ctx,
+    chartBoundaries,
+    chartType,
+  });
 
   const chartData: ChartData = {
     ctx,
     usableWidth,
     usableHeight,
     chartBoundaries,
+    chartType,
   };
 
-  makeGrid(chartData);
+  makeGrid(chartData); // TODO Add chart type, put percentages after labels for percentage change type
 
-  if (chartType === 'Candlestick' && candleData != null) {
-    makeCandles(candleData, chartData);
-
-    const dataPoints = convertCandlesToPoints(candleData);
-    drawMovingAverageLine(dataPoints, chartData, ctx);
+  if (chartType === 'Candlestick') {
+    makeCandlestickChart({ data, chartData });
   } else if (chartType === 'PercentChange') {
-    console.log(candleData);
+    makePercentageChart({ data, chartData });
   }
 };
 
