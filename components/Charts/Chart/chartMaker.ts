@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, Dispatch, SetStateAction, ReactNode } from 'react';
 import { Candle, PercentageChanges } from '@/__generated__/graphql';
 import makeGrid from './gridMakers/makeGrid';
 import getUsableHeight from './utils/getUsableHeight';
@@ -12,6 +12,7 @@ import getChartBoundaries from './chartShapers/getChartBoundaries';
 
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
+  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
 }
 
 interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
@@ -29,7 +30,7 @@ export type ChartMakerInterface =
   | PercentageChartMakerInterface;
 
 const chartMaker = (dataObj: ChartMakerInterface) => {
-  const { chartRef, chartType, data } = dataObj;
+  const { chartRef, chartType, data, setLegendElements } = dataObj;
 
   if (chartRef.current == null) return;
   setChartSize(chartRef.current);
@@ -46,11 +47,13 @@ const chartMaker = (dataObj: ChartMakerInterface) => {
     chartProps = {
       data,
       chartType,
+      setLegendElements,
     };
   } else {
     chartProps = {
       data,
       chartType,
+      setLegendElements,
     };
   }
 
@@ -72,12 +75,12 @@ const chartMaker = (dataObj: ChartMakerInterface) => {
     chartType,
   };
 
-  makeGrid(chartData); // TODO Add chart type, put percentages after labels for percentage change type
+  makeGrid(chartData);
 
   if (chartType === 'Candlestick') {
-    makeCandlestickChart({ data, chartData });
+    makeCandlestickChart({ data, chartData, setLegendElements });
   } else if (chartType === 'PercentChange') {
-    makePercentageChart({ data, chartData });
+    makePercentageChart({ data, chartData, setLegendElements });
   }
 };
 

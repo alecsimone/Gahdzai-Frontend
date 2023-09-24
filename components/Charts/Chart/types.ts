@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, ReactNode } from 'react';
 import {
   Get_Candles_QueryQuery,
   Get_Index_Data_QueryQuery,
@@ -7,24 +8,32 @@ import {
 
 export type ChartTypes = 'Candlestick' | 'PercentChange';
 
-interface CandlestickQueryProps {
+interface ChartQueryPropsBase {
+  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+}
+
+interface CandlestickQueryProps extends ChartQueryPropsBase {
   data: Get_Candles_QueryQuery;
   chartType: 'Candlestick';
 }
 
-interface PercentageQueryProps {
+interface PercentageQueryProps extends ChartQueryPropsBase {
   data: Get_Index_Data_QueryQuery;
   chartType: 'PercentChange';
 }
 
 export type ChartQueryProps = CandlestickQueryProps | PercentageQueryProps;
 
-interface CandlestickProps {
+interface ChartPropsBase {
+  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+}
+
+interface CandlestickProps extends ChartPropsBase {
   data: Candle[];
   chartType: 'Candlestick';
 }
 
-interface PercentageChangeProps {
+interface PercentageChangeProps extends ChartPropsBase {
   data: PercentageChanges[];
   chartType: 'PercentChange';
 }

@@ -12,6 +12,8 @@ const GET_INDEX_DATA_QUERY = gql(/* GraphQL */ `
         percentageChange
         time
       }
+      previousClose
+      latestValue
     }
   }
 `);

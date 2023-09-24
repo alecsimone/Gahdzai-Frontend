@@ -1,6 +1,6 @@
 import { white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
-import makeSafeDecimals from '@/utils/makeSafeDecimals';
+import makeNumberReadable from '@/utils/makeNumberReadable';
 import { gutterPadding } from '../constants';
 import checkForLabelSkip from './checkForLabelSkip';
 import { DirectionalChartData, ChartTypes } from '../types';
@@ -53,7 +53,7 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
   if (lineDirection === 'vertical') {
     labelText = getTimeString(stepList[i]);
   } else {
-    labelText = `${makeSafeDecimals(stepList[i])}`;
+    labelText = `${makeNumberReadable(stepList[i])}`;
     if (chartType === 'PercentChange') {
       labelText += '%';
     }

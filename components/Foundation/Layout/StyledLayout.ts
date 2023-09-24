@@ -6,7 +6,7 @@ const StyledLayout = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  header {
+  header.mainHeader {
     height: ${smallHead};
   }
   .pageComponent {

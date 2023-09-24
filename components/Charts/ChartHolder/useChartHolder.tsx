@@ -1,9 +1,12 @@
 import { useQuery } from '@apollo/client';
+import { useState, ReactNode } from 'react';
 import GET_INDEX_DATA_QUERY from '../Chart/getIndexCandlesQuery.gql';
 
 const resolution = 1;
 
 const useChartHolder = () => {
+  const [legendElements, setLegendElements] = useState<ReactNode[]>([]);
+
   // TODO Handle holidays
   const startDate = new Date();
   const dayOfWeek = startDate.getDay();
@@ -33,7 +36,7 @@ const useChartHolder = () => {
       resolution: `${resolution}`,
     },
   });
-  return { data, loading, error };
+  return { data, loading, error, legendElements, setLegendElements };
 };
 
 export default useChartHolder;

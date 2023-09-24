@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import chartMaker, { ChartMakerInterface } from './chartMaker';
 import { ChartProps } from './types';
 
-const useChart = ({ data, chartType }: ChartProps) => {
+const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -12,12 +12,14 @@ const useChart = ({ data, chartType }: ChartProps) => {
         chartRef,
         data,
         chartType,
+        setLegendElements,
       };
     } else {
       chartMakerDataObj = {
         chartRef,
         data,
         chartType,
+        setLegendElements,
       };
     }
     chartMaker(chartMakerDataObj);

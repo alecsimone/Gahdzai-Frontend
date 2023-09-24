@@ -5,7 +5,7 @@ import MemberBox from './MemberBox/MemberBox';
 // interface HeaderProps {}
 
 const Header = (): JSX.Element => (
-  <StyledHeader>
+  <StyledHeader className="mainHeader">
     <LogoBox />
     <MemberBox />
   </StyledHeader>
