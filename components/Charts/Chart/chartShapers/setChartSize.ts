@@ -11,6 +11,11 @@ const setChartSize = (chartElement: HTMLCanvasElement) => {
 
     const chartWidth = parent.clientWidth - 4 * oneRem;
     const chartHeight = parent.clientHeight - headerHeight - oneRem;
+    console.log({
+      parentHeight: parent.clientHeight,
+      headerHeight,
+      chartHeight,
+    });
 
     const chartEl = chartElement; // Creating a reference to the element prop to avoid modifying a prop directly
     chartEl.width = chartWidth;

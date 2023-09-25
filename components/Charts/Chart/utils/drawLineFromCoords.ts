@@ -2,12 +2,20 @@ import { blue } from '@/styles/constants/colors';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { Coordinate } from '../types';
 
-const drawLineFromCoords = (
-  coords: Coordinate[],
-  ctx: CanvasRenderingContext2D,
-  color: string = blue
-) => {
-  ctx.lineWidth = 4;
+interface DrawLineInterface {
+  coords: Coordinate[];
+  ctx: CanvasRenderingContext2D;
+  lineWidth?: number;
+  color?: string;
+}
+
+const drawLineFromCoords = ({
+  coords,
+  ctx,
+  lineWidth = 4,
+  color = blue,
+}: DrawLineInterface) => {
+  ctx.lineWidth = lineWidth;
   ctx.strokeStyle = setAlpha(color, 0.8);
 
   // Begin path

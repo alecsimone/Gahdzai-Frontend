@@ -6,11 +6,11 @@ import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 const StyledChartHolder = styled.section`
   height: 100%;
   max-height: 100%;
-  overflow: hidden;
   width: 100%;
   --chart-side-margin: calc(2rem - 2px);
   display: flex;
   flex-direction: column;
+  padding-bottom: 1rem;
   header {
     height: auto;
     margin: 0 var(--chart-side-margin);
@@ -29,10 +29,13 @@ const StyledChartHolder = styled.section`
       background: ${setAlpha(coolGrey, 0.4)};
       border: 1px solid ${setAlpha(coolGrey, 0.8)};
       padding: 0.5rem 1rem;
-      font-weight: 500;
+      font-weight: 300;
       border-radius: 3px;
       color: ${white};
       font-size: ${smallText};
+      flex-grow: 1;
+      text-align: center;
+      max-width: 40rem;
       span {
         margin: 0 0.5rem;
         &:first-child {

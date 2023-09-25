@@ -23,7 +23,12 @@ const makePercentageChart = ({
     const color = getLineColor(changes.symbol, index);
     const dataPoints = convertPercentageChangeValuesToPoints(changes.values);
     const xyPairs = convertToXYPairs(dataPoints, chartData);
-    drawLineFromCoords(xyPairs, chartData.ctx, color);
+    drawLineFromCoords({
+      coords: xyPairs,
+      ctx: chartData.ctx,
+      color,
+      lineWidth: 3,
+    });
   });
   labelPercentageChart(setLegendElements, data);
 };

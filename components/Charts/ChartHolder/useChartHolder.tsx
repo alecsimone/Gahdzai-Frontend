@@ -5,7 +5,9 @@ import GET_INDEX_DATA_QUERY from '../Chart/getIndexCandlesQuery.gql';
 const resolution = 1;
 
 const useChartHolder = () => {
-  const [legendElements, setLegendElements] = useState<ReactNode[]>([]);
+  const [legendElements, setLegendElements] = useState<ReactNode[]>([
+    <h6 className="chartLabel">Loading...</h6>,
+  ]);
 
   // TODO Handle holidays
   const startDate = new Date();

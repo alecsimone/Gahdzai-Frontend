@@ -15,7 +15,7 @@ const drawMovingAverageLine = (
   const smaXYPairs = convertToXYPairs(smaPoints, chartData);
 
   // Plot a line between the pairs
-  drawLineFromCoords(smaXYPairs, ctx);
+  drawLineFromCoords({ coords: smaXYPairs, ctx });
 };
 
 export default drawMovingAverageLine;
