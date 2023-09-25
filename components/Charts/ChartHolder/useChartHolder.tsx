@@ -9,6 +9,7 @@ const useChartHolder = () => {
 
   // TODO Handle holidays
   const startDate = new Date();
+  startDate.setHours(0, 0, 0, 0); // We want to make sure UTC time doesn't spill over into the next day
   const dayOfWeek = startDate.getDay();
   if (dayOfWeek === 0 || dayOfWeek === 1) {
     // Sunday or Monday
@@ -20,12 +21,12 @@ const useChartHolder = () => {
     startDate.setDate(currentDate - 2); // Again, Thursday's close will be 2 days back
   }
 
-  startDate.setUTCHours(18, 60 - resolution, 0, 0); // We want ${resolution} minutes before market close, which is 8PM UTC time, so 19:57 (assuming resolution === 3), but the hours parameter is 0-indexed, so it needs to be 18.
+  startDate.setUTCHours(19, 60 - resolution, 0, 0); // We want ${resolution} minutes before market close, which is 8PM UTC time, so 19:57 (assuming resolution === 3).
 
   const previousClose = Math.floor(startDate.getTime() / 1000);
 
   const endDate = new Date();
-  endDate.setUTCHours(20, 0, 0, 0); // As described above, this could be 19 for the hours parameter, but just for safety I'm making it 20. We don't need to worry about weekends, because we'll just get back data for the last active days
+  endDate.setUTCHours(21, 0, 0, 0); // As described above, this could be 20 for the hours parameter, but just for safety I'm making it 21. We don't need to worry about weekends, because we'll just get back data for the last active days
 
   const nextClose = Math.floor(endDate.getTime() / 1000);
 
