@@ -8,7 +8,7 @@ const StyledChart = styled.canvas`
   border-radius: 3px;
   /* margin: calc(2rem - 2px); */
   margin: 0 var(--chart-side-margin);
-  height: calc(100% - 5rem);
+  /* height: calc(100% - 7rem); */
   width: calc(100% - 4rem);
 `;
 

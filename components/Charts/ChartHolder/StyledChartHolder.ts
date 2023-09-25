@@ -5,14 +5,19 @@ import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 
 const StyledChartHolder = styled.section`
   height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   width: 100%;
   --chart-side-margin: calc(2rem - 2px);
+  display: flex;
+  flex-direction: column;
   header {
     height: auto;
     margin: 0 var(--chart-side-margin);
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     display: flex;
     align-items: center;
+    flex-grow: 0;
     > * {
       margin: 0 0.5rem;
       height: 100%;
@@ -38,6 +43,9 @@ const StyledChartHolder = styled.section`
         }
       }
     }
+  }
+  canvas {
+    flex-grow: 1;
   }
 `;
 
