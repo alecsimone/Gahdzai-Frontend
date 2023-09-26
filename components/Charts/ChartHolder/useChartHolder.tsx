@@ -21,6 +21,9 @@ const useChartHolder = () => {
     // Saturday
     const currentDate = startDate.getDate();
     startDate.setDate(currentDate - 2); // Again, Thursday's close will be 2 days back
+  } else {
+    const currentDate = startDate.getDate();
+    startDate.setDate(currentDate - 1);
   }
 
   startDate.setUTCHours(19, 60 - resolution, 0, 0); // We want ${resolution} minutes before market close, which is 8PM UTC time, so 19:57 (assuming resolution === 3).

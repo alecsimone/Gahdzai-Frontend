@@ -3,6 +3,7 @@ import { PercentageChanges } from '@/__generated__/graphql';
 import makeSafeDecimals from '@/utils/makeSafeDecimals';
 import makeNumberReadable from '@/utils/makeNumberReadable';
 import { white } from '@/styles/constants/colors';
+import { setLightness } from '@/styles/functions/modifyColorFunctions';
 import getLineColor from './utils/getLineColor';
 import { downColor, upColor } from './constants';
 
@@ -30,20 +31,31 @@ const labelPercentageChart = (
     const latestValueString = `${makeNumberReadable(latestValue)}`;
     const latestValueElement = <span>{latestValueString}</span>;
 
-    const changeString = `(${makeNumberReadable(
-      dailyPointChange
-    )}, ${makeNumberReadable(lastPercentChange)}%)`;
     let changeColor = white;
     if (dailyPointChange > 0) {
       changeColor = upColor;
     } else if (dailyPointChange < 0) {
-      changeColor = downColor;
+      changeColor = setLightness(downColor, 60);
     }
-    const changeElement = (
-      <span style={{ color: changeColor }}>{changeString}</span>
+
+    const rawChangeString = `${makeNumberReadable(dailyPointChange)}`;
+    const percentChangeString = `[${makeNumberReadable(lastPercentChange)}%]`;
+
+    const rawChangeElement = (
+      <span style={{ color: changeColor }}>{rawChangeString}</span>
+    );
+    const percentChangeElement = (
+      <span style={{ color: changeColor, fontWeight: '600' }}>
+        {percentChangeString}
+      </span>
     );
 
-    const labelElements = [symbolElement, latestValueElement, changeElement];
+    const labelElements = [
+      symbolElement,
+      latestValueElement,
+      rawChangeElement,
+      percentChangeElement,
+    ];
 
     return <h6 className="chartLabel">{labelElements}</h6>;
   });

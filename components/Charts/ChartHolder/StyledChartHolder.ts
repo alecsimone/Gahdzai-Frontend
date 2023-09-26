@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { smallText } from '@/styles/constants/fontSizes';
 import { coolGrey, white } from '@/styles/constants/colors';
-import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import {
+  setAlpha,
+  setSaturation,
+} from '@/styles/functions/modifyColorFunctions';
+import { downColor, upColor } from '../Chart/constants';
 
 const StyledChartHolder = styled.section`
   height: 100%;
@@ -26,7 +30,15 @@ const StyledChartHolder = styled.section`
       }
     }
     h6.chartLabel {
+      /* display: flex;
+      justify-content: space-around; */
       background: ${setAlpha(coolGrey, 0.25)};
+      &.up {
+        background-color: ${setSaturation(setAlpha(upColor, 0.4), 50)};
+      }
+      &.down {
+        background-color: ${setSaturation(setAlpha(downColor, 0.4), 50)};
+      }
       transition: background 0.2s;
       &:hover {
         &.loading {
@@ -45,7 +57,7 @@ const StyledChartHolder = styled.section`
       &.loading {
         text-align: left;
       }
-      max-width: 36rem;
+      max-width: 40rem;
       cursor: pointer;
       span {
         margin: 0 0.5rem;
