@@ -26,7 +26,14 @@ const StyledChartHolder = styled.section`
       }
     }
     h6.chartLabel {
-      background: ${setAlpha(coolGrey, 0.4)};
+      background: ${setAlpha(coolGrey, 0.25)};
+      transition: background 0.2s;
+      &:hover {
+        &.loading {
+          background: ${setAlpha(coolGrey, 0.25)};
+        }
+        background: ${setAlpha(coolGrey, 0.5)};
+      }
       border: 1px solid ${setAlpha(coolGrey, 0.8)};
       padding: 0.5rem 1rem;
       font-weight: 300;
@@ -35,6 +42,9 @@ const StyledChartHolder = styled.section`
       font-size: ${smallText};
       flex-grow: 1;
       text-align: center;
+      &.loading {
+        text-align: left;
+      }
       max-width: 36rem;
       cursor: pointer;
       span {

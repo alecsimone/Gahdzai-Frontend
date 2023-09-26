@@ -2,6 +2,7 @@ import Error from '@/components/Foundation/Error/Error';
 import useChartHolder from './useChartHolder';
 import Chart from '../Chart/Chart';
 import StyledChartHolder from './StyledChartHolder';
+import LoadingChart from './LoadingChart/LoadingChart';
 
 // interface ChartHolderProps {}
 
@@ -10,7 +11,7 @@ const ChartHolder = (): JSX.Element => {
     useChartHolder();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingChart />;
   }
   if (error) {
     return <Error error={error} />;
