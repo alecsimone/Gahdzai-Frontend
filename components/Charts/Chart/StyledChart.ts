@@ -10,6 +10,17 @@ const StyledChart = styled.canvas`
   margin: 0 var(--chart-side-margin);
   /* height: calc(100% - 7rem); */
   width: calc(100% - 4rem);
+  z-index: 0;
+  &.shadow {
+    background: none;
+    border: none;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 `;
 
 export default StyledChart;

@@ -17,7 +17,7 @@ const ChartHolder = (): JSX.Element => {
   }
   if (data) {
     return (
-      <StyledChartHolder>
+      <StyledChartHolder className="chartHolder">
         <header>{legendElements}</header>
         <Chart
           data={data}

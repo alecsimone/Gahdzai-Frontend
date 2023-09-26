@@ -12,6 +12,7 @@ import getChartBoundaries from './chartShapers/getChartBoundaries';
 
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
+  shadowChartRef: RefObject<HTMLCanvasElement>;
   setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
 }
 
@@ -29,15 +30,19 @@ export type ChartMakerInterface =
   | CandleChartMakerInterface
   | PercentageChartMakerInterface;
 
-const chartMaker = (dataObj: ChartMakerInterface) => {
-  const { chartRef, chartType, data, setLegendElements } = dataObj;
+const chartMaker = (
+  dataObj: ChartMakerInterface
+): { usableWidth: number; usableHeight: number } | false => {
+  const { chartRef, shadowChartRef, chartType, data, setLegendElements } =
+    dataObj;
 
-  if (chartRef.current == null) return;
+  if (chartRef.current == null || shadowChartRef.current == null) return false;
   setChartSize(chartRef.current);
+  setChartSize(shadowChartRef.current);
 
-  if (chartRef.current == null) return;
+  if (chartRef.current == null) return false;
   const ctx = chartRef.current.getContext('2d');
-  if (ctx == null) return;
+  if (ctx == null) return false;
 
   const { width, height } = chartRef.current;
   setUpFont(ctx);
@@ -82,6 +87,11 @@ const chartMaker = (dataObj: ChartMakerInterface) => {
   } else if (chartType === 'PercentChange') {
     makePercentageChart({ data, chartData, setLegendElements });
   }
+
+  return {
+    usableHeight,
+    usableWidth,
+  };
 };
 
 export default chartMaker;

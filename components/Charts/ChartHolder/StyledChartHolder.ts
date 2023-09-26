@@ -35,7 +35,8 @@ const StyledChartHolder = styled.section`
       font-size: ${smallText};
       flex-grow: 1;
       text-align: center;
-      max-width: 40rem;
+      max-width: 36rem;
+      cursor: pointer;
       span {
         margin: 0 0.5rem;
         &:first-child {
@@ -46,6 +47,9 @@ const StyledChartHolder = styled.section`
         }
       }
     }
+  }
+  .chartContainer {
+    position: relative;
   }
   canvas {
     flex-grow: 1;

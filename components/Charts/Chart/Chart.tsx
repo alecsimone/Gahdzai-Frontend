@@ -22,8 +22,15 @@ const Chart = ({
     };
   }
 
-  const chartRef = useChart(dataObj);
-  return <StyledChart ref={chartRef}>A chart</StyledChart>;
+  const { chartRef, shadowChartRef } = useChart(dataObj);
+  return (
+    <div className="chartContainer">
+      <StyledChart ref={chartRef}>A chart</StyledChart>
+      <StyledChart ref={shadowChartRef} className="shadow">
+        A shadow chart
+      </StyledChart>
+    </div>
+  );
 };
 
 export default Chart;
