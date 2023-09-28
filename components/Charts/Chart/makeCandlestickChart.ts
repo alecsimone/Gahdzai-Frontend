@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ReactNode } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Candle } from '@/__generated__/graphql';
 import makeCandles from './candlestickMakers/makeCandles';
 import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoints';
@@ -8,7 +8,7 @@ import { ChartData } from './types';
 interface CandlestickChartInterface {
   chartData: ChartData;
   data: Candle[];
-  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
 }
 
 const makeCandlestickChart = ({

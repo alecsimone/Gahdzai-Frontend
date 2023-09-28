@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ReactNode } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { PercentageChanges } from '@/__generated__/graphql';
 import { ChartData } from './types';
 import convertPercentageChangeValuesToPoints from './drawMovingAverageLine/convertPercentageChangeValuesToPoints';
@@ -10,7 +10,7 @@ import getLineColor from './utils/getLineColor';
 interface PercentageChartInterface {
   chartData: ChartData;
   data: PercentageChanges[];
-  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
 }
 
 const makePercentageChart = ({

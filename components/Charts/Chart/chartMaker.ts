@@ -1,4 +1,4 @@
-import { RefObject, Dispatch, SetStateAction, ReactNode } from 'react';
+import { RefObject, Dispatch, SetStateAction } from 'react';
 import { Candle, PercentageChanges } from '@/__generated__/graphql';
 import makeGrid from './gridMakers/makeGrid';
 import getUsableHeight from './utils/getUsableHeight';
@@ -13,7 +13,7 @@ import getChartBoundaries from './chartShapers/getChartBoundaries';
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
   shadowChartRef: RefObject<HTMLCanvasElement>;
-  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
 }
 
 interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
@@ -30,9 +30,9 @@ export type ChartMakerInterface =
   | CandleChartMakerInterface
   | PercentageChartMakerInterface;
 
-const chartMaker = (
-  dataObj: ChartMakerInterface
-): { usableWidth: number; usableHeight: number } | false => {
+export type ChartSize = { usableWidth: number; usableHeight: number } | false;
+
+const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
   const { chartRef, shadowChartRef, chartType, data, setLegendElements } =
     dataObj;
 
@@ -40,12 +40,11 @@ const chartMaker = (
   setChartSize(chartRef.current);
   setChartSize(shadowChartRef.current);
 
-  if (chartRef.current == null) return false;
   const ctx = chartRef.current.getContext('2d');
   if (ctx == null) return false;
+  setUpFont(ctx);
 
   const { width, height } = chartRef.current;
-  setUpFont(ctx);
 
   let chartProps: ChartProps;
   if (chartType === 'Candlestick') {

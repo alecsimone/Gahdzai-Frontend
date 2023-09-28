@@ -9,7 +9,8 @@ import {
 export type ChartTypes = 'Candlestick' | 'PercentChange';
 
 interface ChartQueryPropsBase {
-  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+  legendElements: ReactNode[];
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
 }
 
 interface CandlestickQueryProps extends ChartQueryPropsBase {
@@ -25,7 +26,7 @@ interface PercentageQueryProps extends ChartQueryPropsBase {
 export type ChartQueryProps = CandlestickQueryProps | PercentageQueryProps;
 
 interface ChartPropsBase {
-  setLegendElements: Dispatch<SetStateAction<ReactNode[]>>;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
 }
 
 interface CandlestickProps extends ChartPropsBase {

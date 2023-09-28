@@ -21,17 +21,19 @@ const StyledChartHolder = styled.section`
     padding: 1rem 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-grow: 0;
+    flex-wrap: wrap;
     > * {
-      margin: 0 0.5rem;
+      margin: 0.25rem 0;
       height: 100%;
-      &:first-child {
-        margin-left: 0;
-      }
     }
     h6.chartLabel {
-      /* display: flex;
-      justify-content: space-around; */
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: min(40rem, 48%);
+      max-height: 6rem;
       background: ${setAlpha(coolGrey, 0.25)};
       &.up {
         background-color: ${setSaturation(setAlpha(upColor, 0.4), 50)};
@@ -57,7 +59,6 @@ const StyledChartHolder = styled.section`
       &.loading {
         text-align: left;
       }
-      max-width: 40rem;
       cursor: pointer;
       span {
         margin: 0 0.5rem;

@@ -13,3 +13,5 @@ export const downColor = setAlpha(setSaturation(red, 65), 1);
 export const upColor = setAlpha(green, 0.9);
 
 export const minimumCandleWidth = 3;
+
+export const resolution = 1;

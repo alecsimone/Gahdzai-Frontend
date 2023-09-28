@@ -21,10 +21,12 @@ const drawCrosshairs = ({
 }: CrosshairsInterface) => {
   ctx.clearRect(0, 0, usableWidth, usableHeight);
   if (!coords) return;
-  ctx.strokeStyle = color;
-  ctx.setLineDash([dashDensity]);
 
   const { x, y } = coords;
+  if (x >= usableWidth) return;
+  if (y >= usableHeight) return;
+  ctx.strokeStyle = color;
+  ctx.setLineDash([dashDensity]);
 
   ctx.beginPath();
   ctx.moveTo(x, 0);

@@ -1,5 +1,3 @@
-// interface LoadingChartProps {}
-
 import { useEffect, useRef } from 'react';
 import StyledChart from '../../Chart/StyledChart';
 import StyledChartHolder from '../StyledChartHolder';

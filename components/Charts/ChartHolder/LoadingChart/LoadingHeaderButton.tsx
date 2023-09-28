@@ -1,18 +1,15 @@
-// interface LoadingHeaderProps {}
-
 import { useEffect, useState } from 'react';
 
 const LoadingHeaderButton = (): JSX.Element => {
-  const [dots, setDots] = useState('.'); // Initialize dots as an empty string
+  const [dots, setDots] = useState('.');
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Update the number of dots in the animation
-      setDots((prevDots) => (prevDots.length === 6 ? '.' : `${prevDots}.`)); // Reset after 3 dots
-    }, 600); // Update every 0.1 seconds
+      setDots((prevDots) => (prevDots.length === 6 ? '.' : `${prevDots}.`));
+    }, 600);
 
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, []); // Run the effect once when the component mounts
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <h6 className="chartLabel loading">
