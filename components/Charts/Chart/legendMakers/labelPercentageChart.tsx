@@ -10,11 +10,12 @@ const labelPercentageChart = (
 ) => {
   const elements = data.map(getLegendElementsFromPercentageData);
 
-  if (elements.length === 1) {
-    elements.push(elements[0]);
-    elements.push(elements[0]);
-    elements.push(elements[0]);
-  }
+  // ? If we're running out of data, we can test the legend with multiple elements by querying for one element and then using this code
+  // if (elements.length === 1) {
+  //   elements.push(elements[0]);
+  //   elements.push(elements[0]);
+  //   elements.push(elements[0]);
+  // }
 
   updateLegendIfNeeded(elements, setLegendElements);
 };
