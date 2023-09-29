@@ -18,6 +18,7 @@ const useChartHolder = () => {
       resolution: `${resolution}`,
     },
   });
+  console.log(data);
   return { data, loading, error, legendElements, setLegendElements };
 };
 

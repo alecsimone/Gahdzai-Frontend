@@ -8,12 +8,17 @@ const updateLegendIfNeeded = (
     if (prev.length !== elements.length) {
       return elements;
     }
+    let shouldUpdate: boolean = false;
     elements.forEach((el, index) => {
       const prevEl = prev[index];
-      if (prevEl == null) return elements;
-      if (prevEl.key !== el.key) return elements;
-      return prev;
+      if (prevEl == null) {
+        shouldUpdate = true;
+      }
+      if (prevEl.key !== el.key) {
+        shouldUpdate = true;
+      }
     });
+    if (shouldUpdate) return elements;
     return prev;
   });
 };
