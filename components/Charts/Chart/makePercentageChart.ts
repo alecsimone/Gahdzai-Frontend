@@ -19,9 +19,11 @@ const makePercentageChart = ({
   setLegendElements,
 }: PercentageChartInterface) => {
   data.forEach((changes, index) => {
-    // const computedColor = colors[index];
     const color = getLineColor(changes.symbol, index);
-    const dataPoints = convertPercentageChangeValuesToPoints(changes.values);
+    const dataPoints = convertPercentageChangeValuesToPoints(
+      changes.values,
+      chartData.usableWidth
+    );
     const xyPairs = convertToXYPairs(dataPoints, chartData);
     drawLineFromCoords({
       coords: xyPairs,
