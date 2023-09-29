@@ -7,8 +7,15 @@ import LoadingChart from './LoadingChart/LoadingChart';
 // interface ChartHolderProps {}
 
 const ChartHolder = (): JSX.Element => {
-  const { data, loading, error, legendElements, setLegendElements } =
-    useChartHolder();
+  const {
+    data,
+    loading,
+    error,
+    legendElements,
+    setLegendElements,
+    highlightedSymbols,
+    setHighlightedSymbols,
+  } = useChartHolder();
 
   if (loading) {
     return <LoadingChart />;
@@ -25,6 +32,8 @@ const ChartHolder = (): JSX.Element => {
           chartType="PercentChange"
           legendElements={legendElements}
           setLegendElements={setLegendElements}
+          highlightedSymbols={highlightedSymbols}
+          setHighlightedSymbols={setHighlightedSymbols}
         />
       </StyledChartHolder>
     );

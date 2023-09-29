@@ -11,12 +11,16 @@ interface PercentageChartInterface {
   chartData: ChartData;
   data: PercentageChanges[];
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+  highlightedSymbols: string[];
+  setHighlightedSymbols: Dispatch<SetStateAction<string[]>>;
 }
 
 const makePercentageChart = ({
   chartData,
   data,
   setLegendElements,
+  highlightedSymbols,
+  setHighlightedSymbols,
 }: PercentageChartInterface) => {
   data.forEach((changes, index) => {
     const color = getLineColor(changes.symbol, index);
@@ -32,7 +36,12 @@ const makePercentageChart = ({
       lineWidth: 3,
     });
   });
-  labelPercentageChart(setLegendElements, data);
+  labelPercentageChart(
+    setLegendElements,
+    data,
+    highlightedSymbols,
+    setHighlightedSymbols
+  );
 };
 
 export default makePercentageChart;

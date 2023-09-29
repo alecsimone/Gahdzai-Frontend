@@ -6,7 +6,13 @@ import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
 
-const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
+const useChart = ({
+  data,
+  chartType,
+  setLegendElements,
+  highlightedSymbols,
+  setHighlightedSymbols,
+}: ChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   const { shadowChartRef, mouseCoords } = useMouseCoords();
@@ -19,6 +25,8 @@ const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
       data,
       chartType,
       setLegendElements,
+      highlightedSymbols,
+      setHighlightedSymbols,
     };
   } else {
     chartMakerDataObj = {
@@ -27,6 +35,8 @@ const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
       data,
       chartType,
       setLegendElements,
+      highlightedSymbols,
+      setHighlightedSymbols,
     };
   }
 

@@ -1,11 +1,15 @@
+import { Dispatch, SetStateAction } from 'react';
 import { PercentageChanges } from '@/__generated__/graphql';
 import SymbolElement from './SymbolElement';
 import LatestValueElement from './LatestValueElement';
 import getChangeElements from './getChangeElements';
+import ChartLegendItem from '../ChartLegendItem/ChartLegendItem';
 
 const getLegendElementsFromPercentageData = (
   changes: PercentageChanges,
-  index: number
+  index: number,
+  highlightedSymbols: string[],
+  setHighlightedSymbols: Dispatch<SetStateAction<string[]>>
 ): JSX.Element => {
   const symbolElement = <SymbolElement symbol={changes.symbol} index={index} />;
   const latestValueElement = (
@@ -21,9 +25,13 @@ const getLegendElementsFromPercentageData = (
   ];
 
   return (
-    <h6 className="chartLabel" key={changes.symbol}>
+    <ChartLegendItem
+      symbol={changes.symbol}
+      highlightedSymbols={highlightedSymbols}
+      setHighlightedSymbols={setHighlightedSymbols}
+    >
       {labelElements}
-    </h6>
+    </ChartLegendItem>
   );
 };
 

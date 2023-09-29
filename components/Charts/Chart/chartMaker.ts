@@ -15,6 +15,8 @@ export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
   shadowChartRef: RefObject<HTMLCanvasElement>;
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+  highlightedSymbols: string[];
+  setHighlightedSymbols: Dispatch<SetStateAction<string[]>>;
 }
 
 interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
@@ -34,8 +36,15 @@ export type ChartMakerInterface =
 export type ChartSize = { usableWidth: number; usableHeight: number } | false;
 
 const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
-  const { chartRef, shadowChartRef, chartType, data, setLegendElements } =
-    dataObj;
+  const {
+    chartRef,
+    shadowChartRef,
+    chartType,
+    data,
+    setLegendElements,
+    highlightedSymbols,
+    setHighlightedSymbols,
+  } = dataObj;
 
   if (chartRef.current == null || shadowChartRef.current == null) return false;
   setChartSize(chartRef.current);
@@ -53,12 +62,16 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
       data,
       chartType,
       setLegendElements,
+      highlightedSymbols,
+      setHighlightedSymbols,
     };
   } else {
     chartProps = {
       data,
       chartType,
       setLegendElements,
+      highlightedSymbols,
+      setHighlightedSymbols,
     };
   }
 
@@ -85,7 +98,13 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
   if (chartType === 'Candlestick') {
     makeCandlestickChart({ data, chartData, setLegendElements });
   } else if (chartType === 'PercentChange') {
-    makePercentageChart({ data, chartData, setLegendElements });
+    makePercentageChart({
+      data,
+      chartData,
+      setLegendElements,
+      highlightedSymbols,
+      setHighlightedSymbols,
+    });
   }
 
   setLegendGridProperties(chartRef.current);

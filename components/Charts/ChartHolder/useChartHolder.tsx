@@ -8,6 +8,7 @@ const useChartHolder = () => {
   const [legendElements, setLegendElements] = useState<JSX.Element[]>([
     <h6 className="chartLabel">Loading...</h6>,
   ]);
+  const [highlightedSymbols, setHighlightedSymbols] = useState<string[]>([]);
 
   const [previousClose, nextClose] = getQueryTimeBoundaries();
 
@@ -18,8 +19,15 @@ const useChartHolder = () => {
       resolution: `${resolution}`,
     },
   });
-  console.log(data);
-  return { data, loading, error, legendElements, setLegendElements };
+  return {
+    data,
+    loading,
+    error,
+    legendElements,
+    highlightedSymbols,
+    setHighlightedSymbols,
+    setLegendElements,
+  };
 };
 
 export default useChartHolder;
