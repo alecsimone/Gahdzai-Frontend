@@ -1,10 +1,10 @@
 import getOneRem from '@/styles/functions/getOneRem';
 import { minimumLegendElementRemSize } from '../../ChartHolder/StyledChartHolder';
-
-const legendElementMinimumWidth =
-  (minimumLegendElementRemSize + 2) * getOneRem(); // The +2 is to account for the gap
+import getGridColumnCount from './getGridColumnCount';
 
 const setLegendGridProperties = (chartEl: HTMLCanvasElement) => {
+  const legendElementMinimumWidth =
+    (minimumLegendElementRemSize + 2) * getOneRem(); // The +2 is to account for the gap
   const holder = chartEl.closest('section.chartHolder');
   if (holder == null) return;
   const legend = holder.querySelector('header');
@@ -14,11 +14,10 @@ const setLegendGridProperties = (chartEl: HTMLCanvasElement) => {
   const legendElementsCount = legendElements.length;
   const legendWidth = legend.clientWidth;
 
-  const minimumLegendColumns = Math.floor(
-    legendWidth / legendElementMinimumWidth
-  );
-  const betterLegendColumnsCount = Math.ceil(
-    legendElementsCount / minimumLegendColumns
+  const betterLegendColumnsCount = getGridColumnCount(
+    legendWidth,
+    legendElementsCount,
+    legendElementMinimumWidth
   );
 
   if (betterLegendColumnsCount === 1) {

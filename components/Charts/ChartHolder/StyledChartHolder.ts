@@ -57,6 +57,7 @@ const StyledChartHolder = styled.section`
       font-size: ${smallText};
       flex-grow: 1;
       text-align: center;
+      max-width: 60rem;
       &.loading {
         text-align: left;
       }
