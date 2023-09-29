@@ -4,7 +4,7 @@ import { ChartData } from './types';
 import convertPercentageChangeValuesToPoints from './drawMovingAverageLine/convertPercentageChangeValuesToPoints';
 import convertToXYPairs from './drawMovingAverageLine/convertToXYPairs';
 import drawLineFromCoords from './utils/drawLineFromCoords';
-import labelPercentageChart from './labelPercentageChart';
+import labelPercentageChart from './legendMakers/labelPercentageChart';
 import getLineColor from './utils/getLineColor';
 
 interface PercentageChartInterface {

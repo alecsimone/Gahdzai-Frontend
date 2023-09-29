@@ -14,6 +14,7 @@ const setChartSize = (chartElement: HTMLCanvasElement) => {
 
     const chartEl = chartElement; // Creating a reference to the element prop to avoid modifying a prop directly
     chartEl.width = chartWidth;
+    // chartEl.height = chartHeight;
     chartEl.height = chartHeight;
   }
 };

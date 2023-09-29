@@ -7,33 +7,34 @@ import {
 } from '@/styles/functions/modifyColorFunctions';
 import { downColor, upColor } from '../Chart/constants';
 
+export const minimumLegendElementRemSize = 20;
+
 const StyledChartHolder = styled.section`
   height: 100%;
   max-height: 100%;
   width: 100%;
-  --chart-side-margin: calc(2rem - 2px);
   display: flex;
   flex-direction: column;
   padding-bottom: 1rem;
   header {
     height: auto;
-    margin: 0 var(--chart-side-margin);
-    padding: 1rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin: 0 0 1rem 0;
     flex-grow: 0;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(${minimumLegendElementRemSize}rem, 1fr)
+    );
+    grid-gap: 1rem;
     > * {
-      margin: 0.25rem 0;
+      margin: 0;
       height: 100%;
     }
     h6.chartLabel {
       display: flex;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
-      max-width: min(40rem, 48%);
-      max-height: 6rem;
       background: ${setAlpha(coolGrey, 0.25)};
       &.up {
         background-color: ${setSaturation(setAlpha(upColor, 0.4), 50)};
@@ -73,8 +74,7 @@ const StyledChartHolder = styled.section`
   }
   .chartContainer {
     position: relative;
-  }
-  canvas {
+    height: 0;
     flex-grow: 1;
   }
 `;

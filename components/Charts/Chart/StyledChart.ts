@@ -6,10 +6,9 @@ const StyledChart = styled.canvas`
   border: 1px solid ${setAlpha(coolGrey, 0.3)};
   background: ${lightBlack};
   border-radius: 3px;
-  /* margin: calc(2rem - 2px); */
-  margin: 0 var(--chart-side-margin);
-  /* height: calc(100% - 7rem); */
-  width: calc(100% - 4rem);
+  margin: 0;
+  height: 100%;
+  width: 100%;
   z-index: 0;
   &.shadow {
     background: none;

@@ -9,6 +9,7 @@ import setUpFont from './gridMakers/setUpFont';
 import makeCandlestickChart from './makeCandlestickChart';
 import makePercentageChart from './makePercentageChart';
 import getChartBoundaries from './chartShapers/getChartBoundaries';
+import setLegendGridProperties from './legendMakers/setLegendGridProperties';
 
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
@@ -86,6 +87,8 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
   } else if (chartType === 'PercentChange') {
     makePercentageChart({ data, chartData, setLegendElements });
   }
+
+  setLegendGridProperties(chartRef.current);
 
   return {
     usableHeight,

@@ -7,7 +7,6 @@ import LoadingChart from './LoadingChart/LoadingChart';
 // interface ChartHolderProps {}
 
 const ChartHolder = (): JSX.Element => {
-  console.log('rendering chartHolder');
   const { data, loading, error, legendElements, setLegendElements } =
     useChartHolder();
 
