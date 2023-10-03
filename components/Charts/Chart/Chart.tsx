@@ -6,8 +6,6 @@ const Chart = ({
   data,
   chartType,
   setLegendElements,
-  highlightedSymbols,
-  setHighlightedSymbols,
 }: ChartQueryProps): JSX.Element | undefined => {
   let dataObj: ChartProps;
   if (chartType === 'Candlestick') {
@@ -15,16 +13,12 @@ const Chart = ({
       data: data.getCandles,
       chartType,
       setLegendElements,
-      highlightedSymbols,
-      setHighlightedSymbols,
     };
   } else {
     dataObj = {
       data: data.getAllIndexData,
       chartType,
       setLegendElements,
-      highlightedSymbols,
-      setHighlightedSymbols,
     };
   }
 

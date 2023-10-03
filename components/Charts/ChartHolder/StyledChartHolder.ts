@@ -36,6 +36,9 @@ const StyledChartHolder = styled.section`
       align-items: center;
       flex-wrap: wrap;
       background: ${setAlpha(coolGrey, 0.25)};
+      &.highlighted {
+        background: ${setAlpha(coolGrey, 0.5)};
+      }
       &.up {
         background-color: ${setSaturation(setAlpha(upColor, 0.4), 50)};
       }
@@ -47,7 +50,7 @@ const StyledChartHolder = styled.section`
         &.loading {
           background: ${setAlpha(coolGrey, 0.25)};
         }
-        background: ${setAlpha(coolGrey, 0.5)};
+        /* background: ${setAlpha(coolGrey, 0.5)}; */
       }
       border: 1px solid ${setAlpha(coolGrey, 0.8)};
       padding: 0.5rem 1rem;

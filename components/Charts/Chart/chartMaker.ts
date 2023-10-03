@@ -16,7 +16,6 @@ export interface ChartMakerInterfaceBase {
   shadowChartRef: RefObject<HTMLCanvasElement>;
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
   highlightedSymbols: string[];
-  setHighlightedSymbols: Dispatch<SetStateAction<string[]>>;
 }
 
 interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
@@ -43,7 +42,6 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
     data,
     setLegendElements,
     highlightedSymbols,
-    setHighlightedSymbols,
   } = dataObj;
 
   if (chartRef.current == null || shadowChartRef.current == null) return false;
@@ -62,16 +60,12 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
       data,
       chartType,
       setLegendElements,
-      highlightedSymbols,
-      setHighlightedSymbols,
     };
   } else {
     chartProps = {
       data,
       chartType,
       setLegendElements,
-      highlightedSymbols,
-      setHighlightedSymbols,
     };
   }
 
@@ -103,7 +97,6 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
       chartData,
       setLegendElements,
       highlightedSymbols,
-      setHighlightedSymbols,
     });
   }
 

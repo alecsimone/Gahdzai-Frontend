@@ -1,23 +1,22 @@
-import { Dispatch, SetStateAction } from 'react';
 import useChartLegendItem from './useChartLegendItem';
 
 interface ChartLegendItemProps {
   children: JSX.Element[];
   symbol: string;
-  highlightedSymbols: string[];
-  setHighlightedSymbols: Dispatch<SetStateAction<string[]>>;
 }
 
 const ChartLegendItem = ({
   symbol,
   children,
-  highlightedSymbols,
-  setHighlightedSymbols,
 }: ChartLegendItemProps): JSX.Element => {
-  console.log(highlightedSymbols, setHighlightedSymbols);
-  useChartLegendItem();
+  const [legendItem, isHighlighted] = useChartLegendItem(symbol);
+
+  let className = 'chartLabel';
+  if (isHighlighted) {
+    className += ' highlighted';
+  }
   return (
-    <h6 className="chartLabel" key={symbol}>
+    <h6 className={className} key={symbol} ref={legendItem}>
       {children}
     </h6>
   );

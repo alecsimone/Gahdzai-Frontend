@@ -1,19 +1,15 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { ChartMakerInterface } from './chartMaker';
 import { ChartProps } from './types';
 
 import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
+import { HighlightContext } from '../ChartHolder/useChartHolder';
 
-const useChart = ({
-  data,
-  chartType,
-  setLegendElements,
-  highlightedSymbols,
-  setHighlightedSymbols,
-}: ChartProps) => {
+const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
+  const { highlightedSymbols } = useContext(HighlightContext);
 
   const { shadowChartRef, mouseCoords } = useMouseCoords();
 
@@ -26,7 +22,6 @@ const useChart = ({
       chartType,
       setLegendElements,
       highlightedSymbols,
-      setHighlightedSymbols,
     };
   } else {
     chartMakerDataObj = {
@@ -36,7 +31,6 @@ const useChart = ({
       chartType,
       setLegendElements,
       highlightedSymbols,
-      setHighlightedSymbols,
     };
   }
 

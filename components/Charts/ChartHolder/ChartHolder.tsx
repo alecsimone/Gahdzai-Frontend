@@ -13,8 +13,8 @@ const ChartHolder = (): JSX.Element => {
     error,
     legendElements,
     setLegendElements,
-    highlightedSymbols,
-    setHighlightedSymbols,
+    HighlightContext,
+    highlightContextData,
   } = useChartHolder();
 
   if (loading) {
@@ -25,17 +25,17 @@ const ChartHolder = (): JSX.Element => {
   }
   if (data) {
     return (
-      <StyledChartHolder className="chartHolder">
-        <header>{legendElements}</header>
-        <Chart
-          data={data}
-          chartType="PercentChange"
-          legendElements={legendElements}
-          setLegendElements={setLegendElements}
-          highlightedSymbols={highlightedSymbols}
-          setHighlightedSymbols={setHighlightedSymbols}
-        />
-      </StyledChartHolder>
+      <HighlightContext.Provider value={highlightContextData}>
+        <StyledChartHolder className="chartHolder">
+          <header>{legendElements}</header>
+          <Chart
+            data={data}
+            chartType="PercentChange"
+            legendElements={legendElements}
+            setLegendElements={setLegendElements}
+          />
+        </StyledChartHolder>
+      </HighlightContext.Provider>
     );
   }
   return <Error error="Something has gone terribly wrong." />;
