@@ -53,7 +53,7 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
   if (lineDirection === 'vertical') {
     labelText = getTimeString(stepList[i]);
   } else {
-    labelText = `${makeNumberReadable(stepList[i])}`;
+    labelText = `${makeNumberReadable({ number: stepList[i] })}`;
     if (chartType === 'PercentChange') {
       labelText += '%';
     }

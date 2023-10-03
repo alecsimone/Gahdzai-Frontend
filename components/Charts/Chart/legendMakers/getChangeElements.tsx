@@ -14,7 +14,7 @@ const getChangeElements = ({
 
   const rawChangeString = `${
     dailyPointChange > 0 ? '+' : ''
-  }${makeNumberReadable(dailyPointChange)}`;
+  }${makeNumberReadable({ number: dailyPointChange })}`;
   const rawChangeElement = (
     <span style={{ color: changeColor }} key="rawChange">
       {rawChangeString}
@@ -24,7 +24,7 @@ const getChangeElements = ({
   const lastPercentChange = values[values.length - 1].percentageChange;
   const percentChangeString = `[${
     dailyPointChange > 0 ? '+' : ''
-  }${makeNumberReadable(lastPercentChange)}%]`;
+  }${makeNumberReadable({ number: lastPercentChange })}%]`;
   const percentChangeElement = (
     <span style={{ color: changeColor, fontWeight: '600' }} key="percentChange">
       {percentChangeString}

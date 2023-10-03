@@ -63,17 +63,24 @@ const useChartHolder = () => {
   };
   const toggleSymbolHighlightLock = (symbol: string) => {
     setHighlightedSymbols((prev) => {
-      const newHighlightedSymbols = prev.map((item) => {
-        if (item.symbol === symbol) {
-          if (item.isLocked) return { symbol: '', isLocked: false }; // If the item is already locked we want to just remove it, not set it to false, so that it un-highlights instantly
-          return { ...item, isLocked: true };
-        }
-        return item;
-      });
-      const filteredHighlightedSymbols = newHighlightedSymbols.filter(
-        (item) => item.symbol !== ''
+      const symbolExistedPreviously = prev.some(
+        (item) => item.symbol === symbol
       );
-      return filteredHighlightedSymbols;
+      if (symbolExistedPreviously) {
+        const newHighlightedSymbols = prev.map((item) => {
+          if (item.symbol === symbol) {
+            if (item.isLocked) return { symbol: '', isLocked: false }; // If the item is already locked we want to just remove it, not set it to false, so that it un-highlights instantly
+            return { ...item, isLocked: true };
+          }
+          return item;
+        });
+        const filteredHighlightedSymbols = newHighlightedSymbols.filter(
+          (item) => item.symbol !== ''
+        );
+        return filteredHighlightedSymbols;
+      }
+      const newHighlightedSymbols = prev.concat([{ symbol, isLocked: true }]);
+      return newHighlightedSymbols;
     });
   };
 
