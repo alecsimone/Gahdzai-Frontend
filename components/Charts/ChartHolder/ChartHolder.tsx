@@ -3,6 +3,7 @@ import useChartHolder from './useChartHolder';
 import Chart from '../Chart/Chart';
 import StyledChartHolder from './StyledChartHolder';
 import LoadingChart from './LoadingChart/LoadingChart';
+import { HighlightContext } from './HighlightContext';
 
 // interface ChartHolderProps {}
 
@@ -13,7 +14,6 @@ const ChartHolder = (): JSX.Element => {
     error,
     legendElements,
     setLegendElements,
-    HighlightContext,
     highlightContextData,
   } = useChartHolder();
 

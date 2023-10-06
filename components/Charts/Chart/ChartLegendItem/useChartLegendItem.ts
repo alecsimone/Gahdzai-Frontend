@@ -1,29 +1,30 @@
 import { useCallback, useContext, useEffect, useRef, RefObject } from 'react';
-import { HighlightContext } from '../../ChartHolder/useChartHolder';
+import { HighlightContext } from '../../ChartHolder/HighlightContext';
+import {
+  highlightSymbol,
+  toggleSymbolHighlightLock,
+  unHighlightSymbol,
+} from '../legendMakers/symbolHighlighters';
 
 const useChartLegendItem = (
   symbol: string
 ): [RefObject<HTMLHeadingElement>, boolean] => {
   const legendItem = useRef<HTMLHeadingElement>(null);
-  const {
-    highlightSymbol,
-    unHighlightSymbol,
-    toggleSymbolHighlightLock,
-    highlightedSymbols,
-  } = useContext(HighlightContext);
+  const { setHighlightedSymbols, highlightedSymbols } =
+    useContext(HighlightContext);
 
   const isHighlighted = highlightedSymbols.some(
     (item) => item.symbol === symbol
   );
 
   const handleMouseEnter = useCallback(() => {
-    highlightSymbol(symbol);
+    highlightSymbol(symbol, setHighlightedSymbols);
   }, [symbol, highlightSymbol]);
   const handleMouseLeave = useCallback(() => {
-    unHighlightSymbol(symbol);
+    unHighlightSymbol(symbol, setHighlightedSymbols);
   }, [symbol, unHighlightSymbol]);
   const handleMouseClick = useCallback(() => {
-    toggleSymbolHighlightLock(symbol);
+    toggleSymbolHighlightLock(symbol, setHighlightedSymbols);
   }, [symbol, toggleSymbolHighlightLock]);
 
   useEffect(() => {

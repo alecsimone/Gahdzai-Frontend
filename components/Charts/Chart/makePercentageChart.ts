@@ -7,7 +7,7 @@ import convertToXYPairs from './drawMovingAverageLine/convertToXYPairs';
 import drawLineFromCoords from './utils/drawLineFromCoords';
 import labelPercentageChart from './legendMakers/labelPercentageChart';
 import getLineColor from './utils/getLineColor';
-import { HighlightedSymbols } from '../ChartHolder/useChartHolder';
+import { HighlightedSymbols } from '../ChartHolder/HighlightContext';
 
 interface PercentageChartInterface {
   chartData: ChartData;

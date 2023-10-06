@@ -10,12 +10,13 @@ import makeCandlestickChart from './makeCandlestickChart';
 import makePercentageChart from './makePercentageChart';
 import getChartBoundaries from './chartShapers/getChartBoundaries';
 import setLegendGridProperties from './legendMakers/setLegendGridProperties';
+import { HighlightedSymbols } from '../ChartHolder/HighlightContext';
 
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
   shadowChartRef: RefObject<HTMLCanvasElement>;
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
-  highlightedSymbols: string[];
+  highlightedSymbols: HighlightedSymbols[];
 }
 
 interface CandleChartMakerInterface extends ChartMakerInterfaceBase {

@@ -5,7 +5,7 @@ import { ChartProps } from './types';
 import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
-import { HighlightContext } from '../ChartHolder/useChartHolder';
+import { HighlightContext } from '../ChartHolder/HighlightContext';
 
 const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
