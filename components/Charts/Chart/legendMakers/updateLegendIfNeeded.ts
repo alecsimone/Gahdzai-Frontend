@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 
 const updateLegendIfNeeded = (
   elements: JSX.Element[],
