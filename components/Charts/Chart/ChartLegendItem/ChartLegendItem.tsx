@@ -11,10 +11,8 @@ const ChartLegendItem = ({
 }: ChartLegendItemProps): JSX.Element => {
   const [legendItem, isHighlighted] = useChartLegendItem(symbol);
 
-  let className = 'chartLabel';
-  if (isHighlighted) {
-    className += ' highlighted';
-  }
+  const className = `chartLabel${isHighlighted ? ' highlighted' : ''}`;
+
   return (
     <h6 className={className} key={symbol} ref={legendItem}>
       {children}
