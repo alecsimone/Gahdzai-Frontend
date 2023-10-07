@@ -1,32 +1,14 @@
-import { useCallback, useContext, useEffect, useRef } from 'react';
 import Button from '@/styles/extendableElements/Button';
-import { Period, PeriodContext } from '../ChartPeriodContext';
+import { Period } from '../ChartPeriodContext';
+import usePeriodButton from './usePeriodButton';
 
 interface PeriodButtonProps {
   period: Period;
 }
 
 const PeriodButton = ({ period }: PeriodButtonProps): JSX.Element => {
-  const { activePeriod, setActivePeriod } = useContext(PeriodContext);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { buttonRef, isActive } = usePeriodButton(period);
 
-  const makeActive = useCallback(
-    () => setActivePeriod(period),
-    [period, setActivePeriod]
-  );
-
-  useEffect(() => {
-    const button = buttonRef.current;
-    if (button) {
-      button.addEventListener('click', makeActive);
-      return () => {
-        button.removeEventListener('click', makeActive);
-      };
-    }
-    return () => {};
-  }, [makeActive]);
-
-  const isActive = activePeriod === period;
   return (
     <Button
       className={`period ${period} ${isActive ? 'active' : 'inactive'}`}
