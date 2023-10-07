@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { setAlpha } from "@/styles/functions/modifyColorFunctions";
-import { smallText } from "../constants/fontSizes";
-import { coolGrey, white } from "../constants/colors";
+import styled from 'styled-components';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { smallText } from '../constants/fontSizes';
+import { coolGrey, white } from '../constants/colors';
 
 const Button = styled.button`
   border: 1px solid ${coolGrey};
@@ -10,7 +10,7 @@ const Button = styled.button`
   cursor: pointer;
   padding: 0.5rem 1rem;
   color: ${white};
-  font-family: "proxima-nova", sans-serif;
+  font-family: 'proxima-nova', sans-serif;
   font-size: ${smallText};
   &:hover {
     background: ${setAlpha(coolGrey, 0.2)};

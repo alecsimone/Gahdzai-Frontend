@@ -15,7 +15,6 @@ const StyledChartHolder = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 1rem;
   header {
     height: auto;
     margin: 0 0 1rem 0;

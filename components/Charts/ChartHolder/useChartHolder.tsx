@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useHighlightContext from './useHighlightContext';
 import useIndicesQuery from './useIndicesQuery';
+import useChartPeriodContext from './useChartPeriodContext';
 
 const useChartHolder = () => {
   const [legendElements, setLegendElements] = useState<JSX.Element[]>([
@@ -8,6 +9,7 @@ const useChartHolder = () => {
   ]);
 
   const highlightContextData = useHighlightContext();
+  const chartPeriodContextData = useChartPeriodContext();
 
   const { data, loading, error } = useIndicesQuery();
 
@@ -18,6 +20,7 @@ const useChartHolder = () => {
     legendElements,
     setLegendElements,
     highlightContextData,
+    chartPeriodContextData,
   };
 };
 

@@ -4,6 +4,8 @@ import Chart from '../Chart/Chart';
 import StyledChartHolder from './StyledChartHolder';
 import LoadingChart from './LoadingChart/LoadingChart';
 import { HighlightContext } from './HighlightContext';
+import PeriodButtons from './PeriodButtons/PeriodButtons';
+import { PeriodContext } from './ChartPeriodContext';
 
 // interface ChartHolderProps {}
 
@@ -15,6 +17,7 @@ const ChartHolder = (): JSX.Element => {
     legendElements,
     setLegendElements,
     highlightContextData,
+    chartPeriodContextData,
   } = useChartHolder();
 
   if (loading) {
@@ -26,15 +29,18 @@ const ChartHolder = (): JSX.Element => {
   if (data) {
     return (
       <HighlightContext.Provider value={highlightContextData}>
-        <StyledChartHolder className="chartHolder">
-          <header>{legendElements}</header>
-          <Chart
-            data={data}
-            chartType="PercentChange"
-            legendElements={legendElements}
-            setLegendElements={setLegendElements}
-          />
-        </StyledChartHolder>
+        <PeriodContext.Provider value={chartPeriodContextData}>
+          <StyledChartHolder className="chartHolder">
+            <header>{legendElements}</header>
+            <Chart
+              data={data}
+              chartType="PercentChange"
+              legendElements={legendElements}
+              setLegendElements={setLegendElements}
+            />
+            <PeriodButtons />
+          </StyledChartHolder>
+        </PeriodContext.Provider>
       </HighlightContext.Provider>
     );
   }
