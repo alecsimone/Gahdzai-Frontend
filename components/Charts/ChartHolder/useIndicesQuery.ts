@@ -1,10 +1,13 @@
 import { useQuery } from '@apollo/client';
 import getQueryTimeBoundaries from './getQueryTimeBoundaries';
 import GET_INDEX_DATA_QUERY from '../Chart/getIndexCandlesQuery.gql';
-import { resolution } from '../Chart/constants';
+import getQueryResolution from './getQueryResolution';
+import { Period } from './ChartPeriodContext';
 
-const useIndicesQuery = () => {
-  const [previousClose, nextClose] = getQueryTimeBoundaries();
+const useIndicesQuery = (period: Period) => {
+  const [previousClose, nextClose] = getQueryTimeBoundaries(period);
+  const resolution = getQueryResolution(period);
+
   const { data, loading, error } = useQuery(GET_INDEX_DATA_QUERY, {
     variables: {
       from: `${previousClose}`,

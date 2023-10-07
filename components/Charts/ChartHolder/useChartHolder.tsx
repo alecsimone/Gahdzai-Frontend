@@ -11,7 +11,9 @@ const useChartHolder = () => {
   const highlightContextData = useHighlightContext();
   const chartPeriodContextData = useChartPeriodContext();
 
-  const { data, loading, error } = useIndicesQuery();
+  const { data, loading, error } = useIndicesQuery(
+    chartPeriodContextData.activePeriod
+  );
 
   return {
     data,
