@@ -15,6 +15,7 @@ const useIndicesQuery = (period: Period) => {
       resolution: `${resolution}`,
     },
   });
+  console.log(data);
 
   return { data, loading, error };
 };

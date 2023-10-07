@@ -13,7 +13,7 @@ const getQueryResolution = (period: Period): string => {
     case 'Y':
       return 'D';
     case 'Max':
-      return 'D';
+      return 'M';
     default:
       return '1';
   }

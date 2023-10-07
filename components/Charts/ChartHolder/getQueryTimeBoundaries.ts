@@ -3,11 +3,8 @@ import getPreviousClose from './getPreviousClose';
 import { Period } from './ChartPeriodContext';
 
 const getQueryTimeBoundaries = (period: Period): [number, number] => {
-  const startDate = new Date();
-  const previousClose = getPreviousClose(startDate, period);
-
-  const endDate = new Date();
-  const nextClose = getNextClose(endDate);
+  const previousClose = getPreviousClose(period);
+  const nextClose = getNextClose();
 
   return [previousClose, nextClose];
 };
