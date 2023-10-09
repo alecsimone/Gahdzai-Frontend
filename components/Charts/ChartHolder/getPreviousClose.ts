@@ -29,7 +29,11 @@ const getPreviousClose = (period: Period): number => {
     startDate.setFullYear(1980, 0, 1);
   }
 
-  startDate.setUTCHours(19, 60 - resolution, 0, 0); // We want ${resolution} minutes before market close, which is 8PM UTC time, so 19:57 (assuming resolution === 3).
+  if (period === 'D') {
+    startDate.setUTCHours(19, 60 - resolution, 0, 0); // We want ${resolution} minutes before market close, which is 8PM UTC time, so 19:57 (assuming resolution === 3).
+  } else {
+    startDate.setUTCHours(6, 0, 0, 0); // This is 2AM East coast time, just to make sure we're on the right day if there's any funky daylight savings time business or anything
+  }
 
   const previousClose = Math.floor(startDate.getTime() / 1000);
   return previousClose;

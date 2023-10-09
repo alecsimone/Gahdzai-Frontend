@@ -3,10 +3,23 @@ import {
   Get_Candles_QueryQuery,
   Get_Index_Data_QueryQuery,
   Candle,
-  PercentageChanges,
 } from '@/__generated__/graphql';
 
 export type ChartTypes = 'Candlestick' | 'PercentChange';
+
+export interface PercentageChangeValue {
+  __typename?: 'PercentageChangeValue';
+  percentageChange: number;
+  time: string;
+}
+
+export interface PercentageChanges {
+  __typename?: 'PercentageChanges';
+  latestValue: number;
+  initialValue: number;
+  symbol: string;
+  values: PercentageChangeValue[];
+}
 
 interface ChartQueryPropsBase {
   legendElements: ReactNode[];

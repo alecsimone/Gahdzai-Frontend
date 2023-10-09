@@ -1,13 +1,13 @@
-import { ChartQueryProps, ChartProps } from './types';
+import { ChartQueryProps } from './types';
 import StyledChart from './StyledChart';
-import useChart from './useChart';
+import useChart, { ChartInterface } from './useChart';
 
 const Chart = ({
   data,
   chartType,
   setLegendElements,
 }: ChartQueryProps): JSX.Element | undefined => {
-  let dataObj: ChartProps;
+  let dataObj: ChartInterface;
   if (chartType === 'Candlestick') {
     dataObj = {
       data: data.getCandles,

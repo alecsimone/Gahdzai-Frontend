@@ -1,7 +1,4 @@
-import {
-  PercentageChangeValue,
-  PercentageChanges,
-} from '@/__generated__/graphql';
+import { PercentageChangeValue, PercentageChanges } from '../types';
 
 const smashPercentageChangesIntoValues = (data: PercentageChanges[]) => {
   let allValues: PercentageChangeValue[] = [];

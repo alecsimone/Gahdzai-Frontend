@@ -8,12 +8,14 @@ const GET_INDEX_DATA_QUERY = gql(/* GraphQL */ `
   ) {
     getAllIndexData(from: $from, to: $to, resolution: $resolution) {
       symbol
-      values {
-        percentageChange
+      candles {
+        open
+        close
+        high
+        low
+        volume
         time
       }
-      previousClose
-      latestValue
     }
   }
 `);

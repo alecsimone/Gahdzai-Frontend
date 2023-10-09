@@ -1,8 +1,8 @@
-import { PercentageChanges } from '@/__generated__/graphql';
 import SymbolElement from './SymbolElement';
 import LatestValueElement from './LatestValueElement';
 import getChangeElements from './getChangeElements';
 import ChartLegendItem from '../ChartLegendItem/ChartLegendItem';
+import { PercentageChanges } from '../types';
 
 const getLegendElementsFromPercentageData = (
   changes: PercentageChanges,

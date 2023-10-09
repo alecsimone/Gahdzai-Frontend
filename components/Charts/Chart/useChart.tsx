@@ -1,15 +1,38 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, Dispatch, SetStateAction } from 'react';
+import { Candle, CandleSet } from '@/__generated__/graphql';
 import { ChartMakerInterface } from './chartMaker';
-import { ChartProps } from './types';
-
+import { ChartTypes } from './types';
 import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
 import { HighlightContext } from '../ChartHolder/HighlightContext';
+import getPercentageChangesFromCandles from '../ChartHolder/getPercentageChangesFromCandles';
+import { PeriodContext } from '../ChartHolder/ChartPeriodContext';
 
-const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
+interface ChartInterfaceBase {
+  data: Candle[] | CandleSet[];
+  chartType: ChartTypes;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+}
+
+interface CandlestickChartInterface extends ChartInterfaceBase {
+  data: Candle[];
+  chartType: 'Candlestick';
+}
+
+interface PercentageChangeChartInterface extends ChartInterfaceBase {
+  data: CandleSet[];
+  chartType: 'PercentChange';
+}
+
+export type ChartInterface =
+  | CandlestickChartInterface
+  | PercentageChangeChartInterface;
+
+const useChart = ({ data, chartType, setLegendElements }: ChartInterface) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const { highlightedSymbols } = useContext(HighlightContext);
+  const { activePeriod } = useContext(PeriodContext);
 
   const { shadowChartRef, mouseCoords } = useMouseCoords();
 
@@ -24,10 +47,15 @@ const useChart = ({ data, chartType, setLegendElements }: ChartProps) => {
       highlightedSymbols,
     };
   } else {
+    const percentageChanges = getPercentageChangesFromCandles(
+      data,
+      activePeriod
+    );
+
     chartMakerDataObj = {
       chartRef,
       shadowChartRef,
-      data,
+      data: percentageChanges,
       chartType,
       setLegendElements,
       highlightedSymbols,

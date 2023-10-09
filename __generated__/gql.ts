@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query GET_CANDLES_QUERY(\n    $symbol: String!\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getCandles(symbol: $symbol, from: $from, to: $to, resolution: $resolution) {\n      open\n      close\n      high\n      low\n      volume\n      time\n    }\n  }\n": types.Get_Candles_QueryDocument,
-    "\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      values {\n        percentageChange\n        time\n      }\n      previousClose\n      latestValue\n    }\n  }\n": types.Get_Index_Data_QueryDocument,
+    "\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      candles {\n        open\n        close\n        high\n        low\n        volume\n        time\n      }\n    }\n  }\n": types.Get_Index_Data_QueryDocument,
     "\n  mutation LOG_OUT_MUTATION {\n    logOut\n  }\n": types.Log_Out_MutationDocument,
     "\n  fragment MemberBoxFields on User {\n    displayName\n    avatar\n  }\n": types.MemberBoxFieldsFragmentDoc,
     "\n  query MEMBER_BOX_QUERY {\n    currentUser {\n      ...MemberBoxFields\n    }\n  }\n": types.Member_Box_QueryDocument,
@@ -44,7 +44,7 @@ export function gql(source: "\n  query GET_CANDLES_QUERY(\n    $symbol: String!\
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      values {\n        percentageChange\n        time\n      }\n      previousClose\n      latestValue\n    }\n  }\n"): (typeof documents)["\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      values {\n        percentageChange\n        time\n      }\n      previousClose\n      latestValue\n    }\n  }\n"];
+export function gql(source: "\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      candles {\n        open\n        close\n        high\n        low\n        volume\n        time\n      }\n    }\n  }\n"): (typeof documents)["\n  query GET_INDEX_DATA_QUERY(\n    $from: String!\n    $to: String!\n    $resolution: String!\n  ) {\n    getAllIndexData(from: $from, to: $to, resolution: $resolution) {\n      symbol\n      candles {\n        open\n        close\n        high\n        low\n        volume\n        time\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

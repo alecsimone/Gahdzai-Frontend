@@ -1,10 +1,10 @@
 import { RefObject, Dispatch, SetStateAction } from 'react';
-import { Candle, PercentageChanges } from '@/__generated__/graphql';
+import { Candle } from '@/__generated__/graphql';
 import makeGrid from './gridMakers/makeGrid';
 import getUsableHeight from './utils/getUsableHeight';
 import getUsableWidth from './utils/getUsableWidth';
 import setChartSize from './chartShapers/setChartSize';
-import { ChartData, ChartProps } from './types';
+import { ChartData, ChartProps, PercentageChanges } from './types';
 import setUpFont from './gridMakers/setUpFont';
 import makeCandlestickChart from './makeCandlestickChart';
 import makePercentageChart from './makePercentageChart';
@@ -19,12 +19,12 @@ export interface ChartMakerInterfaceBase {
   highlightedSymbols: HighlightedSymbols[];
 }
 
-interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
+export interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
   chartType: 'Candlestick';
   data: Candle[];
 }
 
-interface PercentageChartMakerInterface extends ChartMakerInterfaceBase {
+export interface PercentageChartMakerInterface extends ChartMakerInterfaceBase {
   chartType: 'PercentChange';
   data: PercentageChanges[];
 }

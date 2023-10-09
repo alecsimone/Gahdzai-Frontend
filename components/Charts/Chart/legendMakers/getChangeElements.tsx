@@ -1,15 +1,15 @@
-import { PercentageChanges } from '@/__generated__/graphql';
 import makeNumberReadable from '@/utils/makeNumberReadable';
 import makeSafeDecimals from '@/utils/makeSafeDecimals';
 import getChangeColor from './getChangeColor';
+import { PercentageChanges } from '../types';
 
 const getChangeElements = ({
   latestValue,
-  previousClose,
+  initialValue,
   values,
 }: PercentageChanges): [JSX.Element, JSX.Element] => {
   const dailyPointChange =
-    makeSafeDecimals(latestValue) - makeSafeDecimals(previousClose);
+    makeSafeDecimals(latestValue) - makeSafeDecimals(initialValue);
   const changeColor = getChangeColor(dailyPointChange);
 
   const rawChangeString = `${

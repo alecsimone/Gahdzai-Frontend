@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { PercentageChanges } from '@/__generated__/graphql';
+import { CandleSet } from '@/__generated__/graphql';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { ChartData } from './types';
 import convertPercentageChangeValuesToPoints from './drawMovingAverageLine/convertPercentageChangeValuesToPoints';
@@ -11,7 +11,7 @@ import { HighlightedSymbols } from '../ChartHolder/HighlightContext';
 
 interface PercentageChartInterface {
   chartData: ChartData;
-  data: PercentageChanges[];
+  data: CandleSet[];
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
   highlightedSymbols: HighlightedSymbols[];
 }
