@@ -5,9 +5,9 @@ import { ChartTypes } from './types';
 import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
-import { HighlightContext } from '../ChartHolder/HighlightContext';
-import getPercentageChangesFromCandles from '../ChartHolder/getPercentageChangesFromCandles';
-import { PeriodContext } from '../ChartHolder/ChartPeriodContext';
+import { HighlightContext } from '../ChartHolder/Contexts/HighlightContext';
+import getPercentageChangesFromCandles from './utils/getPercentageChangesFromCandles';
+import { PeriodContext } from '../ChartHolder/Contexts/ChartPeriodContext';
 
 interface ChartInterfaceBase {
   data: Candle[] | CandleSet[];

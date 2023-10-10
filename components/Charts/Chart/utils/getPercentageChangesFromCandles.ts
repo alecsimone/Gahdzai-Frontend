@@ -1,7 +1,7 @@
 import { CandleSet } from '@/__generated__/graphql';
 import makeSafeDecimals from '@/utils/makeSafeDecimals';
-import { Period } from './ChartPeriodContext';
-import { PercentageChangeValue, PercentageChanges } from '../Chart/types';
+import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
+import { PercentageChangeValue, PercentageChanges } from '../types';
 
 const getPercentageChangesFromCandles = (
   data: CandleSet[],

@@ -1,5 +1,5 @@
 import { RefObject, useCallback, useContext, useEffect } from 'react';
-import { HighlightContext } from '../../ChartHolder/HighlightContext';
+import { HighlightContext } from '../../ChartHolder/Contexts/HighlightContext';
 import {
   highlightSymbol,
   toggleSymbolHighlightLock,

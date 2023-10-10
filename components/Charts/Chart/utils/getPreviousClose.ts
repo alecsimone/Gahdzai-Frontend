@@ -1,5 +1,5 @@
-import { resolution } from '../Chart/constants';
-import { Period } from './ChartPeriodContext';
+import { resolution } from '../constants';
+import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
 
 const getPreviousClose = (period: Period): number => {
   // TODO Handle holidays

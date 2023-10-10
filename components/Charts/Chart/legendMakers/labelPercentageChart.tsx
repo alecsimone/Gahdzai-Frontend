@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-import { PercentageChanges } from '@/__generated__/graphql';
-
 import getLegendElementsFromPercentageData from './getLegendElementsFromPercentageData';
 import updateLegendIfNeeded from './updateLegendIfNeeded';
+import { PercentageChanges } from '../types';
 
 const labelPercentageChart = (
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>,

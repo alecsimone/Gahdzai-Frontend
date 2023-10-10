@@ -38,16 +38,12 @@ interface PercentageQueryProps extends ChartQueryPropsBase {
 
 export type ChartQueryProps = CandlestickQueryProps | PercentageQueryProps;
 
-interface ChartPropsBase {
-  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
-}
-
-interface CandlestickProps extends ChartPropsBase {
+interface CandlestickProps {
   data: Candle[];
   chartType: 'Candlestick';
 }
 
-interface PercentageChangeProps extends ChartPropsBase {
+interface PercentageChangeProps {
   data: PercentageChanges[];
   chartType: 'PercentChange';
 }

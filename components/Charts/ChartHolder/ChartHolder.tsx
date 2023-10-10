@@ -3,9 +3,9 @@ import useChartHolder from './useChartHolder';
 import Chart from '../Chart/Chart';
 import StyledChartHolder from './StyledChartHolder';
 import LoadingChart from './LoadingChart/LoadingChart';
-import { HighlightContext } from './HighlightContext';
+import { HighlightContext } from './Contexts/HighlightContext';
 import PeriodButtons from './PeriodButtons/PeriodButtons';
-import { PeriodContext } from './ChartPeriodContext';
+import { PeriodContext } from './Contexts/ChartPeriodContext';
 
 // interface ChartHolderProps {}
 

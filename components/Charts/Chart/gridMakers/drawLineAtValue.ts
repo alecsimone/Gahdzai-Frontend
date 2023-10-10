@@ -18,19 +18,28 @@ const drawLineAtValue = (dataObj: DrawLineAtValueInterface) => {
   const { usablePixelSize, lineTerminus, chartOrigin, chartTerminus } =
     getChartShapeFromChartData(directionalChartData);
 
+  ctx.lineWidth = 1;
   ctx.beginPath();
 
-  const thisLineCoord = getCoordForValue(
-    value,
-    usablePixelSize,
-    chartOrigin,
-    chartTerminus
-  );
+  let thisLineCoord: number;
+  if (lineDirection === 'horizontal') {
+    thisLineCoord = getCoordForValue(
+      value,
+      usablePixelSize,
+      chartOrigin,
+      chartTerminus
+    );
+  } else {
+    thisLineCoord = value;
+  }
 
   if (lineDirection === 'horizontal') {
     ctx.moveTo(0, thisLineCoord);
     ctx.lineTo(lineTerminus, thisLineCoord);
   } else if (lineDirection === 'vertical') {
+    console.log(
+      `Drawing line at (${thisLineCoord}, 0), ending at ${lineTerminus}`
+    );
     ctx.moveTo(thisLineCoord, 0);
     ctx.lineTo(thisLineCoord, lineTerminus);
   }

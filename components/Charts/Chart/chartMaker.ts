@@ -4,13 +4,13 @@ import makeGrid from './gridMakers/makeGrid';
 import getUsableHeight from './utils/getUsableHeight';
 import getUsableWidth from './utils/getUsableWidth';
 import setChartSize from './chartShapers/setChartSize';
-import { ChartData, ChartProps, PercentageChanges } from './types';
+import { ChartData, ChartProps, PercentageChanges, DataPoint } from './types';
 import setUpFont from './gridMakers/setUpFont';
 import makeCandlestickChart from './makeCandlestickChart';
 import makePercentageChart from './makePercentageChart';
 import getChartBoundaries from './chartShapers/getChartBoundaries';
 import setLegendGridProperties from './legendMakers/setLegendGridProperties';
-import { HighlightedSymbols } from '../ChartHolder/HighlightContext';
+import { HighlightedSymbols } from '../ChartHolder/Contexts/HighlightContext';
 
 export interface ChartMakerInterfaceBase {
   chartRef: RefObject<HTMLCanvasElement>;
@@ -60,13 +60,11 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
     chartProps = {
       data,
       chartType,
-      setLegendElements,
     };
   } else {
     chartProps = {
       data,
       chartType,
-      setLegendElements,
     };
   }
 
@@ -88,18 +86,22 @@ const chartMaker = (dataObj: ChartMakerInterface): ChartSize => {
     chartType,
   };
 
-  makeGrid(chartData);
-
+  let finalDatapoints: DataPoint[] = [];
   if (chartType === 'Candlestick') {
-    makeCandlestickChart({ data, chartData, setLegendElements });
+    finalDatapoints = makeCandlestickChart({
+      data,
+      chartData,
+      setLegendElements,
+    });
   } else if (chartType === 'PercentChange') {
-    makePercentageChart({
+    finalDatapoints = makePercentageChart({
       data,
       chartData,
       setLegendElements,
       highlightedSymbols,
     });
   }
+  makeGrid(chartData, finalDatapoints);
 
   setLegendGridProperties(chartRef.current);
 

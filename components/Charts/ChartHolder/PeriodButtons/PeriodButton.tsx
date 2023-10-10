@@ -1,5 +1,5 @@
 import Button from '@/styles/extendableElements/Button';
-import { Period } from '../ChartPeriodContext';
+import { Period } from '../Contexts/ChartPeriodContext';
 import usePeriodButton from './usePeriodButton';
 
 interface PeriodButtonProps {

@@ -1,5 +1,4 @@
-import { PercentageChanges } from '@/__generated__/graphql';
-import { ChartBoundaries, ChartProps } from '../types';
+import { ChartBoundaries, ChartProps, PercentageChanges } from '../types';
 import getDataTop from './getDataTop';
 import getDataBottom from './getDataBottom';
 import getDataStart from './getDataStart';

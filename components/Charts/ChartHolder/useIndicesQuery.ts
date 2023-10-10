@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
-import getQueryTimeBoundaries from './getQueryTimeBoundaries';
+import getQueryTimeBoundaries from '../Chart/utils/getQueryTimeBoundaries';
 import GET_INDEX_DATA_QUERY from '../Chart/getIndexCandlesQuery.gql';
-import getQueryResolution from './getQueryResolution';
-import { Period } from './ChartPeriodContext';
+import getQueryResolution from '../Chart/utils/getQueryResolution';
+import { Period } from './Contexts/ChartPeriodContext';
 
 const useIndicesQuery = (period: Period) => {
   const [previousClose, nextClose] = getQueryTimeBoundaries(period);

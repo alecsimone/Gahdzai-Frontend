@@ -1,4 +1,4 @@
-import { Period } from './ChartPeriodContext';
+import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
 
 const getQueryResolution = (period: Period): string => {
   switch (period) {

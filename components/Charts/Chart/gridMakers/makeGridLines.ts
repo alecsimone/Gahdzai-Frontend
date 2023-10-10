@@ -4,9 +4,13 @@ import makeSafeDecimals from '@/utils/makeSafeDecimals';
 import makeStepList from './makeStepList';
 import drawLineAtValue from './drawLineAtValue';
 import labelAxis from './labelAxis';
-import { DirectionalChartData } from '../types';
+import { DirectionalChartData, DataPoint } from '../types';
 
-const makeGridLines = (directionalChartData: DirectionalChartData) => {
+const makeGridLines = (
+  directionalChartData: DirectionalChartData,
+  finalDatapoints?: DataPoint[]
+) => {
+  console.log(finalDatapoints);
   const { lineDirection, chartData } = directionalChartData;
   const { ctx, chartType } = chartData;
 

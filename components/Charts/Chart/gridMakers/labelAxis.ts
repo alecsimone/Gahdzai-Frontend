@@ -51,6 +51,7 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
 
   let labelText: string;
   if (lineDirection === 'vertical') {
+    // labelText = stepList[i];
     labelText = getTimeString(stepList[i]);
   } else {
     labelText = `${makeNumberReadable({ number: stepList[i] })}`;

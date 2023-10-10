@@ -6,7 +6,10 @@ import getDataEnd from './getDataEnd';
 import { ChartBoundaries, ChartProps } from '../types';
 
 const getCandleChartBoundaries = (candleData: Candle[]) => {
-  const chartProps: ChartProps = { data: candleData, chartType: 'Candlestick' };
+  const chartProps: ChartProps = {
+    data: candleData,
+    chartType: 'Candlestick',
+  };
 
   const chartTop = getDataTop(chartProps);
   const chartBottom = getDataBottom(chartProps);

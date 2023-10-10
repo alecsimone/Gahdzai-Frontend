@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { HighlightedSymbols } from '../../ChartHolder/HighlightContext';
+import { HighlightedSymbols } from '../../ChartHolder/Contexts/HighlightContext';
 
 export const highlightSymbol = (
   symbol: string,

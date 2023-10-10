@@ -3,7 +3,7 @@ import { Candle } from '@/__generated__/graphql';
 import makeCandles from './candlestickMakers/makeCandles';
 import convertCandlesToPoints from './drawMovingAverageLine/convertCandlesToPoints';
 import drawMovingAverageLine from './drawMovingAverageLine/drawMovingAverageLine';
-import { ChartData } from './types';
+import { ChartData, DataPoint } from './types';
 
 interface CandlestickChartInterface {
   chartData: ChartData;
@@ -14,13 +14,15 @@ interface CandlestickChartInterface {
 const makeCandlestickChart = ({
   data,
   chartData,
-}: CandlestickChartInterface) => {
+}: CandlestickChartInterface): DataPoint[] => {
   const { ctx } = chartData;
 
   makeCandles(data, chartData);
 
   const dataPoints = convertCandlesToPoints(data);
   drawMovingAverageLine(dataPoints, chartData, ctx);
+
+  return dataPoints;
 };
 
 export default makeCandlestickChart;

@@ -1,6 +1,6 @@
 // import '@testing-library/jest-dom';
 
-import getPreviousClose from './getPreviousClose';
+import getPreviousClose from '../Chart/utils/getPreviousClose';
 
 type Days = 'sunday' | 'monday' | 'saturday' | 'wednesday';
 

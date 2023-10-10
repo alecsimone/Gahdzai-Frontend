@@ -1,4 +1,4 @@
-import { periods } from '../ChartPeriodContext';
+import { periods } from '../Contexts/ChartPeriodContext';
 import PeriodButton from './PeriodButton';
 import StyledPeriodButtons from './StyledPeriodButtons';
 

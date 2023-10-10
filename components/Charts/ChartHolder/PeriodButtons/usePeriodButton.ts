@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useRef } from 'react';
-import { Period, PeriodContext } from '../ChartPeriodContext';
+import { Period, PeriodContext } from '../Contexts/ChartPeriodContext';
 
 const usePeriodButton = (period: Period) => {
   const { activePeriod, setActivePeriod } = useContext(PeriodContext);

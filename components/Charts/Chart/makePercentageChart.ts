@@ -1,17 +1,16 @@
 import { Dispatch, SetStateAction } from 'react';
-import { CandleSet } from '@/__generated__/graphql';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { ChartData } from './types';
+import { ChartData, PercentageChanges, DataPoint } from './types';
 import convertPercentageChangeValuesToPoints from './drawMovingAverageLine/convertPercentageChangeValuesToPoints';
 import convertToXYPairs from './drawMovingAverageLine/convertToXYPairs';
 import drawLineFromCoords from './utils/drawLineFromCoords';
 import labelPercentageChart from './legendMakers/labelPercentageChart';
 import getLineColor from './utils/getLineColor';
-import { HighlightedSymbols } from '../ChartHolder/HighlightContext';
+import { HighlightedSymbols } from '../ChartHolder/Contexts/HighlightContext';
 
 interface PercentageChartInterface {
   chartData: ChartData;
-  data: CandleSet[];
+  data: PercentageChanges[];
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
   highlightedSymbols: HighlightedSymbols[];
 }
@@ -21,10 +20,11 @@ const makePercentageChart = ({
   data,
   setLegendElements,
   highlightedSymbols,
-}: PercentageChartInterface) => {
+}: PercentageChartInterface): DataPoint[] => {
+  let dataPoints: DataPoint[] = [];
   data.forEach((changes, index) => {
     const color = getLineColor(changes.symbol, index);
-    const dataPoints = convertPercentageChangeValuesToPoints(
+    dataPoints = convertPercentageChangeValuesToPoints(
       changes.values,
       chartData.usableWidth
     );
@@ -49,6 +49,8 @@ const makePercentageChart = ({
     });
   });
   labelPercentageChart(setLegendElements, data);
+
+  return dataPoints;
 };
 
 export default makePercentageChart;

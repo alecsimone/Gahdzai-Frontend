@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import useHighlightContext from './useHighlightContext';
+import useHighlightContext from './Contexts/useHighlightContext';
 import useIndicesQuery from './useIndicesQuery';
-import useChartPeriodContext from './useChartPeriodContext';
+import useChartPeriodContext from './Contexts/useChartPeriodContext';
 
 const useChartHolder = () => {
   const [legendElements, setLegendElements] = useState<JSX.Element[]>([
