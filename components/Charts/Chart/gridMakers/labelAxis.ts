@@ -1,14 +1,12 @@
 import { white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
-import makeNumberReadable from '@/utils/makeNumberReadable';
 import { gutterPadding } from '../constants';
 import checkForLabelSkip from './checkForLabelSkip';
 import { DirectionalChartData, ChartTypes } from '../types';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
-import getTimeString from '../utils/getTimeString';
 
 interface LabelAxisInterface {
-  stepList: number[];
+  labelsList: string[];
   i: number;
   thisLineCoord: number;
   directionalChartData: DirectionalChartData;
@@ -16,8 +14,7 @@ interface LabelAxisInterface {
 }
 
 const labelAxis = (dataObj: LabelAxisInterface) => {
-  const { stepList, i, thisLineCoord, directionalChartData, chartType } =
-    dataObj;
+  const { labelsList, i, thisLineCoord, directionalChartData } = dataObj;
 
   const { lineDirection, chartData } = directionalChartData;
   const { ctx } = chartData;
@@ -34,7 +31,7 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
   if (lineDirection === 'horizontal') {
     if (i === 0) {
       ctx.textBaseline = 'top';
-    } else if (i === stepList.length - 1) {
+    } else if (i === labelsList.length - 1) {
       ctx.textBaseline = 'bottom';
     } else {
       ctx.textBaseline = 'middle';
@@ -49,19 +46,10 @@ const labelAxis = (dataObj: LabelAxisInterface) => {
     }
   }
 
-  let labelText: string;
-  if (lineDirection === 'vertical') {
-    // labelText = stepList[i];
-    labelText = getTimeString(stepList[i]);
-  } else {
-    labelText = `${makeNumberReadable({ number: stepList[i] })}`;
-    if (chartType === 'PercentChange') {
-      labelText += '%';
-    }
-  }
+  const labelText = labelsList[i];
 
   const shouldSkipLabel = checkForLabelSkip({
-    stepList,
+    labelsList,
     i,
     thisLineCoord,
     labelText,

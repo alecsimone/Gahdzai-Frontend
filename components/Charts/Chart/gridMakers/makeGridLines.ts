@@ -1,16 +1,13 @@
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { coolGrey, white } from '@/styles/constants/colors';
 import makeSafeDecimals from '@/utils/makeSafeDecimals';
+import makeNumberReadable from '@/utils/makeNumberReadable';
 import makeStepList from './makeStepList';
 import drawLineAtValue from './drawLineAtValue';
 import labelAxis from './labelAxis';
-import { DirectionalChartData, DataPoint } from '../types';
+import { DirectionalChartData } from '../types';
 
-const makeGridLines = (
-  directionalChartData: DirectionalChartData,
-  finalDatapoints?: DataPoint[]
-) => {
-  console.log(finalDatapoints);
+const makeGridLines = (directionalChartData: DirectionalChartData) => {
   const { lineDirection, chartData } = directionalChartData;
   const { ctx, chartType } = chartData;
 
@@ -29,8 +26,16 @@ const makeGridLines = (
       directionalChartData,
     });
 
+    const labelsList = stepList.map((step) => {
+      let labelText = `${makeNumberReadable({ number: step })}`;
+      if (chartType === 'PercentChange') {
+        labelText += '%';
+      }
+      return labelText;
+    });
+
     labelAxis({
-      stepList,
+      labelsList,
       i,
       thisLineCoord,
       directionalChartData,

@@ -83,7 +83,7 @@ export interface DirectionalChartData {
 }
 
 export interface LabelSkipCheckInterface {
-  stepList: number[];
+  labelsList: string[];
   i: number;
   thisLineCoord: number;
   labelText: string;
@@ -99,3 +99,5 @@ export type Coordinate = {
   x: number;
   y: number;
 };
+
+export type PeriodTypes = 'year' | 'month' | 'date' | 'hour' | 'minute';

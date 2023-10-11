@@ -1,10 +1,9 @@
 import { LabelSkipCheckInterface } from '../types';
 import getCoordForValue from '../utils/getCoordForValue';
-import getTimeString from '../utils/getTimeString';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
 const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
-  const { stepList, i, thisLineCoord, labelText, directionalChartData } =
+  const { labelsList, i, thisLineCoord, labelText, directionalChartData } =
     dataObj;
 
   const { chartData, lineDirection } = directionalChartData;
@@ -24,16 +23,17 @@ const checkForStartingLabelSkip = (dataObj: LabelSkipCheckInterface) => {
   }
   const thisTextBoundary = thisLineCoord - thisTextOverhang;
 
-  let previousText: string;
-  if (lineDirection === 'vertical') {
-    previousText = getTimeString(stepList[i - 1]);
-  } else {
-    previousText = `${stepList[i - 1]}`;
-  }
+  const previousText = labelsList[i - 1];
+  // let previousText: string;
+  // if (lineDirection === 'vertical') {
+  //   previousText = getTimeString(labelsList[i - 1]);
+  // } else {
+  //   previousText = `${labelsList[i - 1]}`;
+  // }
 
   const previousTextMeasurement = ctx.measureText(previousText);
   const previousLineCoord = getCoordForValue(
-    stepList[i - 1],
+    labelsList[i - 1],
     usablePixelSize,
     chartOrigin,
     chartTerminus
