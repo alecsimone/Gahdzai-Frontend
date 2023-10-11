@@ -100,4 +100,5 @@ export type Coordinate = {
   y: number;
 };
 
-export type PeriodTypes = 'year' | 'month' | 'date' | 'hour' | 'minute';
+export const periodTypes = ['year', 'month', 'date', 'hour', 'minute'] as const;
+export type PeriodTypes = (typeof periodTypes)[number];

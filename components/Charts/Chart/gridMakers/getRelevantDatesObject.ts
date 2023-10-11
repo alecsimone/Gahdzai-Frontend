@@ -1,17 +1,16 @@
 import { PeriodTypes } from '../types';
+import ensureMsTimestamp from '../utils/ensureMsTimestamp';
 
 // * Takes in a timestamp and returns a RelevantDatesObj for it
-type Signature = (timestamp: number | string) => RelevantDatesObjectInterface;
+type Signature = (
+  timestamp: number | string | Date
+) => RelevantDatesObjectInterface;
 
 export type RelevantDatesObjectInterface = Record<PeriodTypes, number>;
 
 const getRelevantDatesObject: Signature = (timestamp) => {
-  let properTimestamp =
-    typeof timestamp === 'string' ? parseInt(timestamp, 10) : timestamp;
-  if (properTimestamp < 99999999999) {
-    // We can safely assume that a 11 digit number represents a timestamp in seconds
-    properTimestamp *= 1000;
-  }
+  const properTimestamp = ensureMsTimestamp(timestamp);
+
   const dateObj = new Date(properTimestamp);
   const RelevantDatesObj: RelevantDatesObjectInterface = {
     year: dateObj.getFullYear(),
