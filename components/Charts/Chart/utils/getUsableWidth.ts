@@ -1,4 +1,4 @@
-import makeSafeDecimals from '@/utils/makeSafeDecimals';
+import makeNumberReadable from '@/utils/makeNumberReadable';
 import { ChartBoundaries, ChartTypes } from '../types';
 import { gutterPadding } from '../constants';
 
@@ -17,7 +17,7 @@ const getUsableWidth = (dataObj: UsableWidthCalculator) => {
     chartType,
   } = dataObj;
 
-  const top = makeSafeDecimals(chartTop);
+  const top = makeNumberReadable({ number: chartTop });
   let topString = `${top}`;
   if (!topString.includes('.')) {
     topString = `${topString}.00`;
@@ -26,7 +26,7 @@ const getUsableWidth = (dataObj: UsableWidthCalculator) => {
     topString += '%';
   }
 
-  const bottom = makeSafeDecimals(chartBottom);
+  const bottom = makeNumberReadable({ number: chartBottom });
   let bottomString = `${bottom}`;
   if (!bottomString.includes('.')) {
     bottomString = `${bottomString}.00`;

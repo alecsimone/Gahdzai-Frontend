@@ -46,6 +46,7 @@ const makeTimeLabelObjectsArray: Signature = ({
 
     if (properTimestamp >= nextPeriodTimestamp) {
       const xCoord = getXValueByIndex(usableWidth, index, datapoints.length);
+      let labelText: string;
       const relevantDatesObj = getRelevantDatesObject(time);
 
       let doneLooping = false;
@@ -54,10 +55,7 @@ const makeTimeLabelObjectsArray: Signature = ({
           !doneLooping &&
           relevantDatesObj[type] > lastRelevantDatesObj[type]
         ) {
-          const labelText = getLabelTextFromRelevantDates(
-            relevantDatesObj,
-            type
-          );
+          labelText = getLabelTextFromRelevantDates(relevantDatesObj, type);
           labelObjectsArray.push({
             labelText,
             xCoord,

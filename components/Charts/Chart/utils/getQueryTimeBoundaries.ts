@@ -1,9 +1,9 @@
 import getNextClose from './getNextClose';
-import getPreviousClose from './getPreviousClose';
+import getPeriodStart from './getPeriodStart';
 import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
 
 const getQueryTimeBoundaries = (period: Period): [number, number] => {
-  const previousClose = getPreviousClose(period);
+  const previousClose = getPeriodStart(period);
   const nextClose = getNextClose();
 
   return [previousClose, nextClose];

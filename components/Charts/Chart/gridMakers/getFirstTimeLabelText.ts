@@ -14,13 +14,14 @@ const getFirstTimeLabelText: Signature = (firstTime, periodType) => {
   if (periodType === 'year') {
     firstLabelText += `${relevantDatesObj.year} `;
   }
-  firstLabelText += `${relevantDatesObj.month + 1}/${relevantDatesObj.date} ${
-    relevantDatesObj.hour
-  }:${
-    relevantDatesObj.minute < 10
-      ? `0${relevantDatesObj.minute}`
-      : relevantDatesObj.minute
-  }`;
+  // firstLabelText += `${relevantDatesObj.month + 1}/${relevantDatesObj.date} ${
+  //   relevantDatesObj.hour
+  // }:${
+  //   relevantDatesObj.minute < 10
+  //     ? `0${relevantDatesObj.minute}`
+  //     : relevantDatesObj.minute
+  // }`;
+  firstLabelText += `${relevantDatesObj.month + 1}/${relevantDatesObj.date}`;
 
   return firstLabelText;
 };
