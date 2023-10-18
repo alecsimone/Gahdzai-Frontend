@@ -14,7 +14,7 @@ const isMarketHoliday = (day: Date): boolean =>
     (holiday) => holiday.toDateString() === day.toDateString()
   );
 
-const getPreviousClose: Signature = (startDate) => {
+const getPreviousCloseDate: Signature = (startDate) => {
   let tradingDaysFound = 0;
   if (!isWeekend(startDate) && !isMarketHoliday(startDate)) {
     tradingDaysFound += 1;
@@ -27,7 +27,9 @@ const getPreviousClose: Signature = (startDate) => {
     }
   }
 
+  nextDate.setHours(12); // Make sure we're in the middle of the day so that we don't get messed up by time zones
+
   return nextDate;
 };
 
-export default getPreviousClose;
+export default getPreviousCloseDate;

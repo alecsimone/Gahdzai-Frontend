@@ -27,6 +27,7 @@ const ChartHolder = (): JSX.Element => {
     return <Error error={error} />;
   }
   if (data) {
+    console.log(data);
     return (
       <HighlightContext.Provider value={highlightContextData}>
         <PeriodContext.Provider value={chartPeriodContextData}>
