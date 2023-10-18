@@ -7,7 +7,10 @@ import { HighlightContext } from './Contexts/HighlightContext';
 import PeriodButtons from './PeriodButtons/PeriodButtons';
 import { PeriodContext } from './Contexts/ChartPeriodContext';
 
-// interface ChartHolderProps {}
+// * The container for our charts along with their accompanying buttons and legend. It has the following responsibilities:
+// - Handles data fetching for the chart and displays the loading and error states
+// - Renders the LegendItems in the header and the PeriodButtons in the footer
+// - Handles the Context required for the LegendItems and the PeriodButtons
 
 const ChartHolder = (): JSX.Element => {
   const {
@@ -27,7 +30,6 @@ const ChartHolder = (): JSX.Element => {
     return <Error error={error} />;
   }
   if (data) {
-    console.log(data);
     return (
       <HighlightContext.Provider value={highlightContextData}>
         <PeriodContext.Provider value={chartPeriodContextData}>

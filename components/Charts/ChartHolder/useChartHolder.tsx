@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
+import { ApolloError } from '@apollo/client';
+import { Get_Index_Data_QueryQuery } from '@/__generated__/graphql';
 import useHighlightContext from './Contexts/useHighlightContext';
 import useIndicesQuery from './useIndicesQuery';
 import useChartPeriodContext from './Contexts/useChartPeriodContext';
+import { HighlightContextDataObjectInterface } from './Contexts/HighlightContext';
+import { PeriodContextDataInterface } from './Contexts/ChartPeriodContext';
 
-const useChartHolder = () => {
+// * The master hook for ChartHolder. See the various functions it calls for more details on them. The only thing it does itself is create state to hold any legend items the chart might create
+type Signature = () => {
+  data: Get_Index_Data_QueryQuery | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+  legendElements: JSX.Element[];
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+  highlightContextData: HighlightContextDataObjectInterface;
+  chartPeriodContextData: PeriodContextDataInterface;
+};
+
+const useChartHolder: Signature = () => {
   const [legendElements, setLegendElements] = useState<JSX.Element[]>([
     <h6 className="chartLabel">Loading...</h6>,
   ]);
