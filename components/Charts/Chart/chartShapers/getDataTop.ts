@@ -8,7 +8,7 @@ const getDataTop = ({ data, chartType }: ChartProps) => {
     return highs[highs.length - 1];
   }
   const allChanges = smashPercentageChangesIntoValues(data);
-  allChanges.sort();
+  allChanges.sort((a, b) => a - b);
   return allChanges[allChanges.length - 1];
 };
 

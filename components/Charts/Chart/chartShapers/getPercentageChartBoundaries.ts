@@ -10,6 +10,7 @@ const getPercentageChartBoundaries = (data: PercentageChanges[]) => {
     chartType: 'PercentChange',
   };
 
+  console.log(data);
   const chartTop = getDataTop(chartProps);
   const chartBottom = getDataBottom(chartProps);
   const chartStart = getDataStart(chartProps);
@@ -21,6 +22,7 @@ const getPercentageChartBoundaries = (data: PercentageChanges[]) => {
     chartStart: parseInt(chartStart, 10),
     chartEnd: parseInt(chartEnd, 10),
   };
+  console.log(chartBoundaries);
 
   return chartBoundaries;
 };
