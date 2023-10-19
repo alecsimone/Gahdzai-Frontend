@@ -3,6 +3,7 @@ import {
   Get_Candles_QueryQuery,
   Get_Index_Data_QueryQuery,
   Candle,
+  CandleSet,
 } from '@/__generated__/graphql';
 
 export type ChartTypes = 'Candlestick' | 'PercentChange';
@@ -102,3 +103,23 @@ export type Coordinate = {
 
 export const periodTypes = ['year', 'month', 'date', 'hour', 'minute'] as const;
 export type PeriodTypes = (typeof periodTypes)[number];
+
+interface ChartInterfaceBase {
+  data: Candle[] | CandleSet[];
+  chartType: ChartTypes;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+}
+
+interface CandlestickChartInterface extends ChartInterfaceBase {
+  data: Candle[];
+  chartType: 'Candlestick';
+}
+
+interface PercentageChangeChartInterface extends ChartInterfaceBase {
+  data: CandleSet[];
+  chartType: 'PercentChange';
+}
+
+export type ChartInterface =
+  | CandlestickChartInterface
+  | PercentageChangeChartInterface;

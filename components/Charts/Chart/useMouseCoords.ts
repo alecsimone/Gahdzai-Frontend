@@ -3,11 +3,11 @@ import getMousePosOverCanvas, {
   MouseCoords,
 } from './utils/getMousePosOverCanvas';
 
-const useMouseCoords = (): {
-  shadowChartRef: RefObject<HTMLCanvasElement>;
+const useMouseCoords = (
+  shadowChartRef: RefObject<HTMLCanvasElement>
+): {
   mouseCoords: MutableRefObject<MouseCoords>;
 } => {
-  const shadowChartRef = useRef<HTMLCanvasElement>(null);
   const mouseCoords = useRef<MouseCoords>(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const useMouseCoords = (): {
     };
   }, [shadowChartRef]);
 
-  return { shadowChartRef, mouseCoords };
+  return { mouseCoords };
 };
 
 export default useMouseCoords;

@@ -1,28 +1,18 @@
-import { useCallback, useContext, useEffect, useRef } from 'react';
+import { useContext, Dispatch, SetStateAction } from 'react';
 import { Period, PeriodContext } from '../Contexts/ChartPeriodContext';
 
-const usePeriodButton = (period: Period) => {
+// * The hook for our PeriodButtons. It pulls the activePeriod and its setter out of context and then does a simple check to figure out if this button corresponds to the currently active period.
+
+type Signature = (period: Period) => {
+  isActive: boolean;
+  setActivePeriod: Dispatch<SetStateAction<Period>>;
+};
+
+const usePeriodButton: Signature = (period) => {
   const { activePeriod, setActivePeriod } = useContext(PeriodContext);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const makeActive = useCallback(
-    () => setActivePeriod(period),
-    [period, setActivePeriod]
-  );
-
-  useEffect(() => {
-    const button = buttonRef.current;
-    if (button) {
-      button.addEventListener('click', makeActive);
-      return () => {
-        button.removeEventListener('click', makeActive);
-      };
-    }
-    return () => {};
-  }, [makeActive]);
 
   const isActive = activePeriod === period;
-  return { buttonRef, isActive };
+  return { isActive, setActivePeriod };
 };
 
 export default usePeriodButton;

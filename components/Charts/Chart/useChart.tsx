@@ -1,7 +1,6 @@
-import { useContext, useRef, Dispatch, SetStateAction } from 'react';
-import { Candle, CandleSet } from '@/__generated__/graphql';
+import { useContext, useRef, RefObject } from 'react';
 import { ChartMakerInterface } from './chartMaker';
-import { ChartTypes } from './types';
+import { ChartInterface } from './types';
 import useMouseCoords from './useMouseCoords';
 import useChartMaker from './useChartMaker';
 import useCrosshairs from './useCrosshairs';
@@ -9,32 +8,18 @@ import { HighlightContext } from '../ChartHolder/Contexts/HighlightContext';
 import getPercentageChangesFromCandles from './utils/getPercentageChangesFromCandles';
 import { PeriodContext } from '../ChartHolder/Contexts/ChartPeriodContext';
 
-interface ChartInterfaceBase {
-  data: Candle[] | CandleSet[];
-  chartType: ChartTypes;
-  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
-}
+// * Our master hook for the Chart component. There are three sub-hooks that it calls, and it does a little data wrangling to give them what they need
+// - useMouseCoords() gets the coordinates of the mouse relative to the chart. It will be used for showing crosshairs and any information that pops up on hover
+// -
 
-interface CandlestickChartInterface extends ChartInterfaceBase {
-  data: Candle[];
-  chartType: 'Candlestick';
-}
+type Signature = (obj: ChartInterface) => {
+  chartRef: RefObject<HTMLCanvasElement>;
+  shadowChartRef: RefObject<HTMLCanvasElement>;
+};
 
-interface PercentageChangeChartInterface extends ChartInterfaceBase {
-  data: CandleSet[];
-  chartType: 'PercentChange';
-}
-
-export type ChartInterface =
-  | CandlestickChartInterface
-  | PercentageChangeChartInterface;
-
-const useChart = ({ data, chartType, setLegendElements }: ChartInterface) => {
-  const chartRef = useRef<HTMLCanvasElement>(null);
+const useChart: Signature = ({ data, chartType, setLegendElements }) => {
   const { highlightedSymbols } = useContext(HighlightContext);
   const { activePeriod } = useContext(PeriodContext);
-
-  const { shadowChartRef, mouseCoords } = useMouseCoords();
 
   let chartMakerDataObj: ChartMakerInterface;
   if (chartType === 'Candlestick') {
@@ -63,6 +48,8 @@ const useChart = ({ data, chartType, setLegendElements }: ChartInterface) => {
   }
 
   const sizeRef = useChartMaker(chartMakerDataObj);
+
+  const { mouseCoords } = useMouseCoords(shadowChartRef);
   useCrosshairs({ sizeRef, shadowChartRef, mouseCoords });
 
   return { chartRef, shadowChartRef };
