@@ -1,6 +1,6 @@
 import getNextClose from './getNextClose';
 import getPeriodStart from './getPeriodStart';
-import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
+import { type Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
 
 // * Gets the start and end time for a chart data query based on the currently active period
 type Signature = (period: Period) => [number, number];

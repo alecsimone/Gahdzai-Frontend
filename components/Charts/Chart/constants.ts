@@ -15,3 +15,11 @@ export const upColor = setAlpha(green, 0.9);
 export const minimumCandleWidth = 3;
 
 export const resolution = 1;
+
+export const defaultLineWidth = 3;
+export const highlightedLineWidth = 5;
+export const notHighlightedLineWidth = 1;
+
+export const defaultLineAlpha = 0.8;
+export const highlightedSymbolAlpha = 1;
+export const notHighlightedSymbolAlpha = 0.25;

@@ -2,6 +2,8 @@ import getOneRem from '@/styles/functions/getOneRem';
 import { minimumLegendElementRemSize } from '../../ChartHolder/StyledChartHolder';
 import getGridColumnCount from './getGridColumnCount';
 
+// * Sets the number of columns in our Legend grid based on the number of legend items
+
 const setLegendGridProperties = (chartEl: HTMLCanvasElement) => {
   const legendElementMinimumWidth =
     (minimumLegendElementRemSize + 2) * getOneRem(); // The +2 is to account for the gap

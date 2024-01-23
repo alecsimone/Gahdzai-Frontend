@@ -1,5 +1,5 @@
-import { RelevantDatesObjectInterface } from './getRelevantDatesObject';
-import { PeriodTypes } from '../types';
+import type { RelevantDatesObjectInterface } from './getRelevantDatesObject';
+import type { PeriodTypes } from '../types';
 import getMaxSteps from './getMaxSteps';
 
 // * Takes in the width of a chart and its first and last dates and figures out what the best period type for that chart will be, as well as what the actual period itself should be
@@ -13,6 +13,13 @@ type Signature = (
 
 const getPeriodForDates: Signature = (usableWidth, relevantDatesObjs) => {
   const [firstRelevantDatesObj, lastRelevantDatesObj] = relevantDatesObjs;
+
+  if (lastRelevantDatesObj == null || firstRelevantDatesObj == null) {
+    return {
+      period: -1,
+      periodType: 'date',
+    };
+  }
 
   const maxSteps = getMaxSteps(usableWidth);
 
@@ -34,7 +41,7 @@ const getPeriodForDates: Signature = (usableWidth, relevantDatesObjs) => {
         periodType = currentPeriodType;
         range = rangeSize;
       } else if (periodTypes[index + 1] != null) {
-        periodType = periodTypes[index + 1];
+        periodType = periodTypes[index + 1]!;
         const nextRangeSize =
           lastRelevantDatesObj[periodType] - firstRelevantDatesObj[periodType];
 

@@ -1,6 +1,6 @@
 import { getCandleValue } from './convertCandlesToPoints';
 import convertDataPointsToSMAPoints from './convertDataPointsToSMAPoints';
-import convertToXYPairs from './convertToXYPairs';
+import convertToXYCoordinates from './convertToXYCoordinates';
 import {
   makeDataPointsArrayOfLength,
   mockChartData,
@@ -84,7 +84,10 @@ describe('Converts the time/value pairs to XY pairs', () => {
   it('Has the right number of pairs', () => {
     const mockDataPoints20 = makeDataPointsArrayOfLength(20);
     const mockSMAPoints20 = convertDataPointsToSMAPoints(mockDataPoints20);
-    const mockXYPairs20 = convertToXYPairs(mockSMAPoints20, mockChartData);
+    const mockXYPairs20 = convertToXYCoordinates(
+      mockSMAPoints20,
+      mockChartData
+    );
 
     expect(mockXYPairs20).toHaveLength(20);
   });

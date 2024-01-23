@@ -2,7 +2,9 @@ import SymbolElement from './SymbolElement';
 import LatestValueElement from './LatestValueElement';
 import getChangeElements from './getChangeElements';
 import ChartLegendItem from '../ChartLegendItem/ChartLegendItem';
-import { PercentageChanges } from '../types';
+import { type PercentageChanges } from '../types';
+
+// * Creates the legend element for provided percentageChange chart data
 
 const getLegendElementsFromPercentageData = (
   changes: PercentageChanges,

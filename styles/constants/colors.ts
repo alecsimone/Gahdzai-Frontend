@@ -1,4 +1,4 @@
-import { ColorNames } from '../styled';
+import { type ColorNames } from '../styled';
 
 const white = 'hsl(210, 3%, 90%)'; // #e5e6e6
 

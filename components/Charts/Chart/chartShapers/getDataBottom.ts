@@ -1,7 +1,10 @@
 import { ChartProps } from '../types';
 import smashPercentageChangesIntoValues from './smashPercentageChangesIntoValues';
 
-const getDataBottom = ({ data, chartType }: ChartProps) => {
+// * Gets the lowest point in a dataset, either Candlestick or percentChange
+type Signature = (obj: ChartProps) => number;
+
+const getDataBottom: Signature = ({ data, chartType }) => {
   if (chartType === 'Candlestick') {
     const lows = data.map((candle) => parseFloat(candle.low));
     lows.sort();

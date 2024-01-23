@@ -1,5 +1,5 @@
 import { MutableRefObject, RefObject, useEffect } from 'react';
-import { ChartSize } from './chartMaker';
+import { ChartSize } from './types';
 import { MouseCoords } from './utils/getMousePosOverCanvas';
 import drawCrosshairs from './gridMakers/drawCrosshairs';
 

@@ -1,4 +1,4 @@
-import { DataPoint, PeriodTypes, periodTypes } from '../types';
+import { type DataPoint, type PeriodTypes, periodTypes } from '../types';
 import ensureMsTimestamp from '../utils/ensureMsTimestamp';
 import getXValueByIndex from '../utils/getXValueByIndex';
 import getFirstTimeLabelText from './getFirstTimeLabelText';
@@ -25,16 +25,17 @@ const makeTimeLabelObjectsArray: Signature = ({
   periodType,
   usableWidth,
 }) => {
+  const firstTimeLabel = datapoints[0]!;
   const labelObjectsArray: LabelObject[] = [
     {
-      labelText: getFirstTimeLabelText(datapoints[0].time, periodType),
+      labelText: getFirstTimeLabelText(firstTimeLabel.time, periodType),
       xCoord: getXValueByIndex(usableWidth, 0, datapoints.length),
     },
   ];
 
-  let lastRelevantDatesObj = getRelevantDatesObject(datapoints[0].time);
+  let lastRelevantDatesObj = getRelevantDatesObject(firstTimeLabel.time);
   let nextPeriodDate = increaseDateByPeriod(
-    new Date(ensureMsTimestamp(datapoints[0].time)),
+    new Date(ensureMsTimestamp(firstTimeLabel.time)),
     period,
     periodType
   );

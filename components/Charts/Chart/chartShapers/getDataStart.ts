@@ -1,7 +1,10 @@
 import { ChartProps } from '../types';
 import smashPercentageChangesIntoTimes from './smashPercentageChangesIntoTimes';
 
-const getDataStart = ({ data, chartType }: ChartProps) => {
+// * Gets the earliest time in a dataset, either Candlestick or percentChange
+type Signature = (obj: ChartProps) => string;
+
+const getDataStart: Signature = ({ data, chartType }) => {
   if (chartType === 'Candlestick') {
     return data[0].time;
   }

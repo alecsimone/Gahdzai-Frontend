@@ -1,4 +1,4 @@
-import { PeriodTypes } from '../types';
+import type { PeriodTypes } from '../types';
 import ensureMsTimestamp from '../utils/ensureMsTimestamp';
 
 // * Takes in a timestamp and returns a RelevantDatesObj for it

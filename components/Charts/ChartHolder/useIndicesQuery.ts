@@ -1,9 +1,9 @@
 import { useQuery, ApolloError } from '@apollo/client';
-import { Get_Index_Data_QueryQuery } from '@/__generated__/graphql';
+import { type Get_Index_Data_QueryQuery } from '@/__generated__/graphql';
 import getQueryTimeBoundaries from '../Chart/utils/getQueryTimeBoundaries';
 import GET_INDEX_DATA_QUERY from '../Chart/getIndexCandlesQuery.gql';
 import getQueryResolution from '../Chart/utils/getQueryResolution';
-import { Period } from './Contexts/ChartPeriodContext';
+import { type Period } from './Contexts/ChartPeriodContext';
 
 // * Handles data fetching for the indices chart. That query takes three variables, which we also need to figure out: the start and end of the data we're requesting and the resolution of the data. These are both determined based on the period currently selected for the chart
 type Signature = (period: Period) => {

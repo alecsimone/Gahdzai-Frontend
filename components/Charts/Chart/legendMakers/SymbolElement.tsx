@@ -6,7 +6,7 @@ interface SymbolElementProps {
 }
 
 const SymbolElement = ({ symbol, index }: SymbolElementProps): JSX.Element => {
-  const color = getLineColor(symbol, index);
+  const color = getLineColor({ symbol, index });
 
   return (
     <span className="symbol" style={{ color, fontWeight: 'bold' }} key={symbol}>

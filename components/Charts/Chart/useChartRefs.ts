@@ -1,7 +1,10 @@
-import { useRef } from 'react';
+import { useRef, type RefObject } from 'react';
 
 // * Sets up the Refs for our two chart elements
-type Signature = () => void;
+type Signature = () => {
+  chartRef: RefObject<HTMLCanvasElement>;
+  shadowChartRef: RefObject<HTMLCanvasElement>;
+};
 
 const useChartRefs: Signature = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);

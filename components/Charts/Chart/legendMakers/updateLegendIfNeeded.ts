@@ -1,30 +1,18 @@
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import isEqual from 'lodash/isEqual';
 
-const updateLegendIfNeeded = (
+// * Checks if the legend needs to be updated and if so, updates it
+type Signature = (
   elements: JSX.Element[],
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>
-) => {
+) => JSX.Element[];
+
+const updateLegendIfNeeded: Signature = (elements, setLegendElements) => {
   setLegendElements((prev) => {
     if (isEqual(prev, elements)) return prev;
     return elements;
-    // if (prev.length !== elements.length) {
-    //   return elements;
-    // }
-    // let shouldUpdate: boolean = false;
-    // elements.forEach((el, index) => {
-    //   const prevEl = prev[index];
-    //   console.log({ prevEl: prevEl.props.children, el: el.props.children });
-    //   if (prevEl == null) {
-    //     shouldUpdate = true;
-    //   }
-    //   if (prevEl.key !== el.key) {
-    //     shouldUpdate = true;
-    //   }
-    // });
-    // if (shouldUpdate) return elements;
-    // return prev;
   });
+  return elements;
 };
 
 export default updateLegendIfNeeded;

@@ -1,53 +1,39 @@
-import { Dispatch, SetStateAction } from 'react';
-import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { ChartData, PercentageChanges, DataPoint } from './types';
-import convertPercentageChangeValuesToPoints from './drawMovingAverageLine/convertPercentageChangeValuesToPoints';
-import convertToXYPairs from './drawMovingAverageLine/convertToXYPairs';
-import drawLineFromCoords from './utils/drawLineFromCoords';
+import { type Dispatch, type SetStateAction } from 'react';
+import {
+  type ChartData,
+  type PercentageChanges,
+  type DataPoint,
+} from './types';
 import labelPercentageChart from './legendMakers/labelPercentageChart';
-import getLineColor from './utils/getLineColor';
-import { HighlightedSymbols } from '../ChartHolder/Contexts/HighlightContext';
+import { type HighlightedSymbols } from '../ChartHolder/Contexts/HighlightContext';
 
-interface PercentageChartInterface {
+import drawPercentageChangesLineChart from './drawPercentageChangesLineChart';
+
+// * Takes in an array of PercentageChanges data for a chart and draws the lines and creates legend elements for each of them
+type Signature = (dataObj: {
   chartData: ChartData;
   data: PercentageChanges[];
   setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
   highlightedSymbols: HighlightedSymbols[];
-}
+}) => DataPoint[];
 
-const makePercentageChart = ({
+const makePercentageChart: Signature = ({
   chartData,
   data,
   setLegendElements,
   highlightedSymbols,
-}: PercentageChartInterface): DataPoint[] => {
+}) => {
   let dataPoints: DataPoint[] = [];
   data.forEach((changes, index) => {
-    const color = getLineColor(changes.symbol, index);
-    dataPoints = convertPercentageChangeValuesToPoints(
-      changes.values,
-      chartData.usableWidth
+    const theseData = drawPercentageChangesLineChart(
+      changes,
+      index,
+      highlightedSymbols,
+      chartData
     );
-    let computedColor = setAlpha(color, 0.8);
-    let lineWidth = 3;
-    if (highlightedSymbols.length > 0) {
-      const symbolIndex = highlightedSymbols.findIndex(
-        (obj) => obj.symbol === changes.symbol
-      );
-      const isHighlighted = symbolIndex !== -1;
-      computedColor = isHighlighted
-        ? setAlpha(color, 1)
-        : setAlpha(color, 0.25);
-      lineWidth = isHighlighted ? 5 : 1;
-    }
-    const xyPairs = convertToXYPairs(dataPoints, chartData);
-    drawLineFromCoords({
-      coords: xyPairs,
-      ctx: chartData.ctx,
-      color: computedColor,
-      lineWidth,
-    });
+    dataPoints = dataPoints.concat(theseData);
   });
+
   labelPercentageChart(setLegendElements, data);
 
   return dataPoints;

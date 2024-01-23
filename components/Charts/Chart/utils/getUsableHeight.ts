@@ -1,6 +1,9 @@
 import { gutterPadding } from '../constants';
 
-const getUsableHeight = (height: number, ctx: CanvasRenderingContext2D) => {
+// * Gets the usable height of a canvas for a chart, that is the space that is available for charting inside of the X-axis and its labels
+type Signature = (height: number, ctx: CanvasRenderingContext2D) => number;
+
+const getUsableHeight: Signature = (height, ctx) => {
   const textMeasurement = ctx.measureText('test');
   const textHeight =
     textMeasurement.fontBoundingBoxAscent +

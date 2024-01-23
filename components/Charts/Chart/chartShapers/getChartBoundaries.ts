@@ -1,8 +1,11 @@
 import getCandleChartBoundaries from './getCandleChartBoundaries';
 import getPercentageChartBoundaries from './getPercentageChartBoundaries';
-import { ChartBoundaries, ChartProps } from '../types';
+import { type ChartBoundaries, type ChartProps } from '../types';
 
-const getChartBoundaries = ({ data, chartType }: ChartProps) => {
+// * Just a wrapper function that decides which chartBoundaries getter we need to use depending on which chartType we're using
+type Signature = ({ data, chartType }: ChartProps) => ChartBoundaries;
+
+const getChartBoundaries: Signature = ({ data, chartType }) => {
   if (chartType === 'Candlestick') {
     return getCandleChartBoundaries(data);
   }

@@ -1,6 +1,9 @@
 import { PercentageChangeValue, PercentageChanges } from '../types';
 
-const smashPercentageChangesIntoValues = (data: PercentageChanges[]) => {
+// * Runs through our collection of PercentageChanges (which are all the PercentageChangeValues for a symbol along with some other data like the initial and latest value) and creates a new array that is just the raw change values. We'll use this to get the boundaries of the data.
+type Signature = (data: PercentageChanges[]) => number[];
+
+const smashPercentageChangesIntoValues: Signature = (data) => {
   let allValues: PercentageChangeValue[] = [];
   data.forEach((symbolData) => {
     const newValues = allValues.concat(symbolData.values);

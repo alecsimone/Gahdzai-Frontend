@@ -1,11 +1,11 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { ApolloError } from '@apollo/client';
-import { Get_Index_Data_QueryQuery } from '@/__generated__/graphql';
+import { type Get_Index_Data_QueryQuery } from '@/__generated__/graphql';
 import useHighlightContext from './Contexts/useHighlightContext';
 import useIndicesQuery from './useIndicesQuery';
 import useChartPeriodContext from './Contexts/useChartPeriodContext';
-import { HighlightContextDataObjectInterface } from './Contexts/HighlightContext';
-import { PeriodContextDataInterface } from './Contexts/ChartPeriodContext';
+import { type HighlightContextDataObjectInterface } from './Contexts/HighlightContext';
+import { type PeriodContextDataInterface } from './Contexts/ChartPeriodContext';
 
 // * The master hook for ChartHolder. See the various functions it calls for more details on them. The only thing it does itself is create state to hold any legend items the chart might create
 type Signature = () => {

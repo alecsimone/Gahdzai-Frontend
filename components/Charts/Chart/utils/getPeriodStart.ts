@@ -1,5 +1,5 @@
 import { resolution } from '../constants';
-import { Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
+import { type Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
 import getPreviousCloseDate from './getPreviousCloseDate';
 
 // * Takes in a period and gets the starting point for a query of that period. For a week, month, 6 months, a year, or max, that's easy. We just subtract that amount of time from the current date and if that happens to fall on a weekend or something it's ok, we just get the data since then. But for one day it's harder, because we have to make sure we get the close of the last trading day, which means it can't be a weekend or a holiday.

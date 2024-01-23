@@ -1,9 +1,9 @@
-import { Candle } from '@/__generated__/graphql';
+import { type Candle } from '@/__generated__/graphql';
 import getDataTop from './getDataTop';
 import getDataBottom from './getDataBottom';
 import getDataStart from './getDataStart';
 import getDataEnd from './getDataEnd';
-import { ChartBoundaries, ChartProps } from '../types';
+import { type ChartBoundaries, type ChartProps } from '../types';
 
 const getCandleChartBoundaries = (candleData: Candle[]) => {
   const chartProps: ChartProps = {

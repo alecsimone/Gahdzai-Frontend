@@ -1,10 +1,17 @@
-import { ChartBoundaries, ChartProps, PercentageChanges } from '../types';
+import {
+  type ChartBoundaries,
+  type ChartProps,
+  type PercentageChanges,
+} from '../types';
 import getDataTop from './getDataTop';
 import getDataBottom from './getDataBottom';
 import getDataStart from './getDataStart';
 import getDataEnd from './getDataEnd';
 
-const getPercentageChartBoundaries = (data: PercentageChanges[]) => {
+// * Handles getting the boundaries of a percentageChange chart. Really just a master function that calls the individual functions for each boundary
+type Signature = (data: PercentageChanges[]) => ChartBoundaries;
+
+const getPercentageChartBoundaries: Signature = (data) => {
   const chartProps: ChartProps = {
     data,
     chartType: 'PercentChange',

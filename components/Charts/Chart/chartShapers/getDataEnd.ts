@@ -1,7 +1,10 @@
 import { ChartProps } from '../types';
 import smashPercentageChangesIntoTimes from './smashPercentageChangesIntoTimes';
 
-const getDataEnd = ({ data, chartType }: ChartProps) => {
+// * Gets the last time in a dataset, either Candlestick or percentChange
+type Signature = (obj: ChartProps) => string;
+
+const getDataEnd: Signature = ({ data, chartType }) => {
   if (chartType === 'Candlestick') {
     const lastCandleStart = parseInt(data[data.length - 1].time, 10);
     const penultimateCandleStart = parseInt(data[data.length - 2].time, 10);

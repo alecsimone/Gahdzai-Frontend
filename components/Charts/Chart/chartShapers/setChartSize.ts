@@ -1,22 +1,13 @@
-import getOneRem from '@/styles/functions/getOneRem';
-import getTotalHeight from '@/utils/getTotalHeight';
+// * Sets the inline width and height of the chart so that it will be properly scaled to its contents
+type Signature = (chartElement: HTMLCanvasElement) => void;
 
-const setChartSize = (chartElement: HTMLCanvasElement) => {
-  const oneRem = getOneRem();
+const setChartSize: Signature = (chartElement) => {
+  const container = chartElement.closest('.chartContainer');
+  if (container == null) return;
+  const chartEl = chartElement;
 
-  const parent = chartElement.closest('section.chartHolder');
-  if (parent != null) {
-    const header = parent.querySelector('header');
-    const headerHeight = getTotalHeight(header);
-
-    const chartWidth = parent.clientWidth - 4 * oneRem;
-    const chartHeight = parent.clientHeight - headerHeight - oneRem;
-
-    const chartEl = chartElement; // Creating a reference to the element prop to avoid modifying a prop directly
-    chartEl.width = chartWidth;
-    // chartEl.height = chartHeight;
-    chartEl.height = chartHeight;
-  }
+  chartEl.width = container.clientWidth;
+  chartEl.height = container.clientHeight;
 };
 
 export default setChartSize;

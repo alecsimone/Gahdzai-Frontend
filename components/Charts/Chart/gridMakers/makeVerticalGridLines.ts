@@ -1,6 +1,6 @@
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { coolGrey } from '@/styles/constants/colors';
-import { ChartData, DataPoint, DirectionalChartData } from '../types';
+import type { ChartData, DataPoint, DirectionalChartData } from '../types';
 import drawLineAtValue from './drawLineAtValue';
 import labelAxis from './labelAxis';
 import getTimePeriod from './getTimePeriod';

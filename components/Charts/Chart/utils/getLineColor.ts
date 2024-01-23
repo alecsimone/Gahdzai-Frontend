@@ -1,5 +1,8 @@
 /* eslint-disable prefer-destructuring */
 
+// * Takes in either the symbol being charted or an index number for the current chart and figures out the correct color with which to draw that chart
+type Signature = (datObj: { symbol?: string; index: number }) => string;
+
 const colors = [
   'hsl(210, 100%, 50%)', // Blue
   'hsl(270, 100%, 60%)', // Purple
@@ -11,23 +14,27 @@ const colors = [
   'hsl(50, 100%, 70%)', // Gold
 ];
 
-const getLineColor = (symbol: string, index: number) => {
+const getLineColor: Signature = ({ symbol, index }) => {
   let computedColor: string;
-  switch (symbol) {
-    case 'SPX':
-      computedColor = colors[0];
-      break;
-    case 'DJI':
-      computedColor = colors[7];
-      break;
-    case 'COMP':
-      computedColor = colors[1];
-      break;
-    case 'RUT':
-      computedColor = colors[2];
-      break;
-    default:
-      computedColor = colors[index];
+  if (symbol != null) {
+    switch (symbol) {
+      case 'SPX':
+        computedColor = colors[0]!;
+        break;
+      case 'DJI':
+        computedColor = colors[7]!;
+        break;
+      case 'COMP':
+        computedColor = colors[1]!;
+        break;
+      case 'RUT':
+        computedColor = colors[2]!;
+        break;
+      default:
+        computedColor = colors[index]!;
+    }
+  } else {
+    computedColor = colors[index]!;
   }
 
   return computedColor;

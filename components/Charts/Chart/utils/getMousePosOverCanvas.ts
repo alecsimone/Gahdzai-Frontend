@@ -1,3 +1,9 @@
+// * Finds the position of the mouse relative to the canvas and returns it as a MouseCoords object. If the mouse is not over the canvas, we return false
+type Signature = (
+  canvas: HTMLCanvasElement | null,
+  event: MouseEvent
+) => MouseCoords;
+
 export type MouseCoords =
   | {
       x: number;
@@ -5,10 +11,7 @@ export type MouseCoords =
     }
   | false;
 
-const getMousePosOverCanvas = (
-  canvas: HTMLCanvasElement | null,
-  event: MouseEvent
-): MouseCoords => {
+const getMousePosOverCanvas: Signature = (canvas, event) => {
   if (canvas == null) return false;
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;

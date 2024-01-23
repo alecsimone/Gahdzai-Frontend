@@ -3,18 +3,18 @@ import getMousePosOverCanvas, {
   MouseCoords,
 } from './utils/getMousePosOverCanvas';
 
-const useMouseCoords = (
-  shadowChartRef: RefObject<HTMLCanvasElement>
-): {
+// * Creates a ref that will contain the position of the mouse relative to the canvas, and then adds a mousemove listener that will update those coordinates as the mouse moves
+type Signature = (shadowChartRef: RefObject<HTMLCanvasElement>) => {
   mouseCoords: MutableRefObject<MouseCoords>;
-} => {
+};
+
+const useMouseCoords: Signature = (shadowChartRef) => {
   const mouseCoords = useRef<MouseCoords>(false);
 
   useEffect(() => {
     const canvas = shadowChartRef.current;
     const updateMouseCoords = (event: MouseEvent) => {
       const mousePos = getMousePosOverCanvas(canvas, event);
-      // eslint-disable-next-line no-param-reassign
       mouseCoords.current = mousePos;
     };
 

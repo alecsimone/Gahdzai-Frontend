@@ -1,19 +1,24 @@
 import { coolGrey } from '@/styles/constants/colors';
 import getCoordForValue from '../utils/getCoordForValue';
-import { DirectionalChartData } from '../types';
+import { type DirectionalChartData } from '../types';
 import getChartShapeFromChartData from '../chartShapers/getChartShapeFromChartData';
 
-interface DrawLineAtValueInterface {
+// * Draws a line across a chart at a given value
+type Signature = (dataObj: {
   value: number;
   isStrongLine: boolean;
   directionalChartData: DirectionalChartData;
-}
+}) => number;
 
-const drawLineAtValue = (dataObj: DrawLineAtValueInterface) => {
-  const { value, isStrongLine, directionalChartData } = dataObj;
-
-  const { chartData, lineDirection } = directionalChartData;
-  const { ctx } = chartData;
+const drawLineAtValue: Signature = ({
+  value,
+  isStrongLine,
+  directionalChartData,
+}) => {
+  const {
+    chartData: { ctx },
+    lineDirection,
+  } = directionalChartData;
 
   const { usablePixelSize, lineTerminus, chartOrigin, chartTerminus } =
     getChartShapeFromChartData(directionalChartData);
@@ -42,7 +47,6 @@ const drawLineAtValue = (dataObj: DrawLineAtValueInterface) => {
   }
 
   if (isStrongLine) {
-    // For our last line, we want a sharper border, so we change the stroke style to remove the transparency.
     ctx.strokeStyle = coolGrey;
   }
   ctx.stroke();

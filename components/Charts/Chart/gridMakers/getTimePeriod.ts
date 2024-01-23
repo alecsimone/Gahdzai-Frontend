@@ -1,4 +1,4 @@
-import { DataPoint, PeriodTypes } from '../types';
+import type { DataPoint, PeriodTypes } from '../types';
 import getPeriodForDates from './getPeriodForDates';
 import getRelevantDatesObject from './getRelevantDatesObject';
 
@@ -9,10 +9,10 @@ type Signature = (
 ) => { period: number; periodType: PeriodTypes };
 
 const getTimePeriod: Signature = (usableWidth, datapoints) => {
-  const firstRelevantDatesObj = getRelevantDatesObject(datapoints[0].time);
+  const firstRelevantDatesObj = getRelevantDatesObject(datapoints[0]!.time);
 
   const lastRelevantDatesObj = getRelevantDatesObject(
-    datapoints[datapoints.length - 1].time
+    datapoints[datapoints.length - 1]!.time
   );
 
   const { period, periodType } = getPeriodForDates(usableWidth, [

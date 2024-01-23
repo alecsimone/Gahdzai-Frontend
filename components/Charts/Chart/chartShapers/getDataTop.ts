@@ -1,7 +1,10 @@
 import { ChartProps } from '../types';
 import smashPercentageChangesIntoValues from './smashPercentageChangesIntoValues';
 
-const getDataTop = ({ data, chartType }: ChartProps) => {
+// * Gets the highest point in a dataset, either Candlestick or percentChange
+type Signature = (obj: ChartProps) => number;
+
+const getDataTop: Signature = ({ data, chartType }) => {
   if (chartType === 'Candlestick') {
     const highs = data.map((candle) => parseFloat(candle.high));
     highs.sort();

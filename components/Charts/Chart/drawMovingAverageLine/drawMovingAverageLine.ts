@@ -1,7 +1,7 @@
 import { ChartData, DataPoint } from '../types';
 import drawLineFromCoords from '../utils/drawLineFromCoords';
 import convertDataPointsToSMAPoints from './convertDataPointsToSMAPoints';
-import convertToXYPairs from './convertToXYPairs';
+import convertToXYCoordinates from './convertToXYCoordinates';
 
 const drawMovingAverageLine = (
   dataPoints: DataPoint[],
@@ -12,7 +12,7 @@ const drawMovingAverageLine = (
   const smaPoints = convertDataPointsToSMAPoints(dataPoints);
 
   // Convert the SMA value pairs to XY pairs
-  const smaXYPairs = convertToXYPairs(smaPoints, chartData);
+  const smaXYPairs = convertToXYCoordinates(smaPoints, chartData);
 
   // Plot a line between the pairs
   drawLineFromCoords({ coords: smaXYPairs, ctx, lineWidth: 4 });

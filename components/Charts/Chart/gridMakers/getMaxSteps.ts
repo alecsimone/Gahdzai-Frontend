@@ -1,3 +1,5 @@
+// * Figures out how many steps we can cram into a chart based on the size of the chart and our smallest allowed step size
+
 const minStepSize = 80;
 const maxStepsLimit = 20;
 

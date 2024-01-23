@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction, ReactNode } from 'react';
-import {
+import type { Dispatch, SetStateAction, ReactNode, RefObject } from 'react';
+import type {
   Get_Candles_QueryQuery,
   Get_Index_Data_QueryQuery,
   Candle,
   CandleSet,
 } from '@/__generated__/graphql';
+import type { HighlightedSymbols } from '../ChartHolder/Contexts/HighlightContext';
 
 export type ChartTypes = 'Candlestick' | 'PercentChange';
 
@@ -123,3 +124,26 @@ interface PercentageChangeChartInterface extends ChartInterfaceBase {
 export type ChartInterface =
   | CandlestickChartInterface
   | PercentageChangeChartInterface;
+
+interface ChartMakerInterfaceBase {
+  chartRef: RefObject<HTMLCanvasElement>;
+  shadowChartRef: RefObject<HTMLCanvasElement>;
+  setLegendElements: Dispatch<SetStateAction<JSX.Element[]>>;
+  highlightedSymbols: HighlightedSymbols[];
+}
+
+interface CandleChartMakerInterface extends ChartMakerInterfaceBase {
+  chartType: 'Candlestick';
+  data: Candle[];
+}
+
+interface PercentageChartMakerInterface extends ChartMakerInterfaceBase {
+  chartType: 'PercentChange';
+  data: PercentageChanges[];
+}
+
+export type ChartMakerInterface =
+  | CandleChartMakerInterface
+  | PercentageChartMakerInterface;
+
+export type ChartSize = { usableWidth: number; usableHeight: number } | false;

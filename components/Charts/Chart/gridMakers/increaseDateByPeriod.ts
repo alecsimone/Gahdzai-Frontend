@@ -1,4 +1,4 @@
-import { PeriodTypes } from '../types';
+import type { PeriodTypes } from '../types';
 import getRelevantDatesObject from './getRelevantDatesObject';
 
 // * Takes in a starting Date object, a period, and a period type. It increases the starting time by the period and returns a date object for the new time.
