@@ -5,6 +5,7 @@ const StyledMarketsPage = styled.section`
   grid-template-rows: 1fr 1fr;
   grid-gap: 1rem;
   height: 100%;
+  max-height: 100%;
 `;
 
 export default StyledMarketsPage;
