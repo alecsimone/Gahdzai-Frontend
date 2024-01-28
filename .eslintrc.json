@@ -33,6 +33,7 @@
     "@typescript-eslint/indent": "off",
     "max-len": "off",
     "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
-    "function-paren-newline": "off"
+    "function-paren-newline": "off",
+    "no-lonely-if": "off"
   }
 }

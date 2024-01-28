@@ -1,6 +1,6 @@
 import { type ChartQueryProps, type ChartInterface } from './types';
 import StyledChart from './StyledChart';
-import useChart from './useChart';
+import useChart from './canvasHandlers/mainCanvas/useChart';
 
 // * Our main Chart component. Its responsibility is to render the data we receive from our query as a chart, which it splits into two parts: The main Chart canvas, which will have the actual chart, and then a ShadowChart canvas that will hold any annotations on that chart, eg the crosshairs that follow the mouse
 // - All the actual work of generating the chart is handled by the useChart hook.

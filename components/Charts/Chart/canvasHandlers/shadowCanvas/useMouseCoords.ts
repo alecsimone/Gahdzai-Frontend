@@ -1,7 +1,12 @@
-import { useEffect, RefObject, MutableRefObject, useRef } from 'react';
+import {
+  useEffect,
+  type RefObject,
+  type MutableRefObject,
+  useRef,
+} from 'react';
 import getMousePosOverCanvas, {
-  MouseCoords,
-} from './utils/getMousePosOverCanvas';
+  type MouseCoords,
+} from '../../utils/getMousePosOverCanvas';
 
 // * Creates a ref that will contain the position of the mouse relative to the canvas, and then adds a mousemove listener that will update those coordinates as the mouse moves
 type Signature = (shadowChartRef: RefObject<HTMLCanvasElement>) => {

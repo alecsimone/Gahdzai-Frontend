@@ -1,12 +1,7 @@
-import ChartHolder from '@/components/Charts/ChartHolder/ChartHolder';
 import StyledHome from './StyledHome';
 
 // interface HomeProps {}
 
-const Home = (): JSX.Element => (
-  <StyledHome>
-    <ChartHolder />
-  </StyledHome>
-);
+const Home = (): JSX.Element => <StyledHome>Hello there!</StyledHome>;
 
 export default Home;

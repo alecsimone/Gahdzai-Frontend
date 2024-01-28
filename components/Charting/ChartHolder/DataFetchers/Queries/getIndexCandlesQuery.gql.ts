@@ -1,7 +1,7 @@
 import { gql } from '@/__generated__';
 
-const GET_INDEX_DATA_QUERY_OLD = gql(/* GraphQL */ `
-  query GET_INDEX_DATA_QUERY_OLD(
+const GET_INDEX_DATA_QUERY = gql(/* GraphQL */ `
+  query GET_INDEX_DATA_QUERY(
     $symbols: [String!]!
     $from: String!
     $to: String!
@@ -26,4 +26,4 @@ const GET_INDEX_DATA_QUERY_OLD = gql(/* GraphQL */ `
   }
 `);
 
-export default GET_INDEX_DATA_QUERY_OLD;
+export default GET_INDEX_DATA_QUERY;

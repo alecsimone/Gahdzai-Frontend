@@ -1,6 +1,6 @@
 import { type MutableRefObject, useEffect, useRef } from 'react';
-import chartMaker from './chartMaker';
-import { type ChartMakerInterface, type ChartSize } from './types';
+import chartMaker from '../../chartMaker';
+import { type ChartMakerInterface, type ChartSize } from '../../types';
 
 // * Our parent function for chartMaker, which makes the charts. This function handles assigning it to a resize listener so that the chart will be remade for the new window size whenever it needs to.
 type Signature = (

@@ -1,14 +1,16 @@
 import { gql } from '@/__generated__';
 
-const GET_INDEX_DATA_QUERY_OLD = gql(/* GraphQL */ `
-  query GET_INDEX_DATA_QUERY_OLD(
+const GET_CANDLES_FOR_SYMBOLS_QUERY = gql(/* GraphQL */ `
+  query GET_CANDLES_FOR_SYMBOLS_QUERY(
     $symbols: [String!]!
+    $symbolType: String!
     $from: String!
     $to: String!
     $resolution: String!
   ) {
-    getIndexData(
+    getCandlesForSymbols(
       symbols: $symbols
+      symbolType: $symbolType
       from: $from
       to: $to
       resolution: $resolution
@@ -26,4 +28,4 @@ const GET_INDEX_DATA_QUERY_OLD = gql(/* GraphQL */ `
   }
 `);
 
-export default GET_INDEX_DATA_QUERY_OLD;
+export default GET_CANDLES_FOR_SYMBOLS_QUERY;

@@ -1,7 +1,7 @@
-import { MutableRefObject, RefObject, useEffect } from 'react';
-import { ChartSize } from './types';
-import { MouseCoords } from './utils/getMousePosOverCanvas';
-import drawCrosshairs from './gridMakers/drawCrosshairs';
+import { type MutableRefObject, type RefObject, useEffect } from 'react';
+import { type ChartSize } from '../../types';
+import { type MouseCoords } from '../../utils/getMousePosOverCanvas';
+import drawCrosshairs from '../../gridMakers/drawCrosshairs';
 
 interface UseCrossHairsInterface {
   sizeRef: MutableRefObject<ChartSize>;

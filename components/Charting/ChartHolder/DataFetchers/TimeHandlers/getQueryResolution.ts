@@ -1,4 +1,4 @@
-import { type Period } from '../../ChartHolder/Contexts/ChartPeriodContext';
+import { type Period } from '../../PeriodButtons/ChartPeriodContextTypes';
 
 // * Given a time period for a chart, it returns the resolution for that chart. Because we'll filter down our data to get a quantity that fits nicely on the screen later, the only thing we're worried about here is not getting a totally unwieldy amount of data. So this is just a rough conversion to an appropriate resolution
 

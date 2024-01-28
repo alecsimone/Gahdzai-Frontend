@@ -1,12 +1,12 @@
 import { useContext, type RefObject } from 'react';
-import { type ChartInterface, type ChartMakerInterface } from './types';
-import useMouseCoords from './useMouseCoords';
+import { type ChartInterface, type ChartMakerInterface } from '../../types';
+import useMouseCoords from '../shadowCanvas/useMouseCoords';
 import useChartMaker from './useChartMaker';
-import useCrosshairs from './useCrosshairs';
-import { HighlightContext } from '../ChartHolder/Contexts/HighlightContext';
-import getPercentageChangesFromCandles from './utils/getPercentageChangesFromCandles';
-import { PeriodContext } from '../ChartHolder/Contexts/ChartPeriodContext';
-import useChartRefs from './useChartRefs';
+import useCrosshairs from '../shadowCanvas/useCrosshairs';
+import { HighlightContext } from '../../../ChartHolder/Contexts/HighlightContext';
+import getPercentageChangesFromCandles from '../../utils/getPercentageChangesFromCandles';
+import { PeriodContext } from '../../../ChartHolder/Contexts/ChartPeriodContext';
+import useChartRefs from '../useChartRefs';
 
 // * Our master hook for the Chart component. There are three sub-hooks that it calls, and it does a little data wrangling to give them what they need
 // - We need to check context for any highlightedSymbols and the activePeriod. We also set up the Refs for our two canvases. Once we've done that we can create our chartMakerDataObj
