@@ -1,6 +1,6 @@
 import type { MutableRefObject } from 'react';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { coolGrey } from '@/styles/constants/colors';
+import { coolGrey, white } from '@/styles/constants/colors';
 import type { CandleSet, PercentageChangeSet } from '../types';
 import getVerticalStepSize from './getVerticalStepSize';
 import makeTimeLabelObjectsArray from './makeTimeLabelObjectsArray';
@@ -53,26 +53,37 @@ const labelXAxis: Signature = ({
 
   resetStyling(ctx);
   ctx.textBaseline = 'middle';
-  ctx.strokeStyle = setAlpha(coolGrey, 0.5);
-  ctx.beginPath();
   xLabelObjectsArray.forEach((labelObject, index) => {
-    if (index === 0) {
+    ctx.beginPath();
+    let { xCoord } = labelObject;
+    const { isNewTimeStepType } = labelObject;
+    if (index === 0 || isNewTimeStepType) {
       ctx.textAlign = 'left';
-    } else if (index === xLabelObjectsArray.length - 1) {
-      ctx.textAlign = 'center';
-      ctx.moveTo(labelObject.xCoord, usableHeight.current);
-      ctx.lineTo(labelObject.xCoord, 0);
+    } else if (xLabelObjectsArray[index + 1]?.isNewTimeStepType) {
+      ctx.textAlign = 'right';
     } else {
       ctx.textAlign = 'center';
-      console.log(
-        `Drawing line for label ${labelObject.labelText} at ${labelObject.xCoord}`
-      );
-      ctx.moveTo(labelObject.xCoord, usableHeight.current);
-      ctx.lineTo(labelObject.xCoord, 0);
     }
-    ctx.fillText(labelObject.labelText, labelObject.xCoord, xLabelsYCoord);
+
+    if (isNewTimeStepType) {
+      ctx.strokeStyle = setAlpha(white, 0.5);
+    } else {
+      ctx.strokeStyle = setAlpha(coolGrey, 0.5);
+    }
+
+    if (index === 0) {
+      xCoord = gutterPadding / 2;
+    } else if (index === xLabelObjectsArray.length - 1) {
+      ctx.moveTo(xCoord, usableHeight.current);
+      ctx.lineTo(xCoord, 0);
+    } else {
+      ctx.moveTo(xCoord, usableHeight.current);
+      ctx.lineTo(xCoord, 0);
+    }
+
+    ctx.fillText(labelObject.labelText, xCoord, xLabelsYCoord);
+    ctx.stroke();
   });
-  ctx.stroke();
 };
 
 export default labelXAxis;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { smallText } from '@/styles/constants/fontSizes';
-import { blue, coolGrey, green, red, white } from '@/styles/constants/colors';
+import { coolGrey, green, red, white } from '@/styles/constants/colors';
 import {
   setAlpha,
   setSaturation,
@@ -11,8 +11,6 @@ export const upColor = setAlpha(green, 0.9);
 export const downColor = setAlpha(setSaturation(red, 65), 1);
 
 const StyledChartHolder = styled.section`
-  background: ${setAlpha(white, 0.1)};
-  border: 1px solid ${setAlpha(white, 0.25)};
   height: 100%;
   max-height: 100%;
   width: 100%;
@@ -82,7 +80,6 @@ const StyledChartHolder = styled.section`
     position: relative;
     height: 0;
     flex-grow: 1;
-    background: ${setAlpha(blue, 0.2)};
   }
 `;
 

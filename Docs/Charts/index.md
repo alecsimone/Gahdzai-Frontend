@@ -29,13 +29,21 @@ For aesthetics' sake, we create the grid lines within the chart at intervals cho
 
 Thus for drawing our gridlines we just need the size of the chart (found in the last step) and the range of the data. Then we can figure out which interval we're going to use for our lines and make a list of all the lines we're going to draw and their labels.
 
-## 4. Label the axes
+## 4. Identify the labels each axis will need
 
 Now that we have a list of all the labels, the next step is to apply the labels.
 
 The only tricky part here is making sure no labels overlap.
 
 Because our first and last labels will be the minimum and maximum values from the data, but the rest of the labels will be evenly spaced intervals, we might have overlap on either end as one of the minimum or maximum values might be too close to the nearest interval. So we have to check for that and skip the interval label.
+
+The trickiest part here is determining the steps for the x axis. Our data is likely to have big gaps in time between datapoints when the market is closed, but we don't want to leave gaps in our chart during these times. So the position of a time on the x axis will be determined by its index in our data array, not by its time.
+
+If you imagine the following list of times
+
+[0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14]
+
+We would put 5 at the halfway point because it is halfway through the array, even though it is only 1/3 of the way to 14.
 
 ## 5. Figure out the dimensions of the data area
 

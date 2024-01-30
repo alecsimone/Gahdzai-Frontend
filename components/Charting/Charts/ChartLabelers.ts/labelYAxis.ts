@@ -41,10 +41,15 @@ const labelYAxis: Signature = ({
   ctx.strokeStyle = setAlpha(coolGrey, 0.75);
   ctx.beginPath();
   yAxisLabelObjectsArray.forEach((labelObject, index) => {
+    let { yCoord } = labelObject;
+
     if (index === 0) {
       ctx.textBaseline = 'top';
+
+      yCoord = gutterPadding / 2;
     } else if (index === yAxisLabelObjectsArray.length - 1) {
       ctx.textBaseline = 'bottom';
+      yCoord = usableHeight.current;
     } else {
       ctx.textBaseline = 'middle';
       ctx.moveTo(0, labelObject.yCoord);
@@ -54,7 +59,7 @@ const labelYAxis: Signature = ({
     ctx.fillText(
       `${labelObject.labelText}${decorator}`,
       usableWidth.current + gutterPadding,
-      labelObject.yCoord
+      yCoord
     );
   });
   ctx.stroke();

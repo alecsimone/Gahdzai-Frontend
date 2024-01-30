@@ -9,7 +9,7 @@ type Signature = (
   //            ^?
 ) => Date;
 
-const increaseDateByPeriod: Signature = (startingTime, time, timeType) => {
+const increaseDateByTimeStep: Signature = (startingTime, time, timeType) => {
   const nextTime = startingTime;
 
   const {
@@ -35,4 +35,4 @@ const increaseDateByPeriod: Signature = (startingTime, time, timeType) => {
   return nextTime;
 };
 
-export default increaseDateByPeriod;
+export default increaseDateByTimeStep;
