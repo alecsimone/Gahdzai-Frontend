@@ -1,5 +1,7 @@
 export type SymbolTypes = 'stock' | 'option' | 'index';
 
+export type ChartTypes = 'Comparison' | 'Individual';
+
 interface ComparisonChartPropsInterface {
   chartType: 'Comparison';
   symbols: string[];

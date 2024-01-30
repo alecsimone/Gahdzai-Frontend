@@ -6,12 +6,13 @@ import useChartSize from './ChartShapers/useChartSize';
 import cookRawData from './DataWranglers/cookRawData';
 import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import getChartDataRange from './ChartShapers/getChartDataRange';
-import getAxisLabels from './ChartLabelers.ts/getAxisLabels';
+import useChartLabels from './ChartLabelers.ts/useChartLabels';
+import type { ChartTypes } from '../ChartHolder/types';
 
 // * Our main Chart component. Its responsibility is to render the data we receive from our query as a chart, which it splits into two parts: The main Chart canvas, which will have the actual chart, and then a ShadowChart canvas that will hold any annotations on that chart, eg the crosshairs that follow the mouse
 interface ChartBaseProps {
   rawData: Get_Candles_For_Symbols_QueryQuery;
-  chartType: 'Comparison' | 'Individual';
+  chartType: ChartTypes;
   setLegendElements: Dispatch<SetStateAction<React.ReactNode[]>>;
   period: Period;
 }
@@ -26,9 +27,15 @@ const ChartBase = ({
   const chartSizeRef = useChartSize(chartRef, shadowChartRef);
 
   const data = cookRawData(rawData, period);
-
   const chartDataRange = getChartDataRange(data);
-  const axisLabels = getAxisLabels(chartDataRange, chartSizeRef.current);
+
+  useChartLabels({
+    chartDataRange,
+    chartSizeRef,
+    chartRef,
+    chartType,
+    data,
+  });
 
   return (
     <div className="chartContainer">

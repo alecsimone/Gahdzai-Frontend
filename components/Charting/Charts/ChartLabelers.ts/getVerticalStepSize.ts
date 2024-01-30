@@ -9,7 +9,7 @@ type Signature = (
   chartWidth: number
 ) => {
   time: number;
-  timeType: TimeTypes;
+  timeStepType: TimeTypes;
 };
 
 const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
@@ -19,19 +19,19 @@ const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
   if (lastRelevantDatesObj == null || firstRelevantDatesObj == null) {
     return {
       time: -1,
-      timeType: 'day',
+      timeStepType: 'day',
     };
   }
 
   const maxSteps = getMaxSteps(chartWidth);
 
-  let timeType: TimeTypes = 'minute' as TimeTypes;
+  let timeStepType: TimeTypes = 'minute' as TimeTypes;
   let range = 0;
 
   const timeTypes: TimeTypes[] = ['year', 'month', 'day', 'hour'];
   timeTypes.forEach((currentTimeType, index) => {
     if (
-      timeType === 'minute' && // Only keep checking if we haven't already reassigned it
+      timeStepType === 'minute' && // Only keep checking if we haven't already reassigned it
       lastRelevantDatesObj[currentTimeType] !==
         firstRelevantDatesObj[currentTimeType]
     ) {
@@ -40,12 +40,13 @@ const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
         firstRelevantDatesObj[currentTimeType];
 
       if (rangeSize > maxSteps / 2) {
-        timeType = currentTimeType;
+        timeStepType = currentTimeType;
         range = rangeSize;
       } else if (timeTypes[index + 1] != null) {
-        timeType = timeTypes[index + 1]!;
+        timeStepType = timeTypes[index + 1]!;
         const nextRangeSize =
-          lastRelevantDatesObj[timeType] - firstRelevantDatesObj[timeType];
+          lastRelevantDatesObj[timeStepType] -
+          firstRelevantDatesObj[timeStepType];
 
         if (currentTimeType === 'year') {
           range = 12 * rangeSize + nextRangeSize;
@@ -66,13 +67,13 @@ const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
 
   const rawPeriod = range / maxSteps;
   let time: number;
-  if (timeType === 'minute') {
+  if (timeStepType === 'minute') {
     time = Math.ceil(rawPeriod / 5) * 5;
   } else {
     time = Math.ceil(rawPeriod);
   }
 
-  return { time, timeType };
+  return { time, timeStepType };
 };
 
 export default getVerticalStepSize;
