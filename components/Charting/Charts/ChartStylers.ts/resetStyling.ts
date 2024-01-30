@@ -1,13 +1,14 @@
 import { coolGrey, white } from '@/styles/constants/colors';
 import { smallText } from '@/styles/constants/fontSizes';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 
 // * Sets the default chart styling
 type Signature = (ctx: CanvasRenderingContext2D) => void;
 
-const setBasicStyling: Signature = (ctx) => {
+const resetStyling: Signature = (ctx) => {
   ctx.strokeStyle = coolGrey;
   ctx.font = `${smallText} sans-serif`;
-  ctx.fillStyle = white;
+  ctx.fillStyle = setAlpha(white, 0.8);
 };
 
-export default setBasicStyling;
+export default resetStyling;

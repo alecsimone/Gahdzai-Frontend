@@ -1,3 +1,8 @@
+import { white } from '@/styles/constants/colors';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import resetStyling from '../ChartStylers.ts/resetStyling';
+import { usableBoundaryStrokeWidth } from '../constants';
+
 // * Draws the bottom and right most grid lines around our chart
 type Signature = (dataObj: {
   ctx: CanvasRenderingContext2D;
@@ -10,6 +15,11 @@ const drawUsableBoundaries: Signature = ({
   usableWidth,
   usableHeight,
 }) => {
+  resetStyling(ctx);
+
+  ctx.strokeStyle = `${setAlpha(white, 0.6)}`;
+  ctx.lineWidth = usableBoundaryStrokeWidth;
+
   ctx.moveTo(0, usableHeight);
   ctx.lineTo(usableWidth, usableHeight);
   ctx.stroke();

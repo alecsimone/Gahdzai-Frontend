@@ -11,12 +11,11 @@ import type {
   PercentageChangeSet,
 } from '../types';
 import getYLabels from './getYLabels';
-import setBasicStyling from '../ChartStylers.ts/setBasicStyling';
+import resetStyling from '../ChartStylers.ts/resetStyling';
 import type { ChartTypes } from '../../ChartHolder/types';
 import defineUsableBoundaries from './defineUsableBoundaries';
 import labelXAxis from './labelXAxis';
-import getYCoordByValue from '../DataPlotters/getYCoordByValue';
-import { gutterPadding } from '../constants';
+import labelYAxis from './labelYAxis';
 
 // * Applies the labels to our chart
 type Signature = (dataObj: {
@@ -47,7 +46,7 @@ const useChartLabels: Signature = ({
   useEffect(() => {
     const ctx = chartRef.current?.getContext('2d');
     if (ctx) {
-      setBasicStyling(ctx);
+      resetStyling(ctx);
 
       const { newUsableWidth, newUsableHeight } = defineUsableBoundaries({
         ctx,
@@ -71,29 +70,14 @@ const useChartLabels: Signature = ({
         ctx,
       });
 
-      const yAxisLabelObjectsArray = yAxisLabels.map((labelText) => {
-        const value = Number(labelText);
-        const yCoord = getYCoordByValue({
-          chartBottom,
-          chartTop,
-          usableHeight: usableHeight.current,
-          value,
-        });
-        return { labelText, yCoord };
-      });
-
-      yAxisLabelObjectsArray.forEach((labelObject, index) => {
-        if (index === 0) {
-          ctx.textBaseline = 'top';
-        }
-        if (index === yAxisLabelObjectsArray.length - 1) {
-          ctx.textBaseline = 'bottom';
-        }
-        ctx.fillText(
-          labelObject.labelText,
-          usableWidth.current + gutterPadding,
-          labelObject.yCoord
-        );
+      labelYAxis({
+        yAxisLabels,
+        chartBottom,
+        chartTop,
+        usableHeight,
+        usableWidth,
+        ctx,
+        decorator: chartType === 'Comparison' ? '%' : '',
       });
     }
   });
