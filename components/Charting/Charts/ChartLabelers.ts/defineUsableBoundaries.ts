@@ -3,7 +3,6 @@ import { usableBoundaryStrokeWidth } from '../constants';
 import getXGutterHeight from './getXGutterHeight';
 import getYGutterWidth from './getYGutterWidth';
 import type { ChartTypes } from '../../ChartHolder/types';
-import drawUsableBoundaries from './drawUsableBoundaries';
 
 // * Calculates the space needed for the labels on the X and Y axis, then draws boundaries around the chart that leaves space for those labels
 type Signature = (dataObj: {
@@ -23,8 +22,6 @@ const defineUsableBoundaries: Signature = ({
   ctx,
   yAxisLabels,
   chartType,
-  usableWidth,
-  usableHeight,
   chartWidth,
   chartHeight,
 }) => {
@@ -37,12 +34,6 @@ const defineUsableBoundaries: Signature = ({
 
   const { xGutter } = getXGutterHeight(ctx);
   const newUsableHeight = chartHeight - xGutter - usableBoundaryStrokeWidth;
-
-  drawUsableBoundaries({
-    ctx,
-    usableWidth: usableWidth.current,
-    usableHeight: usableHeight.current,
-  });
 
   return { newUsableWidth, newUsableHeight };
 };

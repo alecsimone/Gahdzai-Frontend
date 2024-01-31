@@ -16,6 +16,7 @@ import type { ChartTypes } from '../../ChartHolder/types';
 import defineUsableBoundaries from './defineUsableBoundaries';
 import labelXAxis from './labelXAxis';
 import labelYAxis from './labelYAxis';
+import drawUsableBoundaries from './drawUsableBoundaries';
 
 // * Applies the labels to our chart
 type Signature = (dataObj: {
@@ -44,6 +45,10 @@ const useChartLabels: Signature = ({
   const usableWidth = useRef(0);
 
   useEffect(() => {
+    console.log({
+      usableWidth: usableWidth.current,
+      usableHeight: usableHeight.current,
+    });
     const ctx = chartRef.current?.getContext('2d');
     if (ctx) {
       resetStyling(ctx);
@@ -59,6 +64,12 @@ const useChartLabels: Signature = ({
       });
       usableWidth.current = newUsableWidth;
       usableHeight.current = newUsableHeight;
+
+      drawUsableBoundaries({
+        ctx,
+        usableWidth: usableWidth.current,
+        usableHeight: usableHeight.current,
+      });
 
       labelXAxis({
         chartStart,

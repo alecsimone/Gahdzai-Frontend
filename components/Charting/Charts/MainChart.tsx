@@ -20,6 +20,7 @@ const MainChart = ({
   period,
   chartType,
 }: MainChartProps): React.ReactNode => {
+  console.log('Main chart render');
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartState, setChartState] = useState(false);
   const chartSizeRef = useChartSize(chartRef);
