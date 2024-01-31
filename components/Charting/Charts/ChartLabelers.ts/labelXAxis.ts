@@ -1,12 +1,12 @@
 import type { MutableRefObject } from 'react';
-import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { coolGrey, white } from '@/styles/constants/colors';
 import type { CandleSet, PercentageChangeSet } from '../types';
-import getVerticalStepSize from './getVerticalStepSize';
+import getTimeStepSize from './getTimeStepSize';
 import makeTimeLabelObjectsArray from './makeTimeLabelObjectsArray';
 import { gutterPadding } from '../constants';
 import getTextHeight from '../ChartStylers.ts/getTextHeight';
 import resetStyling from '../ChartStylers.ts/resetStyling';
+import makeTimesArray from './makeTimesArray';
+import drawXLinesAndLabels from './drawXLinesAndLabels';
 
 // * Draws the labels on the X axis of our chart
 type Signature = (dataObj: {
@@ -28,22 +28,17 @@ const labelXAxis: Signature = ({
   usableHeight,
   ctx,
 }) => {
-  const { time, timeStepType } = getVerticalStepSize(
+  const { timeStepSize, timeStepType } = getTimeStepSize(
     chartStart,
     chartEnd,
     chartWidth
   );
 
-  let timesArray: number[] = [];
-  if ('candles' in data) {
-    timesArray = data.candles.map((candle) => candle.time);
-  } else {
-    timesArray = data[0]!.changes.map((change) => change.time);
-  }
+  const timesArray = makeTimesArray(data);
 
   const xLabelObjectsArray = makeTimeLabelObjectsArray({
     timesArray,
-    time,
+    timeStepSize,
     timeStepType,
     usableWidth: usableWidth.current,
   });
@@ -54,35 +49,14 @@ const labelXAxis: Signature = ({
   resetStyling(ctx);
   ctx.textBaseline = 'middle';
   xLabelObjectsArray.forEach((labelObject, index) => {
-    ctx.beginPath();
-    let { xCoord } = labelObject;
-    const { isNewTimeStepType } = labelObject;
-    if (index === 0 || isNewTimeStepType) {
-      ctx.textAlign = 'left';
-    } else if (xLabelObjectsArray[index + 1]?.isNewTimeStepType) {
-      ctx.textAlign = 'right';
-    } else {
-      ctx.textAlign = 'center';
-    }
-
-    if (isNewTimeStepType) {
-      ctx.strokeStyle = setAlpha(white, 0.5);
-    } else {
-      ctx.strokeStyle = setAlpha(coolGrey, 0.5);
-    }
-
-    if (index === 0) {
-      xCoord = gutterPadding / 2;
-    } else if (index === xLabelObjectsArray.length - 1) {
-      ctx.moveTo(xCoord, usableHeight.current);
-      ctx.lineTo(xCoord, 0);
-    } else {
-      ctx.moveTo(xCoord, usableHeight.current);
-      ctx.lineTo(xCoord, 0);
-    }
-
-    ctx.fillText(labelObject.labelText, xCoord, xLabelsYCoord);
-    ctx.stroke();
+    drawXLinesAndLabels({
+      ctx,
+      labelObject,
+      index,
+      xLabelObjectsArray,
+      xLabelsYCoord,
+      usableHeight,
+    });
   });
 };
 

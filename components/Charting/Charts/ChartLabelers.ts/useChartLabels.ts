@@ -1,9 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  type MutableRefObject,
-  type RefObject,
-} from 'react';
+import { useEffect, type MutableRefObject, type RefObject } from 'react';
 import type {
   CandleSet,
   ChartDataRange,
@@ -25,30 +20,25 @@ type Signature = (dataObj: {
   chartRef: RefObject<HTMLCanvasElement>;
   chartType: ChartTypes;
   data: CandleSet | PercentageChangeSet[];
-}) => {
-  usableHeight: MutableRefObject<number>;
-  usableWidth: MutableRefObject<number>;
-};
+  usableBoundaries: {
+    usableHeight: MutableRefObject<number>;
+    usableWidth: MutableRefObject<number>;
+  };
+}) => void;
 
 const useChartLabels: Signature = ({
   chartDataRange: { chartBottom, chartTop, chartStart, chartEnd },
   chartSizeRef: {
     current: { chartHeight, chartWidth },
   },
+  usableBoundaries: { usableHeight, usableWidth },
   chartRef,
   chartType,
   data,
 }) => {
   const yAxisLabels = getYLabels(chartBottom, chartTop, chartHeight);
 
-  const usableHeight = useRef(0);
-  const usableWidth = useRef(0);
-
   useEffect(() => {
-    console.log({
-      usableWidth: usableWidth.current,
-      usableHeight: usableHeight.current,
-    });
     const ctx = chartRef.current?.getContext('2d');
     if (ctx) {
       resetStyling(ctx);
@@ -92,8 +82,6 @@ const useChartLabels: Signature = ({
       });
     }
   });
-
-  return { usableHeight, usableWidth };
 };
 
 export default useChartLabels;

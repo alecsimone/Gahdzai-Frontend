@@ -15,7 +15,6 @@ const drawUsableBoundaries: Signature = ({
   usableWidth,
   usableHeight,
 }) => {
-  console.log({ usableWidth, usableHeight });
   resetStyling(ctx);
 
   ctx.strokeStyle = `${setAlpha(white, 0.6)}`;
@@ -24,7 +23,6 @@ const drawUsableBoundaries: Signature = ({
   ctx.beginPath();
   ctx.moveTo(0, usableHeight);
   ctx.lineTo(usableWidth, usableHeight);
-  ctx.stroke();
 
   ctx.moveTo(usableWidth, 0);
   ctx.lineTo(usableWidth, usableHeight);

@@ -8,11 +8,11 @@ type Signature = (
   chartEnd: number,
   chartWidth: number
 ) => {
-  time: number;
+  timeStepSize: number;
   timeStepType: TimeTypes;
 };
 
-const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
+const getTimeStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
   const firstRelevantDatesObj = getRelevantDatesObject(chartStart);
   const lastRelevantDatesObj = getRelevantDatesObject(chartEnd);
 
@@ -66,14 +66,14 @@ const getVerticalStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
   });
 
   const rawPeriod = range / maxSteps;
-  let time: number;
+  let timeStepSize: number;
   if (timeStepType === 'minute') {
-    time = Math.ceil(rawPeriod / 5) * 5;
+    timeStepSize = Math.ceil(rawPeriod / 5) * 5;
   } else {
-    time = Math.ceil(rawPeriod);
+    timeStepSize = Math.ceil(rawPeriod);
   }
 
-  return { time, timeStepType };
+  return { timeStepSize, timeStepType };
 };
 
-export default getVerticalStepSize;
+export default getTimeStepSize;

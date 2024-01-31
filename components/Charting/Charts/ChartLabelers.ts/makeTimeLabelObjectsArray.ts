@@ -9,12 +9,12 @@ import increaseDateByTimeStep from './increaseDateByTimeStep';
 // * Turns datapoints into an array of the labelObjects we need to make the vertical grid lines of the periods of that data
 type Signature = (obj: {
   timesArray: number[];
-  time: number;
+  timeStepSize: number;
   timeStepType: TimeTypes;
   usableWidth: number;
-}) => LabelObject[];
+}) => XLabelObject[];
 
-interface LabelObject {
+export interface XLabelObject {
   labelText: string;
   xCoord: number;
   isNewTimeStepType: boolean;
@@ -22,13 +22,13 @@ interface LabelObject {
 
 const makeTimeLabelObjectsArray: Signature = ({
   timesArray,
-  time,
+  timeStepSize,
   timeStepType,
   usableWidth,
 }) => {
   // We start by making a labelObject from the first time in our timesArray
   const firstTime = timesArray[0]!;
-  const labelObjectsArray: LabelObject[] = [
+  const labelObjectsArray: XLabelObject[] = [
     {
       labelText: getFirstTimeLabelText(firstTime, timeStepType),
       xCoord: getXCoordByIndex(usableWidth, 0, timesArray.length),
@@ -40,7 +40,7 @@ const makeTimeLabelObjectsArray: Signature = ({
   let previousRelevantDatesObj = getRelevantDatesObject(firstTime);
   let nextTimeStepDate = increaseDateByTimeStep(
     new Date(ensureMsTimestamp(firstTime)),
-    time,
+    timeStepSize,
     timeStepType
   );
 
@@ -86,7 +86,7 @@ const makeTimeLabelObjectsArray: Signature = ({
       previousRelevantDatesObj = { ...getRelevantDatesObject(thisTimestamp) };
       nextTimeStepDate = increaseDateByTimeStep(
         new Date(thisTimestamp),
-        time,
+        timeStepSize,
         timeStepType
       );
     }

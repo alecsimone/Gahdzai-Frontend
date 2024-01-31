@@ -9,6 +9,9 @@ const resetStyling: Signature = (ctx) => {
   ctx.strokeStyle = coolGrey;
   ctx.font = `${smallText} sans-serif`;
   ctx.fillStyle = setAlpha(white, 0.8);
+
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
 };
 
 export default resetStyling;

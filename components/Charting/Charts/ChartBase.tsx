@@ -1,4 +1,4 @@
-import type { SetStateAction, Dispatch } from 'react';
+import { type SetStateAction, type Dispatch, useRef } from 'react';
 import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
 import StyledChart from './StyledChart';
 import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
@@ -18,13 +18,24 @@ const ChartBase = ({
   chartType,
   setLegendElements,
   period,
-}: ChartBaseProps): React.ReactNode => (
-  <div className="chartContainer">
-    <MainChart rawData={rawData} period={period} chartType={chartType} />
-    <StyledChart className="shadow">
-      A shadow chart for annotating the main chart
-    </StyledChart>
-  </div>
-);
+}: ChartBaseProps): React.ReactNode => {
+  const usableHeight = useRef(0);
+  const usableWidth = useRef(0);
+  const usableBoundaries = { usableHeight, usableWidth };
+
+  return (
+    <div className="chartContainer">
+      <MainChart
+        rawData={rawData}
+        period={period}
+        chartType={chartType}
+        usableBoundaries={usableBoundaries}
+      />
+      <StyledChart className="shadow">
+        A shadow chart for annotating the main chart
+      </StyledChart>
+    </div>
+  );
+};
 
 export default ChartBase;
