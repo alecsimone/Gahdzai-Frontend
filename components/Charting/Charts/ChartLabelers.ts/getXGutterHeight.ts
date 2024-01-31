@@ -8,7 +8,7 @@ type Signature = (ctx: CanvasRenderingContext2D) => {
 };
 
 const getXGutterHeight: Signature = (ctx) => {
-  const labelTextHeight = getTextHeight(ctx, 'test');
+  const labelTextHeight = getTextHeight(ctx);
   const xGutter = labelTextHeight + 1.5 * gutterPadding;
   return { xGutter, labelTextHeight };
 };

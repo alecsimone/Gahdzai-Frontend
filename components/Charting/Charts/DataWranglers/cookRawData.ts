@@ -1,5 +1,6 @@
 import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
 import type { Candle, CandleSet, PercentageChangeSet } from '../types';
+import type { ChartTypes } from '../../ChartHolder/types';
 import type { Period } from '../../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import convertCandleSetToPercentageChangeSet from './convertCandleSetToPercentageChangeSet';
 
@@ -8,13 +9,14 @@ import convertCandleSetToPercentageChangeSet from './convertCandleSetToPercentag
 // - If we have only one candle set, we just need to massage the data into the exact shape we expect it to be in going forward.
 type Signature = (
   rawData: Get_Candles_For_Symbols_QueryQuery,
-  period: Period
+  period: Period,
+  chartType: ChartTypes
 ) => CandleSet | PercentageChangeSet[];
 
-const cookRawData: Signature = (rawData, period) => {
+const cookRawData: Signature = (rawData, period, chartType) => {
   const actualData = rawData.getCandlesForSymbols;
   let data: CandleSet | PercentageChangeSet[];
-  if (actualData.length > 1) {
+  if (chartType === 'Comparison') {
     const PercentageChangeSets = actualData.map((candleSet) =>
       convertCandleSetToPercentageChangeSet(candleSet, period)
     );

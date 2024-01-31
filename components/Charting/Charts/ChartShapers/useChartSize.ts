@@ -9,26 +9,19 @@ import setChartSize from './setChartSize';
 
 // * Creates a ref for the current size of the chart's container and adds a resize listener to recalculate that size any time it changes
 type Signature = (
-  chartRef: RefObject<HTMLCanvasElement>,
-  shadowChartRef: RefObject<HTMLCanvasElement>
+  chartRef: RefObject<HTMLCanvasElement>
 ) => MutableRefObject<ChartSize>;
 
-const useChartSize: Signature = (chartRef, shadowChartRef) => {
+const useChartSize: Signature = (chartRef) => {
   const chartSizeRef = useRef<ChartSize>({ chartHeight: 0, chartWidth: 0 });
   if (chartRef.current) {
     chartSizeRef.current = setChartSize(chartRef.current);
-  }
-  if (shadowChartRef.current) {
-    setChartSize(shadowChartRef.current);
   }
 
   useEffect(() => {
     const chartSizeHandler = () => {
       if (chartRef.current) {
         chartSizeRef.current = setChartSize(chartRef.current);
-      }
-      if (shadowChartRef.current) {
-        setChartSize(shadowChartRef.current);
       }
     };
 

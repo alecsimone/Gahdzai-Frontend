@@ -24,7 +24,6 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
     dataObj,
     chartPeriodContextData.activePeriod
   );
-  console.log(data);
 
   if (loading) {
     return <LoadingChart />;

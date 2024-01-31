@@ -49,7 +49,7 @@ const labelXAxis: Signature = ({
   });
 
   const xLabelsYCoord =
-    usableHeight.current + gutterPadding + 1 + getTextHeight(ctx, 'test') / 2;
+    usableHeight.current + gutterPadding + 1 + getTextHeight(ctx) / 2;
 
   resetStyling(ctx);
   ctx.textBaseline = 'middle';
