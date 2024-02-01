@@ -4,6 +4,7 @@ import type {
   ChartDataRange,
   ChartSize,
   PercentageChangeSet,
+  UsableBoundaries,
 } from '../types';
 import getYLabels from './getYLabels';
 import resetStyling from '../ChartStylers.ts/resetStyling';
@@ -20,10 +21,7 @@ type Signature = (dataObj: {
   chartRef: RefObject<HTMLCanvasElement>;
   chartType: ChartTypes;
   data: CandleSet | PercentageChangeSet[];
-  usableBoundaries: {
-    usableHeight: MutableRefObject<number>;
-    usableWidth: MutableRefObject<number>;
-  };
+  usableBoundaries: UsableBoundaries;
 }) => void;
 
 const useChartLabels: Signature = ({
@@ -47,8 +45,6 @@ const useChartLabels: Signature = ({
         ctx,
         yAxisLabels,
         chartType,
-        usableWidth,
-        usableHeight,
         chartWidth,
         chartHeight,
       });

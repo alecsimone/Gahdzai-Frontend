@@ -1,15 +1,12 @@
-import type { MutableRefObject } from 'react';
 import { white } from '@/styles/constants/colors';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import type { MouseCoords } from './getMousePosOverCanvas';
+import type { UsableBoundaries } from '../types';
 
 interface CrosshairsInterface {
   coords: MouseCoords;
   ctx: CanvasRenderingContext2D;
-  usableBoundaries: {
-    usableHeight: MutableRefObject<number>;
-    usableWidth: MutableRefObject<number>;
-  };
+  usableBoundaries: UsableBoundaries;
 }
 
 const dashDensity = 1; // Higher is less dense

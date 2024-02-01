@@ -1,12 +1,10 @@
-import { type MutableRefObject, type RefObject } from 'react';
+import { type RefObject } from 'react';
 import { type MouseCoords } from './getMousePosOverCanvas';
 import drawCrosshairs from './drawCrosshairs';
+import type { UsableBoundaries } from '../types';
 
 interface UseCrossHairsInterface {
-  usableBoundaries: {
-    usableHeight: MutableRefObject<number>;
-    usableWidth: MutableRefObject<number>;
-  };
+  usableBoundaries: UsableBoundaries;
   shadowChartRef: RefObject<HTMLCanvasElement>;
   mouseCoords: MouseCoords;
 }

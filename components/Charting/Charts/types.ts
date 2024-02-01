@@ -1,6 +1,13 @@
+import type { MutableRefObject } from 'react';
+
 export interface ChartSize {
   chartWidth: number;
   chartHeight: number;
+}
+
+export interface UsableBoundaries {
+  usableWidth: MutableRefObject<number>;
+  usableHeight: MutableRefObject<number>;
 }
 
 export interface ChartDataRange {

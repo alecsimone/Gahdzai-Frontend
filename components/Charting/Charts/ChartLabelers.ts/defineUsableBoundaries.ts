@@ -1,4 +1,3 @@
-import type { MutableRefObject } from 'react';
 import { usableBoundaryStrokeWidth } from '../constants';
 import getXGutterHeight from './getXGutterHeight';
 import getYGutterWidth from './getYGutterWidth';
@@ -9,8 +8,6 @@ type Signature = (dataObj: {
   ctx: CanvasRenderingContext2D;
   yAxisLabels: string[];
   chartType: ChartTypes;
-  usableWidth: MutableRefObject<number>;
-  usableHeight: MutableRefObject<number>;
   chartWidth: number;
   chartHeight: number;
 }) => {

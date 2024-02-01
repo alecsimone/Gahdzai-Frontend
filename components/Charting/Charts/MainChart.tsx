@@ -1,4 +1,3 @@
-import type { MutableRefObject } from 'react';
 import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
 import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import StyledChart from './StyledChart';
@@ -8,16 +7,15 @@ import cookRawData from './DataWranglers/cookRawData';
 import getChartDataRange from './ChartShapers/getChartDataRange';
 import type { ChartTypes } from '../ChartHolder/types';
 import useChartRef from './useChartRef';
+import type { UsableBoundaries } from './types';
+import drawChart from './ChartMakers/drawChart';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
   rawData: Get_Candles_For_Symbols_QueryQuery;
   period: Period;
   chartType: ChartTypes;
-  usableBoundaries: {
-    usableHeight: MutableRefObject<number>;
-    usableWidth: MutableRefObject<number>;
-  };
+  usableBoundaries: UsableBoundaries;
 }
 
 const MainChart = ({
@@ -39,6 +37,14 @@ const MainChart = ({
     chartType,
     data,
     usableBoundaries,
+  });
+
+  drawChart({
+    data,
+    usableBoundaries,
+    chartType,
+    chartRef,
+    chartDataRange,
   });
 
   return <StyledChart ref={chartRef}>The Main Chart</StyledChart>;
