@@ -1,9 +1,9 @@
 import { type SetStateAction, type Dispatch, useRef } from 'react';
 import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
-import StyledChart from './StyledChart';
 import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import type { ChartTypes } from '../ChartHolder/types';
 import MainChart from './MainChart';
+import ShadowChart from './ShadowChart/ShadowChart';
 
 // * Our main Chart component. Its responsibility is to render the data we receive from our query as a chart, which it splits into two parts: The main Chart canvas, which will have the actual chart, and then a ShadowChart canvas that will hold any annotations on that chart, eg the crosshairs that follow the mouse
 interface ChartBaseProps {
@@ -31,9 +31,7 @@ const ChartBase = ({
         chartType={chartType}
         usableBoundaries={usableBoundaries}
       />
-      <StyledChart className="shadow">
-        A shadow chart for annotating the main chart
-      </StyledChart>
+      <ShadowChart usableBoundaries={usableBoundaries} />
     </div>
   );
 };
