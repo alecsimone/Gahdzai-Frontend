@@ -6,13 +6,8 @@ import type {
   PercentageChangeSet,
   UsableBoundaries,
 } from '../types';
-import getYLabels from './getYLabels';
-import resetStyling from '../ChartStylers.ts/resetStyling';
 import type { ChartTypes } from '../../ChartHolder/types';
-import defineUsableBoundaries from './defineUsableBoundaries';
-import labelXAxis from './labelXAxis';
-import labelYAxis from './labelYAxis';
-import drawUsableBoundaries from './drawUsableBoundaries';
+import labelChart from './labelChart';
 
 // * Applies the labels to our chart
 type Signature = (dataObj: {
@@ -25,59 +20,50 @@ type Signature = (dataObj: {
 }) => void;
 
 const useChartLabels: Signature = ({
-  chartDataRange: { chartBottom, chartTop, chartStart, chartEnd },
-  chartSizeRef: {
-    current: { chartHeight, chartWidth },
-  },
-  usableBoundaries: { usableHeight, usableWidth },
+  chartDataRange,
+  chartSizeRef,
+  usableBoundaries,
   chartRef,
   chartType,
   data,
 }) => {
-  const yAxisLabels = getYLabels(chartBottom, chartTop, chartHeight);
+  const ctx = chartRef.current?.getContext('2d');
+  if (ctx) {
+    labelChart({
+      ctx,
+      chartDataRange,
+      chartSizeRef,
+      chartType,
+      usableBoundaries,
+      data,
+    });
+  }
 
   useEffect(() => {
-    const ctx = chartRef.current?.getContext('2d');
-    if (ctx) {
-      resetStyling(ctx);
-
-      const { newUsableWidth, newUsableHeight } = defineUsableBoundaries({
-        ctx,
-        yAxisLabels,
-        chartType,
-        chartWidth,
-        chartHeight,
-      });
-      usableWidth.current = newUsableWidth;
-      usableHeight.current = newUsableHeight;
-
-      drawUsableBoundaries({
-        ctx,
-        usableWidth: usableWidth.current,
-        usableHeight: usableHeight.current,
-      });
-
-      labelXAxis({
-        chartStart,
-        chartEnd,
-        chartWidth,
-        data,
-        usableWidth,
-        usableHeight,
-        ctx,
-      });
-
-      labelYAxis({
-        yAxisLabels,
-        chartBottom,
-        chartTop,
-        usableHeight,
-        usableWidth,
-        ctx,
-        decorator: chartType === 'Comparison' ? '%' : '',
-      });
+    if (ctx == null) {
+      return () => {
+        console.log('chart did not render properly.');
+      };
     }
-  });
+    const labelChartHandler = () => {
+      labelChart({
+        ctx,
+        chartDataRange,
+        chartSizeRef,
+        chartType,
+        usableBoundaries,
+        data,
+      });
+    };
+
+    if (ctx) {
+      window.addEventListener('resize', labelChartHandler);
+    }
+
+    return () => {
+      window.removeEventListener('resize', labelChartHandler);
+    };
+  }, [ctx, chartDataRange, chartSizeRef, chartType, data, usableBoundaries]);
 };
 
 export default useChartLabels;
