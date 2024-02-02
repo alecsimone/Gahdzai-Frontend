@@ -8,6 +8,7 @@ import type {
 } from '../types';
 import type { ChartTypes } from '../../ChartHolder/types';
 import labelChart from './labelChart';
+import makeTimesArray from './makeTimesArray';
 
 // * Applies the labels to our chart
 type Signature = (dataObj: {
@@ -27,6 +28,8 @@ const useChartLabels: Signature = ({
   chartType,
   data,
 }) => {
+  const timesArray = makeTimesArray(data);
+
   const ctx = chartRef.current?.getContext('2d');
   if (ctx) {
     labelChart({
@@ -35,7 +38,7 @@ const useChartLabels: Signature = ({
       chartSizeRef,
       chartType,
       usableBoundaries,
-      data,
+      timesArray,
     });
   }
 
@@ -52,7 +55,7 @@ const useChartLabels: Signature = ({
         chartSizeRef,
         chartType,
         usableBoundaries,
-        data,
+        timesArray,
       });
     };
 

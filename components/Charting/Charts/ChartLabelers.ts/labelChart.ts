@@ -1,11 +1,5 @@
 import type { MutableRefObject } from 'react';
-import type {
-  CandleSet,
-  ChartDataRange,
-  ChartSize,
-  PercentageChangeSet,
-  UsableBoundaries,
-} from '../types';
+import type { ChartDataRange, ChartSize, UsableBoundaries } from '../types';
 import type { ChartTypes } from '../../ChartHolder/types';
 import getYLabels from './getYLabels';
 import resetStyling from '../ChartStylers.ts/resetStyling';
@@ -21,7 +15,7 @@ type Signature = (dataObj: {
   chartSizeRef: MutableRefObject<ChartSize>;
   chartType: ChartTypes;
   usableBoundaries: UsableBoundaries;
-  data: CandleSet | PercentageChangeSet[];
+  timesArray: number[];
 }) => void;
 
 const labelChart: Signature = ({
@@ -32,7 +26,7 @@ const labelChart: Signature = ({
   },
   chartType,
   usableBoundaries: { usableHeight, usableWidth },
-  data,
+  timesArray,
 }) => {
   resetStyling(ctx);
 
@@ -58,7 +52,7 @@ const labelChart: Signature = ({
     chartStart,
     chartEnd,
     chartWidth,
-    data,
+    timesArray,
     usableWidth,
     usableHeight,
     ctx,
