@@ -1,6 +1,5 @@
 import type { MutableRefObject } from 'react';
 import type { ChartDataRange, ChartSize, UsableBoundaries } from '../types';
-import type { ChartTypes } from '../../ChartHolder/types';
 import getYLabels from './getYLabels';
 import resetStyling from '../ChartStylers.ts/resetStyling';
 import defineUsableBoundaries from './defineUsableBoundaries';
@@ -13,7 +12,7 @@ type Signature = (dataObj: {
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
   chartSizeRef: MutableRefObject<ChartSize>;
-  chartType: ChartTypes;
+  labelDecorator: string;
   usableBoundaries: UsableBoundaries;
   timesArray: number[];
 }) => void;
@@ -24,7 +23,7 @@ const labelChart: Signature = ({
   chartSizeRef: {
     current: { chartHeight, chartWidth },
   },
-  chartType,
+  labelDecorator,
   usableBoundaries: { usableHeight, usableWidth },
   timesArray,
 }) => {
@@ -35,7 +34,7 @@ const labelChart: Signature = ({
   const { newUsableWidth, newUsableHeight } = defineUsableBoundaries({
     ctx,
     yAxisLabels,
-    chartType,
+    labelDecorator,
     chartWidth,
     chartHeight,
   });
@@ -65,7 +64,7 @@ const labelChart: Signature = ({
     usableHeight,
     usableWidth,
     ctx,
-    decorator: chartType === 'Comparison' ? '%' : '',
+    decorator: labelDecorator,
   });
 };
 

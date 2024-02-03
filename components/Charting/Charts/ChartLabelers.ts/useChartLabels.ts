@@ -29,6 +29,7 @@ const useChartLabels: Signature = ({
   data,
 }) => {
   const timesArray = makeTimesArray(data);
+  const labelDecorator = chartType === 'Comparison' ? '%' : '';
 
   const ctx = chartRef.current?.getContext('2d');
   if (ctx) {
@@ -36,7 +37,7 @@ const useChartLabels: Signature = ({
       ctx,
       chartDataRange,
       chartSizeRef,
-      chartType,
+      labelDecorator,
       usableBoundaries,
       timesArray,
     });
@@ -53,7 +54,7 @@ const useChartLabels: Signature = ({
         ctx,
         chartDataRange,
         chartSizeRef,
-        chartType,
+        labelDecorator,
         usableBoundaries,
         timesArray,
       });
@@ -66,7 +67,15 @@ const useChartLabels: Signature = ({
     return () => {
       window.removeEventListener('resize', labelChartHandler);
     };
-  }, [ctx, chartDataRange, chartSizeRef, chartType, data, usableBoundaries]);
+  }, [
+    ctx,
+    chartDataRange,
+    chartSizeRef,
+    labelDecorator,
+    data,
+    usableBoundaries,
+    timesArray,
+  ]);
 };
 
 export default useChartLabels;
