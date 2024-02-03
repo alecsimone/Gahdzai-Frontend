@@ -1,4 +1,9 @@
-import { useEffect, type Dispatch, type SetStateAction } from 'react';
+import {
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+  useContext,
+} from 'react';
 import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
 import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import StyledChart from './StyledChart';
@@ -11,6 +16,7 @@ import useChartRef from './useChartRef';
 import type { UsableBoundaries } from './types';
 import drawChart from './ChartMakers/drawChart';
 import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
+import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
@@ -45,6 +51,7 @@ const MainChart = ({
     usableBoundaries,
   });
 
+  const { highlightedSymbols } = useContext(HighlightContext);
   if (ctx) {
     drawChart({
       data,
@@ -52,6 +59,7 @@ const MainChart = ({
       chartType,
       ctx,
       chartDataRange,
+      highlightedSymbols,
     });
   }
 

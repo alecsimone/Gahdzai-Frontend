@@ -6,6 +6,7 @@ import type {
 } from '../types';
 import type { ChartTypes } from '../../ChartHolder/types';
 import makePercentageChangeChart from './PercentageChange/makePercentageChangeChart';
+import type { HighlightedSymbols } from '../../ChartHolder/LegendElements/HighlightContextTypes';
 
 // * A wrapper function that determines what kind of chart we're drawing and calls the corresponding chart drawing function
 type Signature = (dataObj: {
@@ -14,6 +15,7 @@ type Signature = (dataObj: {
   chartType: ChartTypes;
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
+  highlightedSymbols: HighlightedSymbols[];
 }) => void;
 
 const drawChart: Signature = ({
@@ -22,6 +24,7 @@ const drawChart: Signature = ({
   chartType,
   ctx,
   chartDataRange,
+  highlightedSymbols,
 }) => {
   console.log('drawing the chart');
   if (chartType === 'Comparison' && !('candles' in data)) {
@@ -30,6 +33,7 @@ const drawChart: Signature = ({
       chartDataRange,
       ctx,
       usableBoundaries,
+      highlightedSymbols,
     });
     return;
   }

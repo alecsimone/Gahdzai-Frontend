@@ -1,4 +1,6 @@
-import { useRef, RefObject } from 'react';
+import { useRef, type RefObject, useContext } from 'react';
+import { HighlightContext } from './HighlightContextTypes';
+import useMouseHandlers from './useMouseHandlers';
 
 const useChartLegendItem = (
   symbol: string
@@ -6,14 +8,13 @@ const useChartLegendItem = (
   const legendItem = useRef<HTMLHeadingElement>(null);
 
   // TODO Highlighted Symbols
-  const isHighlighted = false;
-  // const { highlightedSymbols } = useContext(HighlightContext);
+  const { highlightedSymbols } = useContext(HighlightContext);
 
-  // const isHighlighted = highlightedSymbols.some(
-  //   (item) => item.symbol === symbol
-  // );
+  const isHighlighted = highlightedSymbols.some(
+    (item) => item.symbol === symbol
+  );
 
-  // useMouseHandlers(symbol, legendItem);
+  useMouseHandlers(symbol, legendItem);
 
   return [legendItem, isHighlighted];
 };

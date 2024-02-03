@@ -1,3 +1,4 @@
+import type { HighlightedSymbols } from '@/components/Charting/ChartHolder/LegendElements/HighlightContextTypes';
 import type { PercentageChangeSet } from '../../types';
 import convertPercentageChangeValuesToDataPoints from './convertPercentageChangeValuesToDataPoints';
 import convertToXYCoordinates from './convertToXYCoordinates';
@@ -13,6 +14,7 @@ type Signature = (dataObj: {
   chartTop: number;
   chartBottom: number;
   ctx: CanvasRenderingContext2D;
+  highlightedSymbols: HighlightedSymbols[];
 }) => void;
 
 const drawPercentageChangeLine: Signature = ({
@@ -23,10 +25,12 @@ const drawPercentageChangeLine: Signature = ({
   chartTop,
   chartBottom,
   ctx,
+  highlightedSymbols,
 }) => {
   const { computedColor, lineWidth } = setLineStyles({
     symbol,
     changeSetIndex,
+    highlightedSymbols,
   });
 
   const dataPoints = convertPercentageChangeValuesToDataPoints(

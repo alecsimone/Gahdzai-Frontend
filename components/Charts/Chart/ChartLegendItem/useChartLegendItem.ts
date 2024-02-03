@@ -1,4 +1,4 @@
-import { useContext, useRef, RefObject } from 'react';
+import { useContext, useRef, type RefObject } from 'react';
 import { HighlightContext } from '../../ChartHolder/Contexts/HighlightContext';
 
 import useMouseHandlers from './useMouseHandlers';

@@ -1,3 +1,4 @@
+import type { HighlightedSymbols } from '../../../ChartHolder/LegendElements/HighlightContextTypes';
 import type {
   ChartDataRange,
   PercentageChangeSet,
@@ -11,6 +12,7 @@ type Signature = (dataObj: {
   usableBoundaries: UsableBoundaries;
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
+  highlightedSymbols: HighlightedSymbols;
 }) => void;
 
 const makePercentageChangeChart: Signature = ({
@@ -18,6 +20,7 @@ const makePercentageChangeChart: Signature = ({
   usableBoundaries: { usableWidth, usableHeight },
   chartDataRange: { chartBottom, chartTop },
   ctx,
+  highlightedSymbols,
 }) => {
   data.forEach((percentageChangeSet, changeSetIndex) => {
     drawPercentageChangeLine({
@@ -28,6 +31,7 @@ const makePercentageChangeChart: Signature = ({
       chartBottom,
       chartTop,
       ctx,
+      highlightedSymbols,
     });
   });
 };

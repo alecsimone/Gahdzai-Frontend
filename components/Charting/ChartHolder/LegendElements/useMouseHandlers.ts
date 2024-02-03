@@ -1,10 +1,10 @@
-import { RefObject, useCallback, useContext, useEffect } from 'react';
-import { HighlightContext } from '../../ChartHolder/Contexts/HighlightContext';
+import { type RefObject, useCallback, useContext, useEffect } from 'react';
 import {
   highlightSymbol,
   toggleSymbolHighlightLock,
   unHighlightSymbol,
-} from '../legendMakers/symbolHighlighters';
+} from './symbolHighlighters';
+import { HighlightContext } from './HighlightContextTypes';
 
 const useMouseHandlers = (
   symbol: string,
