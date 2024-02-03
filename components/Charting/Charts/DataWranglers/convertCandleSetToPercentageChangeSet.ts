@@ -11,12 +11,14 @@ const convertCandleSetToPercentageChangeSet: Signature = (
 ) => {
   const initialValue =
     period === 'D'
-      ? Number(candleSet.candles[0]?.close!)
-      : Number(candleSet.candles[0]?.open!);
+      ? Number(candleSet.candles[0]!.close)
+      : Number(candleSet.candles[0]!.open);
+  const latestValue = Number(candleSet.candles.at(-1)!.close);
 
   const percentageChangeSet: PercentageChangeSet = {
     symbol: candleSet.symbol,
     initialValue,
+    latestValue,
     changes: [],
   };
 

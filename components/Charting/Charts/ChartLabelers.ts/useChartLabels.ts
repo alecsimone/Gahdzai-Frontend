@@ -1,4 +1,4 @@
-import { useEffect, type MutableRefObject, type RefObject } from 'react';
+import { useEffect, type MutableRefObject } from 'react';
 import type {
   CandleSet,
   ChartDataRange,
@@ -14,7 +14,7 @@ import makeTimesArray from './makeTimesArray';
 type Signature = (dataObj: {
   chartDataRange: ChartDataRange;
   chartSizeRef: MutableRefObject<ChartSize>;
-  chartRef: RefObject<HTMLCanvasElement>;
+  ctx: CanvasRenderingContext2D | null | undefined;
   chartType: ChartTypes;
   data: CandleSet | PercentageChangeSet[];
   usableBoundaries: UsableBoundaries;
@@ -24,14 +24,13 @@ const useChartLabels: Signature = ({
   chartDataRange,
   chartSizeRef,
   usableBoundaries,
-  chartRef,
+  ctx,
   chartType,
   data,
 }) => {
   const timesArray = makeTimesArray(data);
   const labelDecorator = chartType === 'Comparison' ? '%' : '';
 
-  const ctx = chartRef.current?.getContext('2d');
   if (ctx) {
     labelChart({
       ctx,

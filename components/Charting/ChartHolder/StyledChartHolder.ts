@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 import { smallText } from '@/styles/constants/fontSizes';
-import { coolGrey, green, red, white } from '@/styles/constants/colors';
+import { coolGrey, white } from '@/styles/constants/colors';
 import {
   setAlpha,
   setSaturation,
 } from '@/styles/functions/modifyColorFunctions';
+import { downColor, upColor } from '../Charts/constants';
 
 export const minimumLegendElementRemSize = 20;
-export const upColor = setAlpha(green, 0.9);
-export const downColor = setAlpha(setSaturation(red, 65), 1);
 
 const StyledChartHolder = styled.section`
   height: 100%;

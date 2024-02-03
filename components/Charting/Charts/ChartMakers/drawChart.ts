@@ -1,4 +1,3 @@
-import type { RefObject } from 'react';
 import type {
   CandleSet,
   ChartDataRange,
@@ -6,14 +5,14 @@ import type {
   UsableBoundaries,
 } from '../types';
 import type { ChartTypes } from '../../ChartHolder/types';
-import drawPercentageChangeChart from './PercentageChange/drawPercentageChangeChart';
+import makePercentageChangeChart from './PercentageChange/makePercentageChangeChart';
 
 // * A wrapper function that determines what kind of chart we're drawing and calls the corresponding chart drawing function
 type Signature = (dataObj: {
   data: CandleSet | PercentageChangeSet[];
   usableBoundaries: UsableBoundaries;
   chartType: ChartTypes;
-  chartRef: RefObject<HTMLCanvasElement>;
+  ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
 }) => void;
 
@@ -21,14 +20,15 @@ const drawChart: Signature = ({
   data,
   usableBoundaries,
   chartType,
-  chartRef,
+  ctx,
   chartDataRange,
 }) => {
+  console.log('drawing the chart');
   if (chartType === 'Comparison' && !('candles' in data)) {
-    drawPercentageChangeChart({
+    makePercentageChangeChart({
       data,
       chartDataRange,
-      chartRef,
+      ctx,
       usableBoundaries,
     });
     return;

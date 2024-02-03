@@ -30,6 +30,7 @@ const ChartBase = ({
         period={period}
         chartType={chartType}
         usableBoundaries={usableBoundaries}
+        setLegendElements={setLegendElements}
       />
       <ShadowChart usableBoundaries={usableBoundaries} />
     </div>

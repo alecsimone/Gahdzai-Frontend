@@ -38,8 +38,19 @@ export interface PercentageChange {
 export interface PercentageChangeSet {
   symbol: string;
   initialValue: number;
+  latestValue: number;
   changes: PercentageChange[];
 }
 
 export const timeTypes = ['year', 'month', 'day', 'hour', 'minute'] as const;
 export type TimeTypes = (typeof timeTypes)[number];
+
+export interface DataPoint {
+  time: number;
+  value: number;
+}
+
+export interface Coordinate {
+  x: number;
+  y: number;
+}
