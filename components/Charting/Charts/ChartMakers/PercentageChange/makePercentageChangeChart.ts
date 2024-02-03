@@ -12,7 +12,7 @@ type Signature = (dataObj: {
   usableBoundaries: UsableBoundaries;
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
-  highlightedSymbols: HighlightedSymbols;
+  highlightedSymbols: HighlightedSymbols[];
 }) => void;
 
 const makePercentageChangeChart: Signature = ({
