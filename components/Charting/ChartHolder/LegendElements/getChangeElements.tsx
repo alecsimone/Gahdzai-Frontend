@@ -11,7 +11,7 @@ type Signature = (dataObj: {
 const getChangeElements: Signature = ({
   latestValue,
   initialValue,
-}): [JSX.Element, JSX.Element] => {
+}): [React.ReactNode, React.ReactNode] => {
   const dailyPointChange =
     makeSafeDecimals(latestValue) - makeSafeDecimals(initialValue);
   const changeColor = getChangeColor(dailyPointChange);

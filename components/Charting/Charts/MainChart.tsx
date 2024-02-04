@@ -17,6 +17,7 @@ import type { UsableBoundaries } from './types';
 import drawChart from './ChartMakers/drawChart';
 import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
 import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
+import makeLegendForCandlestickChart from '../ChartHolder/LegendElements/makeLegendForCandlestickChart';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
@@ -66,6 +67,8 @@ const MainChart = ({
   useEffect(() => {
     if (!('candles' in data)) {
       makeLegendForPercentageChart(setLegendElements, data);
+    } else {
+      makeLegendForCandlestickChart(setLegendElements, data);
     }
   }, [setLegendElements, data]);
 

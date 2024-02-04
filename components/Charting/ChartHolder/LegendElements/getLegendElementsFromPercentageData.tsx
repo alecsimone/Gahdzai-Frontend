@@ -20,8 +20,10 @@ const getLegendElementsFromPercentageData: Signature = (
   const latestValueElement: React.ReactNode = (
     <LatestValueElement latestValue={percentageChangeSet.latestValue} />
   );
-  const [rawChangeElement, percentChangeElement] =
-    getChangeElements(percentageChangeSet);
+  const [rawChangeElement, percentChangeElement] = getChangeElements({
+    latestValue: percentageChangeSet.latestValue,
+    initialValue: percentageChangeSet.initialValue,
+  });
 
   const labelElements = [
     symbolElement,
