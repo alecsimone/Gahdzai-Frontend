@@ -1,5 +1,5 @@
-import type { Coordinate } from '../../types';
-import { defaultLineColor, defaultLineWidth } from '../../constants';
+import type { Coordinate } from '../types';
+import { defaultLineColor, defaultLineWidth } from '../constants';
 
 // * Takes in an array of Coordinates and a canvas context, along with two optional styling parameters, and draws a line on the canvas corresponding to the coordinates
 type Signature = (dataObj: {

@@ -1,8 +1,8 @@
 import type { HighlightedSymbols } from '@/components/Charting/ChartHolder/LegendElements/HighlightContextTypes';
 import type { PercentageChangeSet } from '../../types';
 import convertPercentageChangeValuesToDataPoints from './convertPercentageChangeValuesToDataPoints';
-import convertToXYCoordinates from './convertToXYCoordinates';
-import drawLineFromCoords from './drawLineFromCoords';
+import convertToXYCoordinates from '../../DataPlotters/convertToXYCoordinates';
+import drawLineFromCoords from '../../DataPlotters/drawLineFromCoords';
 import setLineStyles from './setLineStyles';
 
 // * Draws the line for a set of percentageChanges on our chart

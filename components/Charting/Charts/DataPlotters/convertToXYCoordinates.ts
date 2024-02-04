@@ -1,6 +1,6 @@
-import getXCoordByIndex from '../../DataPlotters/getXCoordByIndex';
-import getYCoordByValue from '../../DataPlotters/getYCoordByValue';
-import type { Coordinate, DataPoint } from '../../types';
+import getXCoordByIndex from './getXCoordByIndex';
+import getYCoordByValue from './getYCoordByValue';
+import type { Coordinate, DataPoint } from '../types';
 
 // * Maps over an array of datapoints and turns them into XY Coordinates for the provided chart
 type Signature = (dataObj: {
