@@ -54,3 +54,13 @@ export interface Coordinate {
   x: number;
   y: number;
 }
+
+export interface CandleShape {
+  color: string;
+  candleStartX: number;
+  width: number;
+  candleTop: number;
+  candleBottom: number;
+  wickTop: number;
+  wickBottom: number;
+}

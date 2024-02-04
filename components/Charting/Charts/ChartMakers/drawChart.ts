@@ -7,6 +7,7 @@ import type {
 import type { ChartTypes } from '../../ChartHolder/types';
 import makePercentageChangeChart from './PercentageChange/makePercentageChangeChart';
 import type { HighlightedSymbols } from '../../ChartHolder/LegendElements/HighlightContextTypes';
+import makeCandlestickChart from './Candlestick/makeCandlestickChart';
 
 // * A wrapper function that determines what kind of chart we're drawing and calls the corresponding chart drawing function
 type Signature = (dataObj: {
@@ -38,7 +39,12 @@ const drawChart: Signature = ({
     return;
   }
   if (chartType === 'Individual' && 'candles' in data) {
-    console.log('we got us a candlestick chart here');
+    makeCandlestickChart({
+      data,
+      usableBoundaries,
+      chartDataRange,
+      ctx,
+    });
   }
 };
 

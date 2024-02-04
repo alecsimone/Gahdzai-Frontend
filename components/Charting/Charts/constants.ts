@@ -20,3 +20,5 @@ export const notHighlightedLineWidth = 1;
 export const defaultLineAlpha = 0.8;
 export const highlightedSymbolAlpha = 1;
 export const notHighlightedSymbolAlpha = 0.25;
+
+export const minimumCandleWidth = 3;
