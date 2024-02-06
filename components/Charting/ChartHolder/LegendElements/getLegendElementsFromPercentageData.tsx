@@ -33,7 +33,7 @@ const getLegendElementsFromPercentageData: Signature = (
   ];
 
   return (
-    <ChartLegendItem symbol={percentageChangeSet.symbol}>
+    <ChartLegendItem symbol={percentageChangeSet.symbol} isComparison>
       {labelElements}
     </ChartLegendItem>
   );

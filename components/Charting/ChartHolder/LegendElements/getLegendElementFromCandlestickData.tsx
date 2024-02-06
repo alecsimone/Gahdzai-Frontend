@@ -20,7 +20,7 @@ const getLegendElementFromCandlestickData: Signature = (
     <LatestValueElement latestValue={latestValue} />
   );
 
-  const initialValue = data.candles[0]!.open;
+  const { initialValue } = data;
   const [rawChangeElement, percentChangeElement] = getChangeElements({
     latestValue,
     initialValue,
@@ -34,7 +34,9 @@ const getLegendElementFromCandlestickData: Signature = (
   ];
 
   return (
-    <ChartLegendItem symbol={data.symbol}>{labelElements}</ChartLegendItem>
+    <ChartLegendItem symbol={data.symbol} isComparison={false}>
+      {labelElements}
+    </ChartLegendItem>
   );
 };
 

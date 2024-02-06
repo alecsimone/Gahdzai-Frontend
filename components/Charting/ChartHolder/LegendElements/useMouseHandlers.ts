@@ -8,7 +8,8 @@ import { HighlightContext } from './HighlightContextTypes';
 
 const useMouseHandlers = (
   symbol: string,
-  legendItem: RefObject<HTMLHeadingElement>
+  legendItem: RefObject<HTMLHeadingElement>,
+  isComparison: boolean
 ) => {
   const { setHighlightedSymbols } = useContext(HighlightContext);
 
@@ -30,7 +31,7 @@ const useMouseHandlers = (
 
   useEffect(() => {
     const item = legendItem.current;
-    if (item) {
+    if (item && isComparison) {
       mouseHandlers.forEach((func) => {
         const { handler, event } = func;
         item.addEventListener(event, handler);

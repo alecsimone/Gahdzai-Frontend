@@ -22,7 +22,8 @@ const cookRawData: Signature = (rawData, period, chartType) => {
     );
     data = PercentageChangeSets;
   } else {
-    const properCandles: Candle[] = actualData[0]?.candles.map(
+    const candleData = actualData[0]!;
+    const properCandles: Candle[] = candleData.candles.map(
       (improperCandleSet) => {
         const properCandle: Candle = {
           time: Number(improperCandleSet.time),
@@ -34,8 +35,19 @@ const cookRawData: Signature = (rawData, period, chartType) => {
         return properCandle;
       }
     )!;
+
+    // We need to figure out the initialValue we're going to use to determine the change over the period. If the period is "D", daily, then the initialValue is the close of the first candle. Otherwise the period is the open of the first candle
+    let initialValue: number;
+    if (period === 'D') {
+      initialValue = properCandles[0]!.close;
+      properCandles.shift();
+    } else {
+      initialValue = properCandles[0]!.open;
+    }
+
     data = {
-      symbol: actualData[0]?.symbol!,
+      symbol: candleData.symbol!,
+      initialValue,
       candles: properCandles,
     };
   }

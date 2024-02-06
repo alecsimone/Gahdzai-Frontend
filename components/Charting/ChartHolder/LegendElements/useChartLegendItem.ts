@@ -3,7 +3,8 @@ import { HighlightContext } from './HighlightContextTypes';
 import useMouseHandlers from './useMouseHandlers';
 
 const useChartLegendItem = (
-  symbol: string
+  symbol: string,
+  isComparison: boolean
 ): [RefObject<HTMLHeadingElement>, boolean] => {
   const legendItem = useRef<HTMLHeadingElement>(null);
 
@@ -14,7 +15,7 @@ const useChartLegendItem = (
     (item) => item.symbol === symbol
   );
 
-  useMouseHandlers(symbol, legendItem);
+  useMouseHandlers(symbol, legendItem, isComparison);
 
   return [legendItem, isHighlighted];
 };

@@ -14,7 +14,7 @@ const Markets = (): React.ReactNode => (
       symbols={indicesSymbols}
       symbolType="index"
     />
-    <ChartHolder chartType="Individual" symbols="SPY" symbolType="stock" />
+    <ChartHolder chartType="Individual" symbols="TSLA" symbolType="stock" />
   </StyledMarketsPage>
 );
 

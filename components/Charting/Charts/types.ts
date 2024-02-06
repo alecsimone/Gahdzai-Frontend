@@ -27,6 +27,7 @@ export interface Candle {
 
 export interface CandleSet {
   symbol: string;
+  initialValue: number;
   candles: Candle[];
 }
 

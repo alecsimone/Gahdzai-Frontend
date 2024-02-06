@@ -26,7 +26,7 @@ const useMarketQuery: Signature = ({
 }) => {
   const { data, loading, error } = useQuery(GET_CANDLES_FOR_SYMBOLS_QUERY, {
     variables: {
-      symbols,
+      symbols: Array.isArray(symbols) ? symbols : [symbols],
       symbolType,
       from,
       to,
