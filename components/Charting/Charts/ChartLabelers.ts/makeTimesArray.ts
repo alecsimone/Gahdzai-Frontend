@@ -5,7 +5,7 @@ type Signature = (data: CandleSet | PercentageChangeSet[]) => number[];
 
 const makeTimesArray: Signature = (data) => {
   let timesArray: number[] = [];
-  if ('candles' in data) {
+  if (!Array.isArray(data)) {
     timesArray = data.candles.map((candle) => candle.time);
   } else {
     timesArray = data[0]!.changes.map((change) => change.time);

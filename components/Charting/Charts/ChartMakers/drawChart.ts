@@ -28,7 +28,7 @@ const drawChart: Signature = ({
   highlightedSymbols,
 }) => {
   console.log('drawing the chart');
-  if (chartType === 'Comparison' && !('candles' in data)) {
+  if (chartType === 'Comparison' && Array.isArray(data)) {
     makePercentageChangeChart({
       data,
       chartDataRange,
@@ -38,7 +38,7 @@ const drawChart: Signature = ({
     });
     return;
   }
-  if (chartType === 'Individual' && 'candles' in data) {
+  if (chartType === 'Individual' && !Array.isArray(data)) {
     makeCandlestickChart({
       data,
       usableBoundaries,

@@ -65,7 +65,7 @@ const MainChart = ({
   }
 
   useEffect(() => {
-    if (!('candles' in data)) {
+    if (Array.isArray(data)) {
       makeLegendForPercentageChart(setLegendElements, data);
     } else {
       makeLegendForCandlestickChart(setLegendElements, data);
