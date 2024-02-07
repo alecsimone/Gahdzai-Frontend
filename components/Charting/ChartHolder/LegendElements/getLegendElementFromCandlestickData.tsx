@@ -11,7 +11,7 @@ const getLegendElementFromCandlestickData: Signature = (
   data
 ): React.ReactNode => {
   const symbolElement: React.ReactNode = (
-    <SymbolElement symbol={data.symbol} lineIndex={1} />
+    <SymbolElement symbol={data.symbol} lineIndex={0} />
   );
 
   const latestValue = data.candles.at(-1)!.close;
