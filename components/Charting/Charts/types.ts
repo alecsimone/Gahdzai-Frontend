@@ -65,3 +65,10 @@ export interface CandleShape {
   wickTop: number;
   wickBottom: number;
 }
+
+export interface CoordinatedDataPoint {
+  symbol: string;
+  x: number;
+  y: number;
+  data: Candle | PercentageChange;
+}

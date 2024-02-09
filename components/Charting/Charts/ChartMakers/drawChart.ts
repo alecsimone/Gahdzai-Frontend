@@ -1,6 +1,7 @@
 import type {
   CandleSet,
   ChartDataRange,
+  CoordinatedDataPoint,
   PercentageChangeSet,
   UsableBoundaries,
 } from '../types';
@@ -17,6 +18,7 @@ type Signature = (dataObj: {
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
   highlightedSymbols: HighlightedSymbols[];
+  coordinatedData: CoordinatedDataPoint[];
 }) => void;
 
 const drawChart: Signature = ({
@@ -26,8 +28,8 @@ const drawChart: Signature = ({
   ctx,
   chartDataRange,
   highlightedSymbols,
+  coordinatedData,
 }) => {
-  console.log('drawing the chart');
   if (chartType === 'Comparison' && Array.isArray(data)) {
     makePercentageChangeChart({
       data,
@@ -35,6 +37,7 @@ const drawChart: Signature = ({
       ctx,
       usableBoundaries,
       highlightedSymbols,
+      coordinatedData,
     });
     return;
   }
@@ -44,6 +47,7 @@ const drawChart: Signature = ({
       usableBoundaries,
       chartDataRange,
       ctx,
+      coordinatedData,
     });
   }
 };

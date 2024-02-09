@@ -13,7 +13,7 @@ import cookRawData from './DataWranglers/cookRawData';
 import getChartDataRange from './ChartShapers/getChartDataRange';
 import type { ChartTypes } from '../ChartHolder/types';
 import useChartRef from './useChartRef';
-import type { UsableBoundaries } from './types';
+import type { CoordinatedDataPoint, UsableBoundaries } from './types';
 import drawChart from './ChartMakers/drawChart';
 import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
 import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
@@ -26,6 +26,7 @@ interface MainChartProps {
   chartType: ChartTypes;
   usableBoundaries: UsableBoundaries;
   setLegendElements: Dispatch<SetStateAction<React.ReactNode[]>>;
+  coordinatedData: CoordinatedDataPoint[];
 }
 
 const MainChart = ({
@@ -34,6 +35,7 @@ const MainChart = ({
   chartType,
   usableBoundaries,
   setLegendElements,
+  coordinatedData,
 }: MainChartProps): React.ReactNode => {
   const chartRef = useChartRef();
   const chartSizeRef = useChartSize(chartRef);
@@ -61,6 +63,7 @@ const MainChart = ({
       ctx,
       chartDataRange,
       highlightedSymbols,
+      coordinatedData,
     });
   }
 

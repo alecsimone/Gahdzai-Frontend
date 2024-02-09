@@ -4,6 +4,7 @@ import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextType
 import type { ChartTypes } from '../ChartHolder/types';
 import MainChart from './MainChart';
 import ShadowChart from './ShadowChart/ShadowChart';
+import type { CoordinatedDataPoint } from './types';
 
 // * Our main Chart component. Its responsibility is to render the data we receive from our query as a chart, which it splits into two parts: The main Chart canvas, which will have the actual chart, and then a ShadowChart canvas that will hold any annotations on that chart, eg the crosshairs that follow the mouse
 interface ChartBaseProps {
@@ -23,6 +24,8 @@ const ChartBase = ({
   const usableWidth = useRef(0);
   const usableBoundaries = { usableHeight, usableWidth };
 
+  const coordinatedData = useRef<CoordinatedDataPoint[]>([]);
+
   return (
     <div className="chartContainer">
       <MainChart
@@ -31,8 +34,12 @@ const ChartBase = ({
         chartType={chartType}
         usableBoundaries={usableBoundaries}
         setLegendElements={setLegendElements}
+        coordinatedData={coordinatedData.current}
       />
-      <ShadowChart usableBoundaries={usableBoundaries} />
+      <ShadowChart
+        usableBoundaries={usableBoundaries}
+        coordinatedData={coordinatedData.current}
+      />
     </div>
   );
 };

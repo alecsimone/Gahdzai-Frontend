@@ -10,7 +10,7 @@ const getWidestLabelWidth: Signature = (ctx, labels, decorator) => {
 
   let widestLabelWidth: number = 0;
   labels.forEach((label) => {
-    const fullLabel = `${label}${decorator}`;
+    const fullLabel = `${label}${decorator != null ? decorator : ''}`;
 
     const labelWidth = ctx.measureText(fullLabel).width;
     if (labelWidth > widestLabelWidth) {
