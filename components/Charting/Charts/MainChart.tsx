@@ -55,7 +55,11 @@ const MainChart = ({
   });
 
   const { highlightedSymbols } = useContext(HighlightContext);
-  if (ctx) {
+  if (
+    ctx &&
+    usableBoundaries.usableHeight.current > 0 &&
+    usableBoundaries.usableWidth.current > 0
+  ) {
     drawChart({
       data,
       usableBoundaries,

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-loop-func */
 import type { CoordinatedDataPoint, UsableBoundaries } from '../types';
+import drawValueHighlightBubbles from './drawValueHighlightBubbles';
 import type { MouseCoords } from './getMousePosOverCanvas';
 import makeValuesBox from './makeValuesBox';
 
@@ -49,6 +50,10 @@ const showValueAtCursor: Signature = ({
     const ctx = shadowChart.getContext('2d');
     if (ctx) {
       makeValuesBox({
+        ctx,
+        coordinatedDataPoints: matchingDataPoints,
+      });
+      drawValueHighlightBubbles({
         ctx,
         coordinatedDataPoints: matchingDataPoints,
       });

@@ -49,8 +49,7 @@ const drawPercentageChangeLine: Signature = ({
   });
 
   dataPoints.forEach((point, index) => {
-    const { x } = xyPairs[index]!;
-    const { y } = xyPairs[index]!;
+    const { x, y } = xyPairs[index]!;
     const { time } = point;
     const change = point.value;
 
@@ -69,6 +68,8 @@ const drawPercentageChangeLine: Signature = ({
     );
     if (existingDataPointIndex === -1) {
       coordinatedData.push(coordinatedDataPoint);
+    } else {
+      coordinatedData[existingDataPointIndex] = coordinatedDataPoint;
     }
   });
 
