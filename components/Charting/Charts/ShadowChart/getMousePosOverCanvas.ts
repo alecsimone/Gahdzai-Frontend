@@ -1,15 +1,12 @@
+import type { Coordinate } from '../types';
+
 // * Finds the position of the mouse relative to the canvas and returns it as a MouseCoords object. If the mouse is not over the canvas, we return false
 type Signature = (
   canvas: HTMLCanvasElement | null,
   event: MouseEvent
 ) => MouseCoords;
 
-export type MouseCoords =
-  | {
-      x: number;
-      y: number;
-    }
-  | false;
+export type MouseCoords = Coordinate | false;
 
 const getMousePosOverCanvas: Signature = (canvas, event) => {
   if (canvas == null) return false;

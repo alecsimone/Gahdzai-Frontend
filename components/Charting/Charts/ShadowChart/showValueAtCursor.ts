@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-loop-func */
-import type { CoordinatedDataPoint, UsableBoundaries } from '../types';
+import type {
+  Coordinate,
+  CoordinatedDataPoint,
+  UsableBoundaries,
+} from '../types';
 import drawValueHighlightBubbles from './drawValueHighlightBubbles';
-import type { MouseCoords } from './getMousePosOverCanvas';
 import makeValuesBox from './makeValuesBox';
 
 // * Finds the value of any lines on this chart at the X position of the cursor
 type Signature = (dataObj: {
-  mouseCoords: MouseCoords;
+  mouseCoords: Coordinate;
   coordinatedData: CoordinatedDataPoint[];
   usableBoundaries: UsableBoundaries;
   shadowChart: HTMLCanvasElement;
-}) => void;
+}) => number;
 
 const maxFuzz = 10;
 
@@ -20,12 +23,11 @@ const showValueAtCursor: Signature = ({
   usableBoundaries: { usableHeight, usableWidth },
   shadowChart,
 }) => {
-  if (!mouseCoords) return;
   if (
     mouseCoords.x > usableWidth.current ||
     mouseCoords.y > usableHeight.current
   ) {
-    return;
+    return 0;
   }
 
   let matchingDataPoints = coordinatedData.filter(
@@ -53,12 +55,17 @@ const showValueAtCursor: Signature = ({
         ctx,
         coordinatedDataPoints: matchingDataPoints,
       });
-      drawValueHighlightBubbles({
-        ctx,
-        coordinatedDataPoints: matchingDataPoints,
-      });
+      if ('change' in matchingDataPoints[0]!.data) {
+        // We only want to draw the bubbles for percentage change sets
+        drawValueHighlightBubbles({
+          ctx,
+          coordinatedDataPoints: matchingDataPoints,
+        });
+      }
     }
+    return matchingDataPoints[0]!.data.time;
   }
+  return 0;
 };
 
 export default showValueAtCursor;

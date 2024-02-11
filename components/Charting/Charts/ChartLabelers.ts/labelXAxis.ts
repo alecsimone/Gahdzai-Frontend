@@ -2,7 +2,6 @@ import type { MutableRefObject } from 'react';
 import getTimeStepSize from './getTimeStepSize';
 import makeTimeLabelObjectsArray from './makeTimeLabelObjectsArray';
 import { gutterPadding } from '../constants';
-import getTextHeight from '../ChartStylers.ts/getTextHeight';
 import resetStyling from '../ChartStylers.ts/resetStyling';
 import drawXLinesAndLabels from './drawXLinesAndLabels';
 
@@ -39,11 +38,10 @@ const labelXAxis: Signature = ({
     usableWidth: usableWidth.current,
   });
 
-  const xLabelsYCoord =
-    usableHeight.current + gutterPadding + 1 + getTextHeight(ctx) / 2;
+  const xLabelsYCoord = usableHeight.current + gutterPadding + 1;
 
   resetStyling(ctx);
-  ctx.textBaseline = 'middle';
+  ctx.textBaseline = 'top';
   xLabelObjectsArray.forEach((labelObject, index) => {
     drawXLinesAndLabels({
       ctx,

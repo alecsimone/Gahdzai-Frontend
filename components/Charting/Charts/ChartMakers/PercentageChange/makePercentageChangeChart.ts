@@ -25,6 +25,7 @@ const makePercentageChangeChart: Signature = ({
   highlightedSymbols,
   coordinatedData,
 }) => {
+  console.log('drawin the chart');
   data.forEach((percentageChangeSet, changeSetIndex) => {
     drawPercentageChangeLine({
       percentageChangeSet,

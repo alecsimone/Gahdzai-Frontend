@@ -4,6 +4,7 @@ import StyledChartHolder from '../StyledChartHolder';
 import setChartSize from '../../Charts/ChartShapers/setChartSize';
 import animateLoadingSpinner from './animateLoadingSpinner';
 import LoadingHeaderButton from './LoadingHeaderButton';
+import PeriodButtons from '../PeriodButtons/PeriodButtons';
 
 const LoadingChart = (): JSX.Element => {
   const loadingChartRef = useRef<HTMLCanvasElement>(null);
@@ -28,6 +29,7 @@ const LoadingChart = (): JSX.Element => {
       <StyledChart className="chartContainer" ref={loadingChartRef}>
         Loading...
       </StyledChart>
+      <PeriodButtons />
     </StyledChartHolder>
   );
 };

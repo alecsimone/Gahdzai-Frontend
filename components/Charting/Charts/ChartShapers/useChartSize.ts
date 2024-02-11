@@ -14,9 +14,9 @@ type Signature = (
 
 const useChartSize: Signature = (chartRef) => {
   const chartSizeRef = useRef<ChartSize>({ chartHeight: 0, chartWidth: 0 });
-  if (chartRef.current) {
-    chartSizeRef.current = setChartSize(chartRef.current);
-  }
+  // if (chartRef.current) {
+  //   chartSizeRef.current = setChartSize(chartRef.current);
+  // }
 
   useEffect(() => {
     const chartSizeHandler = () => {
@@ -24,13 +24,14 @@ const useChartSize: Signature = (chartRef) => {
         chartSizeRef.current = setChartSize(chartRef.current);
       }
     };
+    chartSizeHandler();
 
     window.addEventListener('resize', chartSizeHandler);
 
     return () => {
       window.removeEventListener('resize', chartSizeHandler);
     };
-  });
+  }, [chartRef]);
 
   return chartSizeRef;
 };

@@ -1,49 +1,58 @@
+// @refresh reset
+
 import {
   useEffect,
   type Dispatch,
   type SetStateAction,
   useContext,
 } from 'react';
-import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
-import type { Period } from '../ChartHolder/PeriodButtons/ChartPeriodContextTypes';
 import StyledChart from './StyledChart';
 import useChartSize from './ChartShapers/useChartSize';
-import useChartLabels from './ChartLabelers.ts/useChartLabels';
-import cookRawData from './DataWranglers/cookRawData';
-import getChartDataRange from './ChartShapers/getChartDataRange';
 import type { ChartTypes } from '../ChartHolder/types';
 import useChartRef from './useChartRef';
-import type { CoordinatedDataPoint, UsableBoundaries } from './types';
-import drawChart from './ChartMakers/drawChart';
-import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
-import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
+import type {
+  CandleSet,
+  ChartDataRange,
+  CoordinatedDataPoint,
+  PercentageChangeSet,
+  UsableBoundaries,
+} from './types';
 import makeLegendForCandlestickChart from '../ChartHolder/LegendElements/makeLegendForCandlestickChart';
+import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
+import useChartLabels from './ChartLabelers.ts/useChartLabels';
+import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
+import drawChart from './ChartMakers/drawChart';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
-  rawData: Get_Candles_For_Symbols_QueryQuery;
-  period: Period;
+  data: CandleSet | PercentageChangeSet[];
   chartType: ChartTypes;
   usableBoundaries: UsableBoundaries;
   setLegendElements: Dispatch<SetStateAction<React.ReactNode[]>>;
   coordinatedData: CoordinatedDataPoint[];
+  chartDataRange: ChartDataRange;
 }
 
 const MainChart = ({
-  rawData,
-  period,
+  data,
   chartType,
   usableBoundaries,
   setLegendElements,
   coordinatedData,
+  chartDataRange,
 }: MainChartProps): React.ReactNode => {
   const chartRef = useChartRef();
   const chartSizeRef = useChartSize(chartRef);
 
-  const data = cookRawData(rawData, period, chartType);
-  const chartDataRange = getChartDataRange(data);
-
   const ctx = chartRef.current?.getContext('2d');
+  if (ctx) {
+    ctx.clearRect(
+      0,
+      0,
+      chartSizeRef.current.chartWidth,
+      chartSizeRef.current.chartHeight
+    );
+  }
 
   useChartLabels({
     chartDataRange,

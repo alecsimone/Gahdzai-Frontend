@@ -1,6 +1,6 @@
 import type { MutableRefObject } from 'react';
 import type { YLabelObject } from './labelYAxis';
-import { gutterPadding } from '../constants';
+import { gutterPadding, usableBoundaryStrokeWidth } from '../constants';
 
 // * Does the actual drawing of the y-axis (horizontal) gridlines and their labels on our canvas
 type Signature = (dataObj: {
@@ -54,7 +54,7 @@ const drawYLinesAndLabels: Signature = ({
   if (!skipLabel) {
     ctx.fillText(
       `${labelObject.labelText}${decorator}`,
-      usableWidth.current + gutterPadding,
+      usableWidth.current + gutterPadding + usableBoundaryStrokeWidth,
       yCoord
     );
   }
