@@ -1,5 +1,6 @@
 // @refresh reset
 
+import clearCanvas from '@/utils/canvas/clearCanvas';
 import StyledChart from '../StyledChart';
 import useChartRef from '../useChartRef';
 import useMouseCoords from './useMouseCoords';
@@ -29,18 +30,9 @@ const ShadowChart = ({
   chartType,
 }: ShadowChartProps): React.ReactNode => {
   const shadowChartRef = useChartRef();
-  const chartSizeRef = useChartSize(shadowChartRef);
-  if (shadowChartRef.current) {
-    const ctx = shadowChartRef.current.getContext('2d');
-    if (ctx) {
-      ctx.clearRect(
-        0,
-        0,
-        chartSizeRef.current.chartWidth,
-        chartSizeRef.current.chartHeight
-      );
-    }
-  }
+  useChartSize(shadowChartRef);
+
+  clearCanvas(shadowChartRef.current);
 
   const { mouseCoords } = useMouseCoords(shadowChartRef);
   useCrosshairs({
@@ -58,14 +50,17 @@ const ShadowChart = ({
       chartType,
     });
     if (timeAtCursor && chartDataRange) {
-      showCursorValueOnAxes({
-        shadowChart: shadowChartRef.current,
-        mouseCoords,
-        timeAtCursor,
-        usableBoundaries,
-        chartDataRange,
-        decorator: chartType === 'Comparison' ? '%' : '',
-      });
+      const ctx = shadowChartRef.current.getContext('2d');
+      if (ctx) {
+        showCursorValueOnAxes({
+          ctx,
+          mouseCoords,
+          timeAtCursor,
+          usableBoundaries,
+          chartDataRange,
+          decorator: chartType === 'Comparison' ? '%' : '',
+        });
+      }
     }
   }
   return (

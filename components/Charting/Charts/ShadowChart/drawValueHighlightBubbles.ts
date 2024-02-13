@@ -25,7 +25,7 @@ const drawValueHighlightBubbles: Signature = ({
     const color = getLineColor({ symbol: point.symbol, lineIndex: index });
     const { x, y } = point;
 
-    drawCircle(x, y, color);
+    drawCircle(x, y!, color);
   });
 };
 

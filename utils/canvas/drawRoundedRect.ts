@@ -35,6 +35,7 @@ const drawRoundedRect: Signature = ({
       ctx.fill();
     }
     if (strokeColor && strokeWidth) {
+      ctx.setLineDash([]);
       ctx.lineWidth = strokeWidth;
       ctx.strokeStyle = strokeColor;
       ctx.stroke();

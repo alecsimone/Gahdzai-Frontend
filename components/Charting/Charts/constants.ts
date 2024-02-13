@@ -22,3 +22,6 @@ export const highlightedSymbolAlpha = 1;
 export const notHighlightedSymbolAlpha = 0.25;
 
 export const minimumCandleWidth = 3;
+
+export const valuesBoxSidePad = 1.5;
+export const valuesBoxCenterPad = 1;

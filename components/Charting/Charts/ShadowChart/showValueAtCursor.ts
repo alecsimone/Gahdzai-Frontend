@@ -5,7 +5,7 @@ import type {
   UsableBoundaries,
 } from '../types';
 import drawValueHighlightBubbles from './drawValueHighlightBubbles';
-import makeValuesBox from './makeValuesBox';
+import makeValuesBox from './ValuesBox/makeValuesBox';
 import type { ChartTypes } from '../../ChartHolder/types';
 
 // * Finds the value of any lines on this chart at the X position of the cursor
@@ -33,18 +33,15 @@ const showValueAtCursor: Signature = ({
     return 0;
   }
 
-  let matchingDataPoints: CoordinatedDataPoint[];
+  let matchingDataPoints: CoordinatedDataPoint[] = [];
   if (chartType === 'Comparison') {
-    matchingDataPoints = coordinatedData.filter(
-      (coordinatedDataPoint) => coordinatedDataPoint.x === mouseCoords.x
-    );
-    let positionFuzz = 1;
+    let positionFuzz = 0;
     while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
       matchingDataPoints = coordinatedData.filter(
         (coordinatedDataPoint) =>
           coordinatedDataPoint.x === mouseCoords.x + positionFuzz
       );
-      if (matchingDataPoints.length === 0) {
+      if (matchingDataPoints.length === 0 && positionFuzz > 0) {
         matchingDataPoints = coordinatedData.filter(
           (coordinatedDataPoint) =>
             coordinatedDataPoint.x === mouseCoords.x - positionFuzz
@@ -53,13 +50,7 @@ const showValueAtCursor: Signature = ({
       positionFuzz += 1;
     }
   } else {
-    matchingDataPoints = coordinatedData.filter(
-      (coordinatedDataPoint) =>
-        coordinatedDataPoint.x <= mouseCoords.x &&
-        coordinatedDataPoint.x + coordinatedDataPoint.width! >= mouseCoords.x
-    );
-
-    let positionFuzz = 1;
+    let positionFuzz = 0;
     while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
       matchingDataPoints = coordinatedData.filter(
         (coordinatedDataPoint) =>
@@ -72,14 +63,9 @@ const showValueAtCursor: Signature = ({
     }
   }
 
-  console.log(matchingDataPoints);
   if (matchingDataPoints.length > 0) {
     const ctx = shadowChart.getContext('2d');
     if (ctx) {
-      makeValuesBox({
-        ctx,
-        coordinatedDataPoints: matchingDataPoints,
-      });
       if ('change' in matchingDataPoints[0]!.data) {
         // We only want to draw the bubbles for percentage change sets
         drawValueHighlightBubbles({
@@ -87,6 +73,12 @@ const showValueAtCursor: Signature = ({
           coordinatedDataPoints: matchingDataPoints,
         });
       }
+      makeValuesBox({
+        ctx,
+        coordinatedDataPoints: matchingDataPoints,
+        mouseX: mouseCoords.x,
+        usableWidth: usableWidth.current,
+      });
     }
     return matchingDataPoints[0]!.data.time;
   }
