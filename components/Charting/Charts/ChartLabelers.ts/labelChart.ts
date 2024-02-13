@@ -1,4 +1,3 @@
-import type { MutableRefObject } from 'react';
 import type { ChartDataRange, ChartSize, UsableBoundaries } from '../types';
 import getYLabels from './getYLabels';
 import resetStyling from '../ChartStylers.ts/resetStyling';
@@ -11,7 +10,7 @@ import labelYAxis from './labelYAxis';
 type Signature = (dataObj: {
   ctx: CanvasRenderingContext2D;
   chartDataRange: ChartDataRange;
-  chartSizeRef: MutableRefObject<ChartSize>;
+  chartSize: ChartSize;
   labelDecorator: string;
   usableBoundaries: UsableBoundaries;
   timesArray: number[];
@@ -20,9 +19,7 @@ type Signature = (dataObj: {
 const labelChart: Signature = ({
   ctx,
   chartDataRange: { chartBottom, chartTop, chartStart, chartEnd },
-  chartSizeRef: {
-    current: { chartHeight, chartWidth },
-  },
+  chartSize: { chartHeight, chartWidth },
   labelDecorator,
   usableBoundaries: { usableHeight, usableWidth },
   timesArray,

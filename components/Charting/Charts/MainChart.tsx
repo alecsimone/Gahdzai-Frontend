@@ -23,6 +23,7 @@ import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContext
 import useChartLabels from './ChartLabelers.ts/useChartLabels';
 import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
 import drawChart from './ChartMakers/drawChart';
+import setLegendGridProperties from '../ChartHolder/LegendElements/setLegendGridProperties';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
@@ -43,14 +44,14 @@ const MainChart = ({
   chartDataRange,
 }: MainChartProps): React.ReactNode => {
   const chartRef = useChartRef();
-  const chartSizeRef = useChartSize(chartRef);
+  const chartSize = useChartSize(chartRef);
 
   clearCanvas(chartRef.current);
   const ctx = chartRef.current?.getContext('2d');
 
   useChartLabels({
     chartDataRange,
-    chartSizeRef,
+    chartSize,
     ctx,
     chartType,
     data,
@@ -83,7 +84,7 @@ const MainChart = ({
   }, [setLegendElements, data]);
 
   if (chartRef.current) {
-    // setLegendGridProperties(chartRef.current);
+    setLegendGridProperties(chartRef.current);
   }
 
   return <StyledChart ref={chartRef}>The Main Chart</StyledChart>;

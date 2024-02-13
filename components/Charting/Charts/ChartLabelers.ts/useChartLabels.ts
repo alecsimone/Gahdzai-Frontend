@@ -1,4 +1,4 @@
-import { useEffect, type MutableRefObject } from 'react';
+import { useEffect } from 'react';
 import type {
   CandleSet,
   ChartDataRange,
@@ -13,7 +13,7 @@ import makeTimesArray from './makeTimesArray';
 // * Applies the labels to our chart
 type Signature = (dataObj: {
   chartDataRange: ChartDataRange;
-  chartSizeRef: MutableRefObject<ChartSize>;
+  chartSize: ChartSize;
   ctx: CanvasRenderingContext2D | null | undefined;
   chartType: ChartTypes;
   data: CandleSet | PercentageChangeSet[];
@@ -22,7 +22,7 @@ type Signature = (dataObj: {
 
 const useChartLabels: Signature = ({
   chartDataRange,
-  chartSizeRef,
+  chartSize,
   usableBoundaries,
   ctx,
   chartType,
@@ -35,7 +35,7 @@ const useChartLabels: Signature = ({
     labelChart({
       ctx,
       chartDataRange,
-      chartSizeRef,
+      chartSize,
       labelDecorator,
       usableBoundaries,
       timesArray,
@@ -44,15 +44,13 @@ const useChartLabels: Signature = ({
 
   useEffect(() => {
     if (ctx == null) {
-      return () => {
-        console.log('chart did not render properly.');
-      };
+      return () => {};
     }
     const labelChartHandler = () => {
       labelChart({
         ctx,
         chartDataRange,
-        chartSizeRef,
+        chartSize,
         labelDecorator,
         usableBoundaries,
         timesArray,
@@ -69,7 +67,7 @@ const useChartLabels: Signature = ({
   }, [
     ctx,
     chartDataRange,
-    chartSizeRef,
+    chartSize,
     labelDecorator,
     data,
     usableBoundaries,
