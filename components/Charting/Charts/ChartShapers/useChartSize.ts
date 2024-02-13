@@ -10,10 +10,6 @@ const useChartSize: Signature = (chartRef) => {
     chartWidth: 0,
     chartHeight: 0,
   });
-  // const chartSizeRef = useRef<ChartSize>({ chartHeight: 0, chartWidth: 0 });
-  // if (chartRef.current) {
-  //   chartSizeRef.current = setChartSize(chartRef.current);
-  // }
 
   useEffect(() => {
     const chartSizeHandler = () => {
@@ -32,9 +28,6 @@ const useChartSize: Signature = (chartRef) => {
           return prev;
         });
       }
-      // if (chartRef.current) {
-      //   chartSizeRef.current = setChartSize(chartRef.current);
-      // }
     };
     chartSizeHandler();
 
