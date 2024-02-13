@@ -6,6 +6,7 @@ import type {
 } from '../types';
 import drawValueHighlightBubbles from './drawValueHighlightBubbles';
 import makeValuesBox from './makeValuesBox';
+import type { ChartTypes } from '../../ChartHolder/types';
 
 // * Finds the value of any lines on this chart at the X position of the cursor
 type Signature = (dataObj: {
@@ -13,6 +14,7 @@ type Signature = (dataObj: {
   coordinatedData: CoordinatedDataPoint[];
   usableBoundaries: UsableBoundaries;
   shadowChart: HTMLCanvasElement;
+  chartType: ChartTypes;
 }) => number;
 
 const maxFuzz = 10;
@@ -22,6 +24,7 @@ const showValueAtCursor: Signature = ({
   coordinatedData,
   usableBoundaries: { usableHeight, usableWidth },
   shadowChart,
+  chartType,
 }) => {
   if (
     mouseCoords.x > usableWidth.current ||
@@ -30,24 +33,46 @@ const showValueAtCursor: Signature = ({
     return 0;
   }
 
-  let matchingDataPoints = coordinatedData.filter(
-    (coordinatedDataPoint) => coordinatedDataPoint.x === mouseCoords.x
-  );
-  let positionFuzz = 1;
-  while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
+  let matchingDataPoints: CoordinatedDataPoint[];
+  if (chartType === 'Comparison') {
     matchingDataPoints = coordinatedData.filter(
-      (coordinatedDataPoint) =>
-        coordinatedDataPoint.x === mouseCoords.x + positionFuzz
+      (coordinatedDataPoint) => coordinatedDataPoint.x === mouseCoords.x
     );
-    if (matchingDataPoints.length === 0) {
+    let positionFuzz = 1;
+    while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
       matchingDataPoints = coordinatedData.filter(
         (coordinatedDataPoint) =>
-          coordinatedDataPoint.x === mouseCoords.x - positionFuzz
+          coordinatedDataPoint.x === mouseCoords.x + positionFuzz
       );
+      if (matchingDataPoints.length === 0) {
+        matchingDataPoints = coordinatedData.filter(
+          (coordinatedDataPoint) =>
+            coordinatedDataPoint.x === mouseCoords.x - positionFuzz
+        );
+      }
+      positionFuzz += 1;
     }
-    positionFuzz += 1;
+  } else {
+    matchingDataPoints = coordinatedData.filter(
+      (coordinatedDataPoint) =>
+        coordinatedDataPoint.x <= mouseCoords.x &&
+        coordinatedDataPoint.x + coordinatedDataPoint.width! >= mouseCoords.x
+    );
+
+    let positionFuzz = 1;
+    while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
+      matchingDataPoints = coordinatedData.filter(
+        (coordinatedDataPoint) =>
+          coordinatedDataPoint.x <= mouseCoords.x + positionFuzz &&
+          coordinatedDataPoint.x + coordinatedDataPoint.width! >=
+            mouseCoords.x - positionFuzz
+      );
+
+      positionFuzz += 1;
+    }
   }
 
+  console.log(matchingDataPoints);
   if (matchingDataPoints.length > 0) {
     const ctx = shadowChart.getContext('2d');
     if (ctx) {

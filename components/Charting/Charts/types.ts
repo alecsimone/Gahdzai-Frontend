@@ -69,6 +69,7 @@ export interface CandleShape {
 export interface CoordinatedDataPoint {
   symbol: string;
   x: number;
-  y: number;
+  y?: number;
+  width?: number;
   data: Candle | PercentageChange;
 }

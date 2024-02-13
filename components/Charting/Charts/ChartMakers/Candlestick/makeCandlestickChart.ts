@@ -1,4 +1,9 @@
-import type { CandleSet, ChartDataRange, UsableBoundaries } from '../../types';
+import type {
+  CandleSet,
+  ChartDataRange,
+  CoordinatedDataPoint,
+  UsableBoundaries,
+} from '../../types';
 import convertCandlesToPoints from './convertCandlesToPoints';
 import drawMovingAverageLine from './drawMovingAverageLine';
 import makeCandles from './makeCandles';
@@ -8,6 +13,7 @@ type Signature = (dataObj: {
   usableBoundaries: UsableBoundaries;
   chartDataRange: ChartDataRange;
   ctx: CanvasRenderingContext2D;
+  coordinatedData: CoordinatedDataPoint[];
 }) => void;
 
 const makeCandlestickChart: Signature = ({
@@ -15,8 +21,9 @@ const makeCandlestickChart: Signature = ({
   usableBoundaries,
   chartDataRange,
   ctx,
+  coordinatedData,
 }) => {
-  makeCandles({ data, usableBoundaries, chartDataRange, ctx });
+  makeCandles({ data, usableBoundaries, chartDataRange, ctx, coordinatedData });
 
   const dataPoints = convertCandlesToPoints(data.candles);
   drawMovingAverageLine({

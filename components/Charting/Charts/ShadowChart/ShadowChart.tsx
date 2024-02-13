@@ -9,8 +9,8 @@ import type {
   ChartDataRange,
   CoordinatedDataPoint,
   UsableBoundaries,
-  ChartTypes,
 } from '../types';
+import type { ChartTypes } from '../../ChartHolder/types';
 import showValueAtCursor from './showValueAtCursor';
 import showCursorValueOnAxes from './showCursorValueOnAxes';
 
@@ -55,6 +55,7 @@ const ShadowChart = ({
       coordinatedData,
       usableBoundaries,
       shadowChart: shadowChartRef.current,
+      chartType,
     });
     if (timeAtCursor && chartDataRange) {
       showCursorValueOnAxes({

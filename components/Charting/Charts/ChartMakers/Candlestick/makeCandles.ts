@@ -1,4 +1,9 @@
-import type { CandleSet, ChartDataRange, UsableBoundaries } from '../../types';
+import type {
+  CandleSet,
+  ChartDataRange,
+  CoordinatedDataPoint,
+  UsableBoundaries,
+} from '../../types';
 import drawCandle from './drawCandle';
 import getCandleShape from './getCandleShape';
 import getSafelySizedCandles from './getSafelySizedCandles';
@@ -9,6 +14,7 @@ type Signature = (dataObj: {
   usableBoundaries: UsableBoundaries;
   chartDataRange: ChartDataRange;
   ctx: CanvasRenderingContext2D;
+  coordinatedData: CoordinatedDataPoint[];
 }) => void;
 
 const makeCandles: Signature = ({
@@ -16,6 +22,7 @@ const makeCandles: Signature = ({
   usableBoundaries: { usableWidth, usableHeight },
   chartDataRange,
   ctx,
+  coordinatedData,
 }) => {
   const { safelySizedCandleData, candleWidth } = getSafelySizedCandles({
     data,
@@ -32,6 +39,24 @@ const makeCandles: Signature = ({
       candleIndex,
       totalCandles: safelySizedCandleData.length,
     });
+
+    const { candleStartX: x } = candleShape;
+    const coordinatedDataPoint: CoordinatedDataPoint = {
+      symbol: data.symbol,
+      x,
+      width: candleWidth,
+      data: candleData,
+    };
+
+    const existingDataPointIndex = coordinatedData.findIndex(
+      (cdp) => cdp.symbol === data.symbol && cdp.data.time === candleData.time
+    );
+
+    if (existingDataPointIndex === -1) {
+      coordinatedData.push(coordinatedDataPoint);
+    } else {
+      coordinatedData[existingDataPointIndex] = coordinatedDataPoint;
+    }
 
     drawCandle(ctx, candleShape);
   });

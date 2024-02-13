@@ -20,10 +20,27 @@ type Signature = (dataObj: {
   };
 }) => void;
 
-interface ValuesTextObject {
+interface ComparisonTextObject {
   symbol: string;
   value: string;
 }
+interface ComparisonTextObjects {
+  type: 'Comparison';
+  textObjects: ComparisonTextObject[];
+}
+
+interface CandleTextObject {
+  open: string;
+  close: string;
+  high: string;
+  low: string;
+}
+interface CandleTextObjects {
+  type: 'Individual';
+  textObjects: CandleTextObject;
+}
+
+type ValuesTextObject = ComparisonTextObjects | CandleTextObjects;
 
 const makeValuesBox: Signature = ({
   ctx,
@@ -44,40 +61,79 @@ const makeValuesBox: Signature = ({
   const textPad = getOneRem() / 2;
 
   // Now we make a list of all the text we're going to display for the dataPoints so we can figure out how big the rectangle needs to be
-  const valuesTextObjects: ValuesTextObject[] = [];
+  let valuesTextObject: ValuesTextObject;
   coordinatedDataPoints.forEach((point) => {
     if ('change' in point.data) {
       const symbolText = `${point.symbol}:`;
       const valueText = `${makeNumberReadable({
         number: point.data.change,
       })}%`;
-      valuesTextObjects.push({
+      const textObjects: ComparisonTextObject[] = [];
+      textObjects.push({
         symbol: symbolText,
         value: `${point.data.change > 0 ? '+' : ''}${valueText}`,
       });
+      valuesTextObject = {
+        type: 'Comparison',
+        textObjects,
+      };
+    } else {
+      const { open, close, high, low } = point.data;
+      const candleTextObject: CandleTextObject = {
+        open: makeNumberReadable({ number: open }),
+        close: makeNumberReadable({ number: close }),
+        high: makeNumberReadable({ number: high }),
+        low: makeNumberReadable({ number: low }),
+      };
+      valuesTextObject = {
+        type: 'Individual',
+        textObjects: candleTextObject,
+      };
     }
   });
 
-  // We get the widest symbol's width and the widest value's width
-  const widestSymbolWidth = getWidestLabelWidth(
-    ctx,
-    valuesTextObjects.map((obj) => obj.symbol)
-  );
-  const widestValueWidth = getWidestLabelWidth(
-    ctx,
-    valuesTextObjects.map((obj) => obj.value)
-  );
+  let widestLabelWidth: number;
+  let widestValueWidth: number;
+  if (valuesTextObject!.type === 'Comparison') {
+    // We get the widest symbol's width and the widest value's width
+    widestLabelWidth = getWidestLabelWidth(
+      ctx,
+      valuesTextObject!.textObjects.map((obj) => obj.symbol)
+    );
+    widestValueWidth = getWidestLabelWidth(
+      ctx,
+      valuesTextObject!.textObjects.map((obj) => obj.value)
+    );
+  } else {
+    widestLabelWidth = getWidestLabelWidth(ctx, [
+      'Open',
+      'Close',
+      'High',
+      'Low',
+    ]);
+
+    const candleValues = valuesTextObject!.textObjects;
+    const keys = Object.keys(candleValues) as (keyof CandleTextObject)[];
+    const values = keys.map((key) => candleValues[key]);
+
+    widestValueWidth = getWidestLabelWidth(ctx, values);
+  }
 
   // Then we add those together along with 4 units of padding (It should be 1 for the middle and 1.5 for either side)
-  const rawRectWidth = widestSymbolWidth + widestValueWidth + 4 * textPad;
+  const rawRectWidth = widestLabelWidth + widestValueWidth + 4 * textPad;
   const rectWidth = Math.ceil(rawRectWidth / 25) * 25;
 
   // Visually, the center line we want to align our text with is not necessarily the center of the box, because the symbols and the values might be different sizes. So we want to use the end of the natural position of the symbol as our center line
-  const weightedMiddle = origin.x + widestSymbolWidth + textPad * 2;
+  const weightedMiddle = origin.x + widestLabelWidth + textPad * 2;
 
   // We want the box to be 1 textPad taller than it needs to be, and then we want to offset it by -1/2 text pads so the box will have some vertical padding inside it
-  const rectHeight =
-    (coordinatedDataPoints.length + 2) * textHeightWithBuffer + textPad; // The +2 is for the time and date strings
+  let rectHeight: number;
+  if (valuesTextObject!.type === 'Comparison') {
+    rectHeight =
+      (coordinatedDataPoints.length + 2) * textHeightWithBuffer + textPad; // The +2 is for the time and date strings
+  } else {
+    rectHeight = 6 * textHeightWithBuffer + textPad; // 6 is the 4 values of a candle plus the two lines of timeStrings
+  }
   const rectStart = origin.y - textPad / 2;
 
   // Then we draw the box we're going to put all this on top of
@@ -117,28 +173,52 @@ const makeValuesBox: Signature = ({
   );
 
   // And now we can Add our values
-  valuesTextObjects.forEach((obj, index) => {
-    // Both parts of this line will have the same Y coordinate, which we can find now
-    const yCoord =
-      textHeightWithBuffer / 2 + (index + 2) * textHeightWithBuffer;
+  if (valuesTextObject!.type === 'Comparison') {
+    valuesTextObject!.textObjects.forEach((obj, index) => {
+      // Both parts of this line will have the same Y coordinate, which we can find now
+      const yCoord =
+        textHeightWithBuffer / 2 + (index + 2) * textHeightWithBuffer;
 
-    // The symbol should be bold and in the color that the line/legend for it are in. It should also be right aligned to the weighted center of the box, then nudged back 1/2 pad
-    const color = getLineColor({
-      symbol: obj.symbol.replace(':', ''),
-      lineIndex: index,
+      // The symbol should be bold and in the color that the line/legend for it are in. It should also be right aligned to the weighted center of the box, then nudged back 1/2 pad
+      const color = getLineColor({
+        symbol: obj.symbol.replace(':', ''),
+        lineIndex: index,
+      });
+      ctx.fillStyle = color;
+      ctx.textAlign = 'right';
+      ctx.font = `bold ${miniText} sans-serif`;
+
+      ctx.fillText(obj.symbol, weightedMiddle - textPad / 2, origin.y + yCoord);
+
+      // The Value should be regular weight and full white, and it should be left aligned to the weighted center of the box, then nudged forward 1/2 pad
+      ctx.font = `${miniText} sans-serif`;
+      ctx.fillStyle = white;
+      ctx.textAlign = 'left';
+      ctx.fillText(obj.value, weightedMiddle + textPad / 2, origin.y + yCoord);
     });
-    ctx.fillStyle = color;
-    ctx.textAlign = 'right';
-    ctx.font = `bold ${miniText} sans-serif`;
-
-    ctx.fillText(obj.symbol, weightedMiddle - textPad / 2, origin.y + yCoord);
-
-    // The Value should be regular weight and full white, and it should be left aligned to the weighted center of the box, then nudged forward 1/2 pad
-    ctx.font = `${miniText} sans-serif`;
+  } else {
     ctx.fillStyle = white;
-    ctx.textAlign = 'left';
-    ctx.fillText(obj.value, weightedMiddle + textPad / 2, origin.y + yCoord);
-  });
+
+    const candleValues = valuesTextObject!.textObjects;
+    const keys = Object.keys(candleValues) as (keyof CandleTextObject)[];
+    keys.forEach((key, index) => {
+      const yCoord =
+        textHeightWithBuffer / 2 + (index + 2) * textHeightWithBuffer;
+
+      ctx.font = `${miniText} sans-serif`;
+      ctx.textAlign = 'right';
+      ctx.fillText(`${key}:`, weightedMiddle - textPad / 2, origin.y + yCoord);
+
+      ctx.font = `${miniText} sans-serif`;
+      ctx.textAlign = 'left';
+
+      ctx.fillText(
+        candleValues[key],
+        weightedMiddle + textPad / 2,
+        origin.y + yCoord
+      );
+    });
+  }
 };
 
 export default makeValuesBox;
