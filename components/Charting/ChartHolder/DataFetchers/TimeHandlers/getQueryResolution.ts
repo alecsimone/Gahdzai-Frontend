@@ -1,25 +1,39 @@
+import { Timespan } from '@/__generated__/graphql';
 import { type Period } from '../../PeriodButtons/ChartPeriodContextTypes';
+
+// export type Timespans =
+//   | 'second'
+//   | 'minute'
+//   | 'hour'
+//   | 'day'
+//   | 'week'
+//   | 'month'
+//   | 'quarter'
+//   | 'year';
 
 // * Given a time period for a chart, it returns the resolution for that chart. Because we'll filter down our data to get a quantity that fits nicely on the screen later, the only thing we're worried about here is not getting a totally unwieldy amount of data. So this is just a rough conversion to an appropriate resolution
 
-type Signature = (period: Period) => string;
+type Signature = (period: Period) => {
+  timespan: Timespan;
+  timespanMultiplier: number;
+};
 
 const getQueryResolution: Signature = (period) => {
   switch (period) {
     case 'D':
-      return '1';
+      return { timespan: Timespan.Minute, timespanMultiplier: 1 };
     case 'W':
-      return '5';
+      return { timespan: Timespan.Minute, timespanMultiplier: 5 };
     case 'M':
-      return '30';
+      return { timespan: Timespan.Minute, timespanMultiplier: 30 };
     case '6M':
-      return '3H';
+      return { timespan: Timespan.Hour, timespanMultiplier: 3 };
     case 'Y':
-      return 'D';
+      return { timespan: Timespan.Day, timespanMultiplier: 1 };
     case 'Max':
-      return 'M';
+      return { timespan: Timespan.Month, timespanMultiplier: 1 };
     default:
-      return '1';
+      return { timespan: Timespan.Minute, timespanMultiplier: 1 };
   }
 };
 

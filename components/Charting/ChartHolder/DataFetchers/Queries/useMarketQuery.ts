@@ -1,6 +1,9 @@
 import { useQuery, ApolloError } from '@apollo/client';
 
-import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
+import {
+  Timespan,
+  type Get_Candles_For_Symbols_QueryQuery,
+} from '@/__generated__/graphql';
 import type { SymbolTypes } from '../../types';
 import GET_CANDLES_FOR_SYMBOLS_QUERY from './getCandlesForSymbolsQuery.gql';
 
@@ -10,7 +13,8 @@ type Signature = (dataObj: {
   symbolType: SymbolTypes;
   from: string;
   to: string;
-  resolution: string;
+  timespan: Timespan;
+  timespanMultiplier: number;
 }) => {
   data: Get_Candles_For_Symbols_QueryQuery | undefined;
   loading: boolean;
@@ -22,7 +26,8 @@ const useMarketQuery: Signature = ({
   symbolType,
   from,
   to,
-  resolution,
+  timespan,
+  timespanMultiplier,
 }) => {
   const { data, loading, error } = useQuery(GET_CANDLES_FOR_SYMBOLS_QUERY, {
     variables: {
@@ -30,7 +35,8 @@ const useMarketQuery: Signature = ({
       symbolType,
       from,
       to,
-      resolution,
+      timespan,
+      timespanMultiplier,
     },
   });
 

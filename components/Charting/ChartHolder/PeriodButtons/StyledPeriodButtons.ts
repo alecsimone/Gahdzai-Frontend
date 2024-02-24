@@ -5,9 +5,9 @@ import {
   setLightness,
 } from '@/styles/functions/modifyColorFunctions';
 
-const StyledPeriodButtons = styled.footer`
-  padding-top: 1rem;
+const StyledPeriodButtons = styled.div`
   text-align: center;
+  flex-grow: 1;
   .periodButtonsWrapper {
     display: flex;
     justify-content: flex-end;

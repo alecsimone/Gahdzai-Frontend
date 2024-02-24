@@ -15,6 +15,7 @@ const PeriodButton = ({ period }: PeriodButtonProps): JSX.Element => {
     <Button
       className={`period ${period} ${isActive ? 'active' : 'inactive'}`}
       onClick={() => setActivePeriod(period)}
+      key={period}
     >
       {period}
     </Button>

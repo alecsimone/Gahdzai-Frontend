@@ -18,14 +18,15 @@ type Signature = (
 
 const useQueryBuilder: Signature = ({ symbolType, symbols }, period) => {
   const [previousClose, nextClose] = getQueryTimeBoundaries(period);
-  const resolution = getQueryResolution(period);
+  const { timespan, timespanMultiplier } = getQueryResolution(period);
 
   const queryResult = useMarketQuery({
     symbols,
     symbolType,
     from: `${previousClose}`,
     to: `${nextClose}`,
-    resolution,
+    timespan,
+    timespanMultiplier,
   });
 
   return queryResult;

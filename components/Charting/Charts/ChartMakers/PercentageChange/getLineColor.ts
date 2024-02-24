@@ -16,6 +16,10 @@ const colors = [
 
 const getLineColor: Signature = ({ symbol, lineIndex }) => {
   let computedColor: string;
+
+  const colorsLength = colors.length;
+  const loopedPosition = lineIndex % colorsLength;
+
   if (symbol != null) {
     switch (symbol) {
       case 'SPX':
@@ -31,10 +35,10 @@ const getLineColor: Signature = ({ symbol, lineIndex }) => {
         computedColor = colors[2]!;
         break;
       default:
-        computedColor = colors[lineIndex]!;
+        computedColor = colors[loopedPosition]!;
     }
   } else {
-    computedColor = colors[lineIndex]!;
+    computedColor = colors[loopedPosition]!;
   }
 
   return computedColor;

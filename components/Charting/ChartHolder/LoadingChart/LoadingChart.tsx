@@ -29,7 +29,9 @@ const LoadingChart = (): JSX.Element => {
       <StyledChart className="chartContainer" ref={loadingChartRef}>
         Loading...
       </StyledChart>
-      <PeriodButtons />
+      <footer>
+        <PeriodButtons />
+      </footer>
     </StyledChartHolder>
   );
 };

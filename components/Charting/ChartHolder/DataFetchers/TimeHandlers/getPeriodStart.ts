@@ -1,3 +1,4 @@
+import ensureMsTimestamp from '@/utils/ensureMsTimestamp';
 import { type Period } from '../../PeriodButtons/ChartPeriodContextTypes';
 import getPreviousCloseDate from './getPreviousCloseDate';
 
@@ -34,7 +35,7 @@ const getPeriodStart: Signature = (period) => {
   }
 
   const previousClose = Math.floor(startDate.getTime() / 1000);
-  return previousClose;
+  return ensureMsTimestamp(previousClose);
 };
 
 export default getPeriodStart;

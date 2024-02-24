@@ -7,14 +7,38 @@ import StyledMarketsPage from './StyledMarketsPage';
 const indicesSymbols = ['SPX', 'COMP', 'DJI', 'RUT'];
 // const indicesSymbols = ['SPX'];
 
+const sectorSymbols = [
+  'XLC',
+  'XLY',
+  'XLP',
+  'XLE',
+  'XLF',
+  'XLV',
+  'XLI',
+  'XLB',
+  'XLRE',
+  'XLK',
+  'XLU',
+  'SPY',
+];
+
 const Markets = (): React.ReactNode => (
   <StyledMarketsPage>
     <ChartHolder
       chartType="Comparison"
       symbols={indicesSymbols}
       symbolType="index"
+      defaultToHeatmap={false}
+      index={1}
     />
-    <ChartHolder chartType="Individual" symbols="TSLA" symbolType="stock" />
+    <ChartHolder
+      chartType="Comparison"
+      symbols={sectorSymbols}
+      symbolType="stock"
+      defaultToHeatmap
+      index={2}
+    />
+    {/* <ChartHolder chartType="Individual" symbols="SPY" symbolType="stock" /> */}
   </StyledMarketsPage>
 );
 

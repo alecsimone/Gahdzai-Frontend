@@ -6,14 +6,16 @@ const GET_CANDLES_FOR_SYMBOLS_QUERY = gql(/* GraphQL */ `
     $symbolType: String!
     $from: String!
     $to: String!
-    $resolution: String!
+    $timespan: Timespan!
+    $timespanMultiplier: Int!
   ) {
     getCandlesForSymbols(
       symbols: $symbols
       symbolType: $symbolType
       from: $from
       to: $to
-      resolution: $resolution
+      timespan: $timespan
+      timespanMultiplier: $timespanMultiplier
     ) {
       symbol
       candles {

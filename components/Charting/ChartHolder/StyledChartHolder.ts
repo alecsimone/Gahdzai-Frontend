@@ -80,6 +80,12 @@ const StyledChartHolder = styled.section`
     height: 0;
     flex-grow: 1;
   }
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
 `;
 
 export default StyledChartHolder;

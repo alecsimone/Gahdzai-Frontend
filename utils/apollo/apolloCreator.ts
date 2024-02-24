@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import { ApolloClient, from, InMemoryCache } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
-import { onError } from "@apollo/client/link/error";
-import { endpoint } from "globalConstants";
+import { ApolloClient, from, InMemoryCache } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
+import { onError } from '@apollo/client/link/error';
+import { endpoint } from 'globalConstants';
 
 interface UploadLinkOptions {
   uri: string;
-  credentials: "include";
+  credentials: 'include';
   headers?: {
     cookie: string;
   };
@@ -14,7 +14,7 @@ interface UploadLinkOptions {
 const uploadLinkCreator = (cookie: string | null) => {
   const options: UploadLinkOptions = {
     uri: endpoint,
-    credentials: "include",
+    credentials: 'include',
   };
 
   if (cookie != null) {
@@ -31,10 +31,11 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   if (operation?.operationName) {
     console.log(`Error in ${operation.operationName}`);
   }
-  if (graphQLErrors)
+  if (graphQLErrors) {
     graphQLErrors.forEach(({ message, extensions }) => {
       console.log(`[GraphQL error] - ${extensions?.code}: ${message}`);
     });
+  }
 
   if (networkError) {
     console.log(
@@ -45,7 +46,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
 const createApolloClient = (cookie: string | null) =>
   new ApolloClient({
-    ssrMode: typeof window === "undefined",
+    ssrMode: typeof window === 'undefined',
     link: from([errorLink, uploadLinkCreator(cookie)]),
     cache: new InMemoryCache(),
   });
