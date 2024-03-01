@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { deepBlack, lightBlack, white } from '@/styles/constants/colors';
 import { bigText, miniText, smallText } from '@/styles/constants/fontSizes';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { downColor, upColor } from '../Charting/Charts/constants';
 import {
   MIN_HEATMAP_GRID_COLUMN_SIZE,
   MIN_HEATMAP_GRID_ROW_SIZE,
-} from './useHeatmapGridSizer';
+  downColor,
+  upColor,
+} from '../Charting/Charts/constants';
 
 const StyledHeatmap = styled.section`
   display: block;

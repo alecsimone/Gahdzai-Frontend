@@ -20,6 +20,7 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
   const heatmapData = cookHeatmapData(rawData, false);
   heatmapData.sort((a, b) => b.changeScore - a.changeScore);
 
+  // We want to make sure that for any given list of symbols, there's a stable order of that list so that we can assign them a stable color. So this alphabetized symbols array will serve as that list with a stable order
   const symbols = heatmapData.map((item) => item.symbol);
   symbols.sort();
 
@@ -35,15 +36,15 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
     maxScore = lastScore;
   }
 
-  const heatmapItems = heatmapData.map((itemData, index) => {
+  const heatmapItems = heatmapData.map((itemData) => {
     const color = itemData.changeScore > 0 ? upColor : downColor;
 
-    const scoreScoreRaw = makeSafeDecimals(
+    const scoreHeatRaw = makeSafeDecimals(
       Math.abs(itemData.changeScore) / maxScore
     );
-    const scoreScore = 0.1 + 0.5 * scoreScoreRaw;
+    const scoreHeat = 0.1 + 0.5 * scoreHeatRaw;
 
-    const adjustedColor = setAlpha(color, scoreScore);
+    const adjustedColor = setAlpha(color, scoreHeat);
 
     const stableIndex = symbols.indexOf(itemData.symbol);
     const symbolColor = getLineColor({

@@ -2,8 +2,6 @@ import makeNumberReadable from '@/utils/makeNumberReadable';
 import type { HeatmapData } from './types';
 import getHeatmapBackgroundImage from './getHeatmapBackgroundImage';
 
-// * Describe the purpose of this function in clearer language than the function name can convey.
-
 interface HeatmapItemProps {
   heatmapData: HeatmapData;
   scoreColor: string;
@@ -30,6 +28,7 @@ const HeatmapItem = ({
     </div>
   );
 
+  // TODO replace % with σ once we start computing z-scores
   const changeScoreString = `${isPositive ? '+' : ''}${changeScore}%`;
 
   const backgroundImage = getHeatmapBackgroundImage(symbol);

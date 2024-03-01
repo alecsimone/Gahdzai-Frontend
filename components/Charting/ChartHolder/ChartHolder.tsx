@@ -19,8 +19,9 @@ import HeatmapToggler from './HeatmapToggler';
 // - Handles the Context required for the LegendItems and the PeriodButtons
 
 const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
-  let defaultHeatmap = false;
   const { chartType, defaultToHeatmap, index } = dataObj;
+
+  let defaultHeatmap = false;
   if (chartType === 'Comparison' && defaultToHeatmap) {
     defaultHeatmap = true;
   }

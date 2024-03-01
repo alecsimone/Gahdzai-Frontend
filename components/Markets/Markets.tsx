@@ -19,7 +19,7 @@ const sectorSymbols = [
   'XLRE',
   'XLK',
   'XLU',
-  'SPY',
+  // 'SPY',
 ];
 
 const Markets = (): React.ReactNode => (

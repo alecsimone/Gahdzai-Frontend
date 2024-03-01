@@ -1,4 +1,5 @@
 import { blue, green, red } from '@/styles/constants/colors';
+import getOneRem from '@/styles/functions/getOneRem';
 import {
   setAlpha,
   setSaturation,
@@ -25,3 +26,6 @@ export const minimumCandleWidth = 3;
 
 export const valuesBoxSidePad = 1.5;
 export const valuesBoxCenterPad = 1;
+
+export const MIN_HEATMAP_GRID_COLUMN_SIZE = 15 * getOneRem();
+export const MIN_HEATMAP_GRID_ROW_SIZE = 5 * getOneRem();
