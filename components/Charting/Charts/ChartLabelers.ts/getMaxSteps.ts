@@ -1,11 +1,13 @@
 // * Figures out how many steps we can cram into a chart based on the size of the chart and our smallest allowed step size
 
-const minStepSize = 80;
+import { scaleFactor } from '../constants';
+
+const minStepSize = 100 / scaleFactor;
 const maxStepsLimit = 20;
 
 const getMaxSteps = (size: number) => {
   // First we figure out how many steps we can fit within a chart of this size
-  let stepCount = Math.floor(size / minStepSize);
+  let stepCount = Math.floor(size / minStepSize / scaleFactor);
 
   // If that's a bigger number than our step limit, we reduce our stepCount to the maxSteps limit
   if (stepCount > maxStepsLimit) {

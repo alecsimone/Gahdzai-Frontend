@@ -1,3 +1,5 @@
+import { scaleFactor } from '../constants';
+
 // * Sets the inline width and height of the chart so that it will be properly scaled to its contents
 type Signature = (chartElement: HTMLCanvasElement) => {
   chartWidth: number;
@@ -9,8 +11,8 @@ const setChartSize: Signature = (chartElement) => {
   if (container == null) return { chartWidth: 0, chartHeight: 0 };
   const chartEl = chartElement;
 
-  chartEl.width = container.clientWidth;
-  chartEl.height = container.clientHeight;
+  chartEl.width = container.clientWidth * scaleFactor;
+  chartEl.height = container.clientHeight * scaleFactor;
 
   return { chartWidth: chartEl.width, chartHeight: chartEl.height };
 };

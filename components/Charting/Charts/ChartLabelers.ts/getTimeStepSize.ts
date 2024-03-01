@@ -18,7 +18,7 @@ const getTimeStepSize: Signature = (chartStart, chartEnd, chartWidth) => {
 
   if (lastRelevantDatesObj == null || firstRelevantDatesObj == null) {
     return {
-      time: -1,
+      timeStepSize: -1,
       timeStepType: 'day',
     };
   }

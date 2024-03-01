@@ -1,4 +1,3 @@
-import { miniText } from '@/styles/constants/fontSizes';
 import getOneRem from '@/styles/functions/getOneRem';
 import { coolGrey, lightBlack } from '@/styles/constants/colors';
 import drawRoundedRect from '@/utils/canvas/drawRoundedRect';
@@ -10,6 +9,7 @@ import getBoxWidth from './getBoxWidth';
 import addTimeAndDateStrings from './addTimeAndDateStrings';
 import addComparisonValues from './addComparisonValues';
 import addCandleValues from './addCandleValues';
+import { scaleFactor } from '../../constants';
 
 // * Given a set of CoordinatedDataPoints (presumably ones that correspond to the current cursor's position), make a little box presenting them all in a nice looking way
 type Signature = (dataObj: {
@@ -35,9 +35,10 @@ const makeValuesBox: Signature = ({
   ctx.textAlign = 'left';
 
   // And some basic calculations about our text. First we need to figure out how high a line of text is, making sure we've set our font to bold so it will be the bigger size
-  ctx.font = `bold ${miniText} sans-serif`;
+  const fontSize = getOneRem() * 1.7 * scaleFactor;
+  ctx.font = `bold ${fontSize} sans-serif`;
   const textHeight = getTextHeight(ctx);
-  const lineHeight = textHeight * 1.5;
+  const lineHeight = textHeight;
 
   // And then we want to get our basic padding unit, which will be 0.5rem
   const textPad = getOneRem() / 2;
@@ -92,6 +93,7 @@ const makeValuesBox: Signature = ({
     weightedMiddle: computedWeightedMiddle,
     lineHeight,
     originY: origin.y,
+    fontSize,
   });
 
   // And now we can add our values
@@ -103,6 +105,7 @@ const makeValuesBox: Signature = ({
       weightedMiddle: computedWeightedMiddle,
       textPad,
       originY: origin.y,
+      fontSize,
     });
   } else {
     addCandleValues({
@@ -112,6 +115,7 @@ const makeValuesBox: Signature = ({
       weightedMiddle: computedWeightedMiddle,
       textPad,
       originY: origin.y,
+      fontSize,
     });
   }
 };

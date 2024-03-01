@@ -1,5 +1,4 @@
 import { white } from '@/styles/constants/colors';
-import { miniText } from '@/styles/constants/fontSizes';
 import type { CandleTextObject } from './getTextObjects';
 
 // * Formats and adds the values for a candlestick chart to our values box
@@ -10,6 +9,7 @@ type Signature = (dataObj: {
   weightedMiddle: number;
   textPad: number;
   originY: number;
+  fontSize: number;
 }) => void;
 
 const addCandleValues: Signature = ({
@@ -19,6 +19,7 @@ const addCandleValues: Signature = ({
   weightedMiddle,
   textPad,
   originY,
+  fontSize,
 }) => {
   ctx.fillStyle = white;
 
@@ -26,11 +27,11 @@ const addCandleValues: Signature = ({
   keys.forEach((key, index) => {
     const yCoord = lineHeight / 2 + (index + 2) * lineHeight;
 
-    ctx.font = `${miniText} sans-serif`;
+    ctx.font = `${fontSize}px sans-serif`;
     ctx.textAlign = 'right';
     ctx.fillText(`${key}:`, weightedMiddle - textPad / 2, originY + yCoord);
 
-    ctx.font = `${miniText} sans-serif`;
+    ctx.font = `${fontSize}px sans-serif`;
     ctx.textAlign = 'left';
 
     ctx.fillText(

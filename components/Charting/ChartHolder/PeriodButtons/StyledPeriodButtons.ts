@@ -4,6 +4,7 @@ import {
   setAlpha,
   setLightness,
 } from '@/styles/functions/modifyColorFunctions';
+import { desktopBreakpoint } from '@/styles/constants/breakpoints';
 
 const StyledPeriodButtons = styled.div`
   text-align: center;
@@ -19,7 +20,10 @@ const StyledPeriodButtons = styled.div`
     max-width: 10rem;
     padding: 0.25rem 0;
     line-height: 1;
-    margin: 0 1.5rem;
+    margin: 0 0.25rem;
+    ${desktopBreakpoint} {
+      margin: 0 1rem;
+    }
     background: ${setAlpha(setLightness(blue, 60), 0.1)};
     transition: background 0.2s;
     &:hover {

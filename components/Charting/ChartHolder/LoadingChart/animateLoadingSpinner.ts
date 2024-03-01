@@ -1,6 +1,7 @@
 import { white } from '@/styles/constants/colors';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
-import { smallText } from '@/styles/constants/fontSizes';
+import getOneRem from '@/styles/functions/getOneRem';
+import { scaleFactor } from '../../Charts/constants';
 
 const color = setAlpha(white, 0.9);
 const radius = 40; // Radius of the spinner
@@ -30,7 +31,8 @@ const animateLoadingSpinner = (ctx: CanvasRenderingContext2D) => {
     angle += speed;
 
     ctx.fillStyle = color;
-    ctx.font = `${smallText} sans-serif`;
+    const fontSize = getOneRem() * 2.25 * scaleFactor;
+    ctx.font = `${fontSize}px sans-serif`;
     const textMeasurement = ctx.measureText(text);
     ctx.fillText(
       text,

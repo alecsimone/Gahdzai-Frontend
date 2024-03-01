@@ -3,11 +3,14 @@ import { coolGrey, lightBlack, midBlack } from '@/styles/constants/colors';
 import drawRoundedRect from '@/utils/canvas/drawRoundedRect';
 import getOneRem from '@/styles/functions/getOneRem';
 import { setLightness } from '@/styles/functions/modifyColorFunctions';
-import { smallText } from '@/styles/constants/fontSizes';
 import makeNumberReadable from '@/utils/makeNumberReadable';
 import type { ChartDataRange, Coordinate, UsableBoundaries } from '../types';
-import resetStyling from '../ChartStylers.ts/resetStyling';
-import { gutterPadding, usableBoundaryStrokeWidth } from '../constants';
+import resetStyling, { defaultFontSize } from '../ChartStylers.ts/resetStyling';
+import {
+  gutterPadding,
+  scaleFactor,
+  usableBoundaryStrokeWidth,
+} from '../constants';
 import getTextHeight from '../ChartStylers.ts/getTextHeight';
 import getYValueByCoord from '../DataPlotters/getYValueByCoord';
 
@@ -52,7 +55,7 @@ const showCursorValueOnAxes: Signature = ({
   resetStyling(ctx);
   const pad = getOneRem() / 2;
 
-  ctx.font = `bold ${smallText} sans-serif`;
+  ctx.font = `bold ${defaultFontSize}px bold sans-serif`;
   const { width: textWidthX } = ctx.measureText(timeString);
   const { width: textWidthY } = ctx.measureText(valueString);
 
@@ -67,7 +70,7 @@ const showCursorValueOnAxes: Signature = ({
       x: mouseCoords.x - textWidthX / 2 - pad / 2,
       y: xLabelYCoord - 4,
       width: textWidthX + pad,
-      height: textHeight + 4,
+      height: textHeight + 4 / scaleFactor,
       roundingRadius: 3,
     },
     style: {

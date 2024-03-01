@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { deepBlack, lightBlack, white } from '@/styles/constants/colors';
 import { bigText, miniText, smallText } from '@/styles/constants/fontSizes';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { desktopBreakpoint } from '@/styles/constants/breakpoints';
 import {
   MIN_HEATMAP_GRID_COLUMN_SIZE,
   MIN_HEATMAP_GRID_ROW_SIZE,
@@ -46,14 +47,20 @@ const StyledHeatmap = styled.section`
       background: ${setAlpha(lightBlack, 0.9)};
       color: ${white};
       text-align: center;
-      padding: 1rem;
+      padding: 0.25rem;
+      ${desktopBreakpoint} {
+        padding: 1rem;
+      }
       border-radius: 0.5rem;
       border: 1px solid ${deepBlack};
       > * {
         margin: 0.5rem 0;
       }
       h3.symbol {
-        font-size: 1.6em;
+        font-size: 1.4em;
+        ${desktopBreakpoint} {
+          font-size: 1.6em;
+        }
       }
       .rawChange {
         margin-left: 0.5rem;

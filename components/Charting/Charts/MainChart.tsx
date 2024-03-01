@@ -22,8 +22,8 @@ import makeLegendForCandlestickChart from '../ChartHolder/LegendElements/makeLeg
 import { HighlightContext } from '../ChartHolder/LegendElements/HighlightContextTypes';
 import useChartLabels from './ChartLabelers.ts/useChartLabels';
 import makeLegendForPercentageChart from '../ChartHolder/LegendElements/makeLegendForPercentageChart';
-import drawChart from './ChartMakers/drawChart';
 import setLegendGridProperties from '../ChartHolder/LegendElements/setLegendGridProperties';
+import useChartDrawer from './ChartMakers/useChartDrawer';
 
 // * Handles the main chart, which is responsible for actually presenting the data
 interface MainChartProps {
@@ -59,21 +59,16 @@ const MainChart = ({
   });
 
   const { highlightedSymbols } = useContext(HighlightContext);
-  if (
-    ctx &&
-    usableBoundaries.usableHeight.current > 0 &&
-    usableBoundaries.usableWidth.current > 0
-  ) {
-    drawChart({
-      data,
-      usableBoundaries,
-      chartType,
-      ctx,
-      chartDataRange,
-      highlightedSymbols,
-      coordinatedData,
-    });
-  }
+
+  useChartDrawer({
+    data,
+    usableBoundaries,
+    chartType,
+    ctx,
+    chartDataRange,
+    highlightedSymbols,
+    coordinatedData,
+  });
 
   useEffect(() => {
     if (Array.isArray(data)) {

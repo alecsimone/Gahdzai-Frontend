@@ -5,7 +5,7 @@ import {
   setSaturation,
 } from '@/styles/functions/modifyColorFunctions';
 
-export const gutterPadding = 10;
+export const gutterPadding = getOneRem() * 0.75;
 
 export const downColor = setAlpha(setSaturation(red, 65), 1);
 export const upColor = setAlpha(green, 0.9);
@@ -29,3 +29,6 @@ export const valuesBoxCenterPad = 1;
 
 export const MIN_HEATMAP_GRID_COLUMN_SIZE = 15 * getOneRem();
 export const MIN_HEATMAP_GRID_ROW_SIZE = 5 * getOneRem();
+
+export const scaleFactor =
+  typeof window === 'undefined' ? 1 : window.devicePixelRatio;

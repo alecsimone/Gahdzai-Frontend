@@ -1,4 +1,3 @@
-import { miniText } from '@/styles/constants/fontSizes';
 import { white } from '@/styles/constants/colors';
 import getLineColor from '../../ChartMakers/PercentageChange/getLineColor';
 import type { ComparisonTextObject } from './getTextObjects';
@@ -12,6 +11,7 @@ type Signature = (dataObj: {
   weightedMiddle: number;
   textPad: number;
   originY: number;
+  fontSize: number;
 }) => void;
 
 const addComparisonValues: Signature = ({
@@ -21,6 +21,7 @@ const addComparisonValues: Signature = ({
   weightedMiddle,
   textPad,
   originY,
+  fontSize,
 }) => {
   textObjects.forEach((obj, index) => {
     // Both parts of this line will have the same Y coordinate, which we can find now
@@ -33,7 +34,7 @@ const addComparisonValues: Signature = ({
     });
     ctx.fillStyle = color;
     ctx.textAlign = 'right';
-    ctx.font = `bold ${miniText} sans-serif`;
+    ctx.font = `bold ${fontSize}px sans-serif`;
 
     ctx.fillText(
       obj.symbol,
@@ -42,7 +43,7 @@ const addComparisonValues: Signature = ({
     );
 
     // The Value should be regular weight and full white, and it should be left aligned to the weighted center of the box, then nudged forward 1/2 pad
-    ctx.font = `${miniText} sans-serif`;
+    ctx.font = `${fontSize}px sans-serif`;
     ctx.fillStyle = white;
     ctx.textAlign = 'left';
     ctx.fillText(

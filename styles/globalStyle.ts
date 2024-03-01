@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import {
+  desktopBreakpoint,
   massiveScreenBreakpoint,
   midScreenBreakpoint,
 } from './constants/breakpoints';
@@ -13,7 +14,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${white};
     height: 100vh;
     box-sizing: border-box;
-    font-size: 8px;
+    font-size: 6px;
+    ${desktopBreakpoint} {
+      font-size: 8px;
+    }
     ${midScreenBreakpoint} {
       font-size: 10px;
     }

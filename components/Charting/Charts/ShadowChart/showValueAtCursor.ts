@@ -32,6 +32,7 @@ const showValueAtCursor: Signature = ({
   ) {
     return 0;
   }
+  const roundedX = Math.round(mouseCoords.x);
 
   let matchingDataPoints: CoordinatedDataPoint[] = [];
   if (chartType === 'Comparison') {
@@ -39,12 +40,12 @@ const showValueAtCursor: Signature = ({
     while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
       matchingDataPoints = coordinatedData.filter(
         (coordinatedDataPoint) =>
-          coordinatedDataPoint.x === mouseCoords.x + positionFuzz
+          coordinatedDataPoint.x === roundedX + positionFuzz
       );
       if (matchingDataPoints.length === 0 && positionFuzz > 0) {
         matchingDataPoints = coordinatedData.filter(
           (coordinatedDataPoint) =>
-            coordinatedDataPoint.x === mouseCoords.x - positionFuzz
+            coordinatedDataPoint.x === roundedX - positionFuzz
         );
       }
       positionFuzz += 1;
@@ -54,9 +55,9 @@ const showValueAtCursor: Signature = ({
     while (matchingDataPoints.length === 0 && positionFuzz < maxFuzz) {
       matchingDataPoints = coordinatedData.filter(
         (coordinatedDataPoint) =>
-          coordinatedDataPoint.x <= mouseCoords.x + positionFuzz &&
+          coordinatedDataPoint.x <= roundedX + positionFuzz &&
           coordinatedDataPoint.x + coordinatedDataPoint.width! >=
-            mouseCoords.x - positionFuzz
+            roundedX - positionFuzz
       );
 
       positionFuzz += 1;
