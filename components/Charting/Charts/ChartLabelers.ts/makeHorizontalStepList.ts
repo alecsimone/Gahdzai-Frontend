@@ -23,20 +23,14 @@ const makeHorizontalStepList: Signature = (
   const stepBeforeMin = Math.floor(chartBottom / stepSize) * stepSize;
   const firstStepAfterMin = stepBeforeMin + stepSize;
 
-  const stepList = [
-    Number(makeNumberReadable({ number: chartBottom }).replace(',', '')),
-  ];
+  const stepList = [Number(makeNumberReadable(chartBottom).replace(',', ''))];
   for (let i = 0; i < stepCount; i += 1) {
     const nextStepValue = firstStepAfterMin + stepSize * i;
     if (nextStepValue < chartTop) {
-      stepList.push(
-        Number(makeNumberReadable({ number: nextStepValue }).replace(',', ''))
-      );
+      stepList.push(Number(makeNumberReadable(nextStepValue).replace(',', '')));
     }
   }
-  stepList.push(
-    Number(makeNumberReadable({ number: chartTop }).replace(',', ''))
-  ); // We want the exact maximum value to be the final step, not just the last step we'd reach by stepping
+  stepList.push(Number(makeNumberReadable(chartTop).replace(',', ''))); // We want the exact maximum value to be the final step, not just the last step we'd reach by stepping
 
   stepList.reverse(); // Because we start at the top of the chart, which is the highest value, we reverse our array so it starts with the highest value.
 

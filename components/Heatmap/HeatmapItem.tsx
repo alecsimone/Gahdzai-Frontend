@@ -21,9 +21,7 @@ const HeatmapItem = ({
 
   const currentValueEl = (
     <div className="currentValue">
-      <span className="rawValue">
-        {makeNumberReadable({ number: currentValue })}
-      </span>
+      <span className="rawValue">{makeNumberReadable(currentValue)}</span>
       <span className="rawChange">{rawChangeString}</span>
     </div>
   );

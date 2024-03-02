@@ -7,7 +7,7 @@ interface LatestValueElementProps {
 const LatestValueElement = ({
   latestValue,
 }: LatestValueElementProps): JSX.Element => {
-  const latestValueString = `${makeNumberReadable({ number: latestValue })}`;
+  const latestValueString = `${makeNumberReadable(latestValue)}`;
   return <span key="latestValue">{latestValueString}</span>;
 };
 

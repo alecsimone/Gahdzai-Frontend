@@ -34,9 +34,7 @@ const getTextObjects: Signature = (coordinatedDataPoints) => {
   coordinatedDataPoints.forEach((point) => {
     if ('change' in point.data) {
       const symbolText = `${point.symbol}:`;
-      const valueText = `${makeNumberReadable({
-        number: point.data.change,
-      })}%`;
+      const valueText = `${makeNumberReadable(point.data.change)}%`;
       textObjects.push({
         symbol: symbolText,
         value: `${point.data.change > 0 ? '+' : ''}${valueText}`,
@@ -48,10 +46,10 @@ const getTextObjects: Signature = (coordinatedDataPoints) => {
     } else {
       const { open, close, high, low } = point.data;
       const candleTextObject: CandleTextObject = {
-        open: makeNumberReadable({ number: open }),
-        close: makeNumberReadable({ number: close }),
-        high: makeNumberReadable({ number: high }),
-        low: makeNumberReadable({ number: low }),
+        open: makeNumberReadable(open),
+        close: makeNumberReadable(close),
+        high: makeNumberReadable(high),
+        low: makeNumberReadable(low),
       };
       valuesTextObject = {
         type: 'Individual',

@@ -18,7 +18,7 @@ const getChangeElements: Signature = ({
 
   const rawChangeString = `${
     dailyPointChange > 0 ? '+' : ''
-  }${makeNumberReadable({ number: dailyPointChange })}`;
+  }${makeNumberReadable(dailyPointChange)}`;
   const rawChangeElement = (
     <span style={{ color: changeColor }} key="rawChange">
       {rawChangeString}
@@ -29,7 +29,7 @@ const getChangeElements: Signature = ({
     (100 * (latestValue - initialValue)) / initialValue;
   const percentChangeString = `[${
     dailyPointChange > 0 ? '+' : ''
-  }${makeNumberReadable({ number: finalPercentChange })}%]`;
+  }${makeNumberReadable(finalPercentChange)}%]`;
   const percentChangeElement = (
     <span style={{ color: changeColor, fontWeight: '600' }} key="percentChange">
       {percentChangeString}

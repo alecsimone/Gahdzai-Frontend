@@ -49,7 +49,7 @@ const showCursorValueOnAxes: Signature = ({
     chartBottom,
     usableHeight: usableHeight.current,
   });
-  const valueString = `${makeNumberReadable({ number: valueAtCursor })}${
+  const valueString = `${makeNumberReadable(valueAtCursor)}${
     decorator != null ? decorator : ''
   }`;
 
