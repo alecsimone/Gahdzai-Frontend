@@ -1,4 +1,6 @@
 import type { MutableRefObject } from 'react';
+import { setAlpha } from '@/styles/functions/modifyColorFunctions';
+import { white } from '@/styles/constants/colors';
 import type { YLabelObject } from './labelYAxis';
 import { gutterPadding, usableBoundaryStrokeWidth } from '../constants';
 
@@ -51,6 +53,7 @@ const drawYLinesAndLabels: Signature = ({
     // If the second to last value is less than 1.5 textHeights from the bottom of the chart, we want to skip it
     skipLabel = true;
   }
+  ctx.fillStyle = `${setAlpha(white, 0.6)}`;
   if (!skipLabel) {
     ctx.fillText(
       `${labelObject.labelText}${decorator}`,

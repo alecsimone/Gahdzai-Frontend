@@ -23,7 +23,7 @@ const StyledHeatmap = styled.section`
     minmax(${MIN_HEATMAP_GRID_ROW_SIZE}px, 1fr)
   );
   article.heatmapItem {
-    border: 1px solid ${white};
+    border: 1px solid ${deepBlack};
     position: relative;
     &.large {
       font-size: ${bigText};

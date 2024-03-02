@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { blue } from '@/styles/constants/colors';
+import { blue, white } from '@/styles/constants/colors';
 import {
   setAlpha,
   setLightness,
@@ -7,6 +7,15 @@ import {
 import { desktopBreakpoint } from '@/styles/constants/breakpoints';
 
 const StyledPeriodButtons = styled.div`
+  &.collapsed {
+    button.period.active {
+      color: ${setAlpha(white, 0.6)};
+      background: ${setAlpha(setLightness(blue, 60), 0.1)};
+      &:hover {
+        background: ${setAlpha(blue, 0.75)};
+      }
+    }
+  }
   text-align: center;
   flex-grow: 1;
   .periodButtonsWrapper {
@@ -17,7 +26,7 @@ const StyledPeriodButtons = styled.div`
   button.period {
     flex-grow: 1;
     border-radius: 1rem;
-    max-width: 10rem;
+    max-width: 7rem;
     padding: 0.25rem 0;
     line-height: 1;
     margin: 0 0.25rem;
@@ -31,7 +40,9 @@ const StyledPeriodButtons = styled.div`
     }
     &.active {
       background: ${setAlpha(blue, 0.75)};
-      cursor: default;
+      &:hover {
+        background: ${setAlpha(setLightness(blue, 60), 0.1)};
+      }
     }
   }
 `;

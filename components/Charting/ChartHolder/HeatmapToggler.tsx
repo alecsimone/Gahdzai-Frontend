@@ -11,7 +11,7 @@ const HeatmapToggler = ({
   showAsHeatmap,
   setShowAsHeatmap,
 }: HeatmapTogglerProps): React.ReactNode => {
-  const buttonText = showAsHeatmap ? 'View Chart' : 'View Heatmap';
+  const buttonText = showAsHeatmap ? 'Chart' : 'Heatmap';
 
   const clickHandler = () => {
     setShowAsHeatmap((prev) => !prev);

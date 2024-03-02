@@ -12,6 +12,7 @@ import LoadingChart from './LoadingChart/LoadingChart';
 import useQueryBuilder from './DataFetchers/useQueryBuilder';
 import ChartBase from '../Charts/ChartBase';
 import HeatmapToggler from './HeatmapToggler';
+import LoadingHeaderButton from './LoadingChart/LoadingHeaderButton';
 
 // * The container for our charts along with their accompanying buttons and legend. It has the following responsibilities:
 // - Handles data fetching for the chart and displays the loading and error states
@@ -19,7 +20,7 @@ import HeatmapToggler from './HeatmapToggler';
 // - Handles the Context required for the LegendItems and the PeriodButtons
 
 const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
-  const { chartType, defaultToHeatmap, index } = dataObj;
+  const { chartType, defaultToHeatmap, index, symbols } = dataObj;
 
   let defaultHeatmap = false;
   if (chartType === 'Comparison' && defaultToHeatmap) {
@@ -28,15 +29,27 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
   const [showAsHeatmap, setShowAsHeatmap] = useState(defaultHeatmap);
 
   const chartPeriodContextData = useChartPeriodContext();
+
+  let loadingLegendElementsArray: JSX.Element[] = [];
+  if (!defaultToHeatmap) {
+    loadingLegendElementsArray = Array.from(
+      { length: symbols.length },
+      (_, loadingLegendIndex) => (
+        <LoadingHeaderButton key={loadingLegendIndex} />
+      )
+    );
+  }
+
   const { legendElements, setLegendElements, highlightContextData } =
-    useLegendElements();
+    useLegendElements(loadingLegendElementsArray);
+
   const { data, loading, error } = useQueryBuilder(
     dataObj,
     chartPeriodContextData.activePeriod
   );
 
   if (loading) {
-    return <LoadingChart />;
+    return <LoadingChart loadingElements={loadingLegendElementsArray} />;
   }
 
   if (error) {
@@ -62,8 +75,6 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
       <HighlightContext.Provider value={highlightContextData}>
         <PeriodContext.Provider value={chartPeriodContextData}>
           <StyledChartHolder className="chartHolder" key={index}>
-            {!showAsHeatmap && <header>{legendElements}</header>}
-            {chartEl}
             <footer>
               {chartType === 'Comparison' && (
                 <HeatmapToggler
@@ -73,6 +84,8 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
               )}
               <PeriodButtons />
             </footer>
+            {chartEl}
+            {!showAsHeatmap && <header>{legendElements}</header>}
           </StyledChartHolder>
         </PeriodContext.Provider>
       </HighlightContext.Provider>

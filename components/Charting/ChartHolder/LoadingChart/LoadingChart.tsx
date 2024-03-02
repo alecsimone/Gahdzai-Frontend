@@ -3,10 +3,13 @@ import StyledChart from '../../Charts/StyledChart';
 import StyledChartHolder from '../StyledChartHolder';
 import setChartSize from '../../Charts/ChartShapers/setChartSize';
 import animateLoadingSpinner from './animateLoadingSpinner';
-import LoadingHeaderButton from './LoadingHeaderButton';
 import PeriodButtons from '../PeriodButtons/PeriodButtons';
 
-const LoadingChart = (): JSX.Element => {
+const LoadingChart = ({
+  loadingElements,
+}: {
+  loadingElements: JSX.Element[];
+}): JSX.Element => {
   const loadingChartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -23,15 +26,13 @@ const LoadingChart = (): JSX.Element => {
 
   return (
     <StyledChartHolder className="chartHolder">
-      <header>
-        <LoadingHeaderButton />
-      </header>
-      <StyledChart className="chartContainer" ref={loadingChartRef}>
-        Loading...
-      </StyledChart>
       <footer>
         <PeriodButtons />
       </footer>
+      <StyledChart className="chartContainer" ref={loadingChartRef}>
+        Loading...
+      </StyledChart>
+      <header>{loadingElements}</header>
     </StyledChartHolder>
   );
 };

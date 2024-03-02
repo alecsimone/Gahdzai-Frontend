@@ -2,9 +2,9 @@ import type { MutableRefObject } from 'react';
 import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 import { coolGrey } from '@/styles/constants/colors';
 import getYCoordByValue from '../DataPlotters/getYCoordByValue';
-import resetStyling from '../ChartStylers.ts/resetStyling';
 import getTextHeight from '../ChartStylers.ts/getTextHeight';
 import drawYLinesAndLabels from './drawYLinesAndLabels';
+import setLabelFont from './setLabelFont';
 
 // * Draws the labels on the Y axis of our chart
 type Signature = (dataObj: {
@@ -44,9 +44,10 @@ const labelYAxis: Signature = ({
     }
   );
 
+  setLabelFont(ctx);
+
   const textHeight = getTextHeight(ctx);
 
-  resetStyling(ctx);
   ctx.textAlign = 'left';
   ctx.strokeStyle = setAlpha(coolGrey, 0.75);
 

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { smallText } from '@/styles/constants/fontSizes';
-import { coolGrey, white } from '@/styles/constants/colors';
+import {
+  coolGrey,
+  lightBlack,
+  midBlack,
+  white,
+} from '@/styles/constants/colors';
 import {
   setAlpha,
   setSaturation,
@@ -17,7 +22,7 @@ const StyledChartHolder = styled.section`
   flex-direction: column;
   header {
     height: auto;
-    margin: 0 0 1rem 0;
+    margin: 1rem 0 0 0;
     flex-grow: 0;
     display: grid;
     grid-template-columns: repeat(
@@ -30,13 +35,14 @@ const StyledChartHolder = styled.section`
       height: 100%;
     }
     h6.chartLabel {
+      opacity: 0.8;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      background: ${setAlpha(coolGrey, 0.25)};
+      background: ${midBlack};
       &.highlighted {
-        background: ${setAlpha(coolGrey, 0.5)};
+        background: ${lightBlack};
       }
       &.up {
         background-color: ${setSaturation(setAlpha(upColor, 0.4), 50)};
@@ -51,7 +57,7 @@ const StyledChartHolder = styled.section`
         }
         /* background: ${setAlpha(coolGrey, 0.5)}; */
       }
-      border: 1px solid ${setAlpha(coolGrey, 0.8)};
+      border: 1px solid ${setAlpha(coolGrey, 0.4)};
       padding: 0.5rem 1rem;
       font-weight: 300;
       border-radius: 3px;
@@ -59,7 +65,7 @@ const StyledChartHolder = styled.section`
       font-size: ${smallText};
       flex-grow: 1;
       text-align: center;
-      max-width: 60rem;
+      max-width: 72rem;
       &.loading {
         text-align: left;
       }
@@ -84,7 +90,10 @@ const StyledChartHolder = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 1rem;
+    padding-bottom: 1rem;
+    button.heatmapToggler {
+      color: ${setAlpha(white, 0.6)};
+    }
   }
 `;
 

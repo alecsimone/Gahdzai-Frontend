@@ -5,7 +5,7 @@ import getOneRem from '@/styles/functions/getOneRem';
 import { setLightness } from '@/styles/functions/modifyColorFunctions';
 import makeNumberReadable from '@/utils/makeNumberReadable';
 import type { ChartDataRange, Coordinate, UsableBoundaries } from '../types';
-import resetStyling, { defaultFontSize } from '../ChartStylers.ts/resetStyling';
+import resetStyling from '../ChartStylers.ts/resetStyling';
 import {
   gutterPadding,
   scaleFactor,
@@ -13,6 +13,7 @@ import {
 } from '../constants';
 import getTextHeight from '../ChartStylers.ts/getTextHeight';
 import getYValueByCoord from '../DataPlotters/getYValueByCoord';
+import setLabelFont from '../ChartLabelers.ts/setLabelFont';
 
 // * Displays the value (both time and price/percent change) of the point the cursor is over on the X and Y axes
 type Signature = (dataObj: {
@@ -55,14 +56,14 @@ const showCursorValueOnAxes: Signature = ({
   resetStyling(ctx);
   const pad = getOneRem() / 2;
 
-  ctx.font = `bold ${defaultFontSize}px bold sans-serif`;
+  setLabelFont(ctx);
+  ctx.font = `bold ${ctx.font}`;
   const { width: textWidthX } = ctx.measureText(timeString);
   const { width: textWidthY } = ctx.measureText(valueString);
 
   const textHeight = getTextHeight(ctx);
 
-  const xLabelYCoord =
-    usableHeight.current + gutterPadding + usableBoundaryStrokeWidth;
+  const xLabelYCoord = usableHeight.current + gutterPadding * scaleFactor;
   // Now we can put our label on the x-axis. First we draw the rounded rectangle it will go on top of
   drawRoundedRect({
     ctx,

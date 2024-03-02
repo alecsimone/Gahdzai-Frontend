@@ -1,6 +1,7 @@
 import { usableBoundaryStrokeWidth } from '../constants';
 import getXGutterHeight from './getXGutterHeight';
 import getYGutterWidth from './getYGutterWidth';
+import setLabelFont from './setLabelFont';
 
 // * Calculates the space needed for the labels on the X and Y axis, then draws boundaries around the chart that leaves space for those labels
 type Signature = (dataObj: {
@@ -21,6 +22,7 @@ const defineUsableBoundaries: Signature = ({
   chartWidth,
   chartHeight,
 }) => {
+  setLabelFont(ctx);
   const yGutter = getYGutterWidth({
     ctx,
     yAxisLabels,
@@ -29,7 +31,7 @@ const defineUsableBoundaries: Signature = ({
   const newUsableWidth = chartWidth - yGutter - usableBoundaryStrokeWidth;
 
   const { xGutter } = getXGutterHeight(ctx);
-  const newUsableHeight = chartHeight - xGutter - usableBoundaryStrokeWidth;
+  const newUsableHeight = chartHeight - xGutter;
 
   return { newUsableWidth, newUsableHeight };
 };

@@ -1,9 +1,9 @@
 import type { MutableRefObject } from 'react';
 import getTimeStepSize from './getTimeStepSize';
 import makeTimeLabelObjectsArray from './makeTimeLabelObjectsArray';
-import { gutterPadding } from '../constants';
-import resetStyling from '../ChartStylers.ts/resetStyling';
+import { gutterPadding, scaleFactor } from '../constants';
 import drawXLinesAndLabels from './drawXLinesAndLabels';
+import setLabelFont from './setLabelFont';
 
 // * Draws the labels on the X axis of our chart
 type Signature = (dataObj: {
@@ -38,9 +38,9 @@ const labelXAxis: Signature = ({
     usableWidth: usableWidth.current,
   });
 
-  const xLabelsYCoord = usableHeight.current + gutterPadding + 1;
+  const xLabelsYCoord = usableHeight.current + gutterPadding * scaleFactor;
 
-  resetStyling(ctx);
+  setLabelFont(ctx);
   ctx.textBaseline = 'top';
   xLabelObjectsArray.forEach((labelObject, index) => {
     drawXLinesAndLabels({

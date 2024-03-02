@@ -10,6 +10,12 @@ type Signature = (
 ) => void;
 
 const makeLegendForPercentageChart: Signature = (setLegendElements, data) => {
+  data.sort((a, b) => {
+    const aPercentChange = (a.latestValue - a.initialValue) / a.initialValue;
+    const bPercentChange = (b.latestValue - b.initialValue) / b.initialValue;
+
+    return bPercentChange - aPercentChange;
+  });
   const elements = data.map((percentageChangeSet, index) =>
     getLegendElementsFromPercentageData(percentageChangeSet, index)
   );

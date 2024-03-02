@@ -1,3 +1,4 @@
+import { midBlack, lightBlack } from '@/styles/constants/colors';
 import type { ChartDataRange, ChartSize, UsableBoundaries } from '../types';
 import getYLabels from './getYLabels';
 import resetStyling from '../ChartStylers.ts/resetStyling';
@@ -37,6 +38,12 @@ const labelChart: Signature = ({
   });
   usableWidth.current = newUsableWidth;
   usableHeight.current = newUsableHeight;
+
+  ctx.fillStyle = `${midBlack}`;
+  ctx.fillRect(0, 0, usableWidth.current, usableHeight.current);
+  ctx.fillStyle = `${lightBlack}`;
+  ctx.fillRect(0, usableHeight.current, chartWidth, chartHeight);
+  ctx.fillRect(usableWidth.current, 0, chartWidth, chartHeight);
 
   drawUsableBoundaries({
     ctx,

@@ -5,7 +5,7 @@ import {
   setSaturation,
 } from '@/styles/functions/modifyColorFunctions';
 
-export const gutterPadding = getOneRem() * 0.75;
+export const gutterPadding = getOneRem() * 0.25;
 
 export const downColor = setAlpha(setSaturation(red, 65), 1);
 export const upColor = setAlpha(green, 0.9);

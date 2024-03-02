@@ -51,6 +51,8 @@ const drawXLinesAndLabels: Signature = ({
     ctx.lineTo(xCoord, 0);
   }
 
+  ctx.fillStyle = `${setAlpha(white, 0.6)}`;
+  ctx.textBaseline = 'top';
   ctx.fillText(labelObject.labelText, xCoord, xLabelsYCoord);
   ctx.stroke();
 };

@@ -59,7 +59,7 @@ const getHeatmapBackgroundImage: Signature = (symbol) => {
       imageUrl = '';
   }
 
-  return `url('/heatmapBackgrounds/${imageUrl}.jpg')`;
+  return `url('/heatmapBackgrounds/${imageUrl}.png')`;
 };
 
 export default getHeatmapBackgroundImage;

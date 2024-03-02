@@ -11,6 +11,19 @@ const useChartSize: Signature = (chartRef) => {
     chartHeight: 0,
   });
 
+  if (chartRef.current) {
+    const { chartWidth, chartHeight } = setChartSize(chartRef.current);
+    if (
+      chartWidth !== chartSize.chartWidth ||
+      chartHeight !== chartSize.chartHeight
+    ) {
+      setChartSizeState({
+        chartWidth,
+        chartHeight,
+      });
+    }
+  }
+
   useEffect(() => {
     const chartSizeHandler = () => {
       if (chartRef.current) {

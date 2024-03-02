@@ -4,12 +4,13 @@ import { setAlpha } from '@/styles/functions/modifyColorFunctions';
 
 const StyledChart = styled.canvas`
   border: 1px solid ${setAlpha(coolGrey, 0.3)};
-  background: ${lightBlack};
-  border-radius: 3px;
+  /* background: ${setAlpha(lightBlack, 0.5)}; */
+  border-radius: 2px;
   margin: 0;
   height: 100%;
   width: 100%;
   z-index: 0;
+  cursor: crosshair;
   &.shadow {
     background: none;
     border: none;

@@ -6,7 +6,6 @@ import {
   type SetStateAction,
   useContext,
 } from 'react';
-import clearCanvas from '@/utils/canvas/clearCanvas';
 import StyledChart from './StyledChart';
 import useChartSize from './ChartShapers/useChartSize';
 import type { ChartTypes } from '../ChartHolder/types';
@@ -46,7 +45,6 @@ const MainChart = ({
   const chartRef = useChartRef();
   const chartSize = useChartSize(chartRef);
 
-  clearCanvas(chartRef.current);
   const ctx = chartRef.current?.getContext('2d');
 
   useChartLabels({

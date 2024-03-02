@@ -18,7 +18,12 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
   // const heatmapData = cookHeatmapData(rawData, isDailyPeriod);
   // TODO Once we switch to paid polygon data, we'll get multiple candles and will want to do this check for if we're on a daily period. For now though, we always have to pretend we're not
   const heatmapData = cookHeatmapData(rawData, false);
-  heatmapData.sort((a, b) => b.changeScore - a.changeScore);
+  heatmapData.sort((a, b) => {
+    if (b.changeScore !== a.changeScore) {
+      return b.changeScore - a.changeScore;
+    }
+    return b.rawChange - a.rawChange;
+  });
 
   // We want to make sure that for any given list of symbols, there's a stable order of that list so that we can assign them a stable color. So this alphabetized symbols array will serve as that list with a stable order
   const symbols = heatmapData.map((item) => item.symbol);
@@ -42,7 +47,7 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
     const scoreHeatRaw = makeSafeDecimals(
       Math.abs(itemData.changeScore) / maxScore
     );
-    const scoreHeat = 0.1 + 0.5 * scoreHeatRaw;
+    const scoreHeat = 0.1 + 0.4 * scoreHeatRaw;
 
     const adjustedColor = setAlpha(color, scoreHeat);
 
@@ -51,6 +56,7 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
       symbol: itemData.symbol,
       lineIndex: stableIndex,
     });
+    const adjustedSymbolColor = setAlpha(symbolColor, 0.8);
 
     let itemSize: 'large' | 'medium' | 'small' = 'large';
     if (heatmapData.length > 5) {
@@ -64,7 +70,7 @@ const Heatmap = ({ rawData, isDailyPeriod }: HeatmapProps): React.ReactNode => {
       <HeatmapItem
         heatmapData={itemData}
         scoreColor={adjustedColor}
-        symbolColor={symbolColor}
+        symbolColor={adjustedSymbolColor}
         itemSize={itemSize}
       />
     );

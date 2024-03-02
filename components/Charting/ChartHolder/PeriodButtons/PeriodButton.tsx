@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from 'react';
 import Button from '@/styles/extendableElements/Button';
 import { type Period } from './ChartPeriodContextTypes';
 import usePeriodButton from './usePeriodButton';
@@ -6,15 +7,25 @@ import usePeriodButton from './usePeriodButton';
 
 interface PeriodButtonProps {
   period: Period;
+  setExpanded: Dispatch<SetStateAction<boolean>>;
 }
 
-const PeriodButton = ({ period }: PeriodButtonProps): JSX.Element => {
+const PeriodButton = ({
+  period,
+  setExpanded,
+}: PeriodButtonProps): JSX.Element => {
   const { isActive, setActivePeriod } = usePeriodButton(period);
 
   return (
     <Button
       className={`period ${period} ${isActive ? 'active' : 'inactive'}`}
-      onClick={() => setActivePeriod(period)}
+      onClick={() => {
+        if (isActive) {
+          setExpanded(false);
+        } else {
+          setActivePeriod(period);
+        }
+      }}
       key={period}
     >
       {period}
