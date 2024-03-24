@@ -1,5 +1,8 @@
 import { ApolloError } from '@apollo/client';
-import { type Get_Candles_For_Symbols_QueryQuery } from '@/__generated__/graphql';
+import type {
+  Get_Candles_For_Symbols_QueryQuery,
+  Get_Data_For_Symbols_QueryQuery,
+} from '@/__generated__/graphql';
 import type { ChartDataProps } from '../types';
 import type { Period } from '../PeriodButtons/ChartPeriodContextTypes';
 import getQueryTimeBoundaries from './TimeHandlers/getQueryTimeBoundaries';
@@ -11,7 +14,10 @@ type Signature = (
   dataObj: ChartDataProps,
   period: Period
 ) => {
-  data: Get_Candles_For_Symbols_QueryQuery | undefined;
+  data:
+    | Get_Candles_For_Symbols_QueryQuery
+    | Get_Data_For_Symbols_QueryQuery
+    | undefined;
   loading: boolean;
   error: ApolloError | undefined;
 };

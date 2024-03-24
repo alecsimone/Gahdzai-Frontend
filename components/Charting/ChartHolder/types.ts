@@ -1,4 +1,4 @@
-export type SymbolTypes = 'stock' | 'option' | 'index';
+export type SymbolTypes = 'stock' | 'option' | 'index' | 'bond';
 
 export type ChartTypes = 'Comparison' | 'Individual';
 

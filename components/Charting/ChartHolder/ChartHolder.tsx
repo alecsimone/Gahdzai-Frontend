@@ -20,7 +20,7 @@ import LoadingHeaderButton from './LoadingChart/LoadingHeaderButton';
 // - Handles the Context required for the LegendItems and the PeriodButtons
 
 const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
-  const { chartType, defaultToHeatmap, index, symbols } = dataObj;
+  const { chartType, defaultToHeatmap, index, symbols, symbolType } = dataObj;
 
   let defaultHeatmap = false;
   if (chartType === 'Comparison' && defaultToHeatmap) {
@@ -28,7 +28,8 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
   }
   const [showAsHeatmap, setShowAsHeatmap] = useState(defaultHeatmap);
 
-  const chartPeriodContextData = useChartPeriodContext();
+  const defaultPeriod = symbolType === 'bond' ? '6M' : 'D';
+  const chartPeriodContextData = useChartPeriodContext(defaultPeriod);
 
   let loadingLegendElementsArray: JSX.Element[] = [];
   if (!defaultToHeatmap) {
@@ -57,6 +58,10 @@ const ChartHolder = (dataObj: ChartDataProps): React.ReactNode => {
   }
 
   if (data) {
+    if ('getDataForSymbols' in data) {
+      console.log(data);
+      return <div>Bond graph!</div>;
+    }
     const chartEl = showAsHeatmap ? (
       <Heatmap
         rawData={data}

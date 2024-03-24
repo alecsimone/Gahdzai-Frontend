@@ -1,15 +1,15 @@
-import { CodegenConfig } from "@graphql-codegen/cli";
-import { devEndpoint } from "./globalConstants";
+import { CodegenConfig } from '@graphql-codegen/cli';
+import { devEndpoint } from './globalConstants';
 
 const config: CodegenConfig = {
   schema: devEndpoint,
-  documents: ["./**/*.gql.ts"],
+  documents: ['./**/*.gql.ts'],
   generates: {
-    "./__generated__/": {
-      preset: "client",
+    './__generated__/': {
+      preset: 'client',
       plugins: [],
       presetConfig: {
-        gqlTagName: "gql",
+        gqlTagName: 'gql',
       },
     },
   },

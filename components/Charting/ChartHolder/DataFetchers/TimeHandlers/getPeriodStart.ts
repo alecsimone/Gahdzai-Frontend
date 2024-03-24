@@ -17,10 +17,10 @@ const getPeriodStart: Signature = (period) => {
     startDate.setDate(currentDate - 7);
   } else if (period === 'M') {
     const currentMonth = startDate.getMonth();
-    startDate.setDate(currentMonth - 1);
+    startDate.setMonth(currentMonth - 1);
   } else if (period === '6M') {
     const currentMonth = startDate.getMonth();
-    startDate.setDate(currentMonth - 6);
+    startDate.setMonth(currentMonth - 6);
   } else if (period === 'Y') {
     const currentYear = startDate.getFullYear();
     startDate.setFullYear(currentYear - 1);
